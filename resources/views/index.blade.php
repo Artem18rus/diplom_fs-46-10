@@ -1,0 +1,1 @@
+<button onclick="location.href='/login'" style="cursor: pointer">Войти в админпанель</button>
