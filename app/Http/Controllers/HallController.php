@@ -14,24 +14,13 @@ class HallController extends Controller
         $hall = Hall::all(); 
         return view('admin/admin', compact('hall'));
     }
-    public function store() {
-        $hall = Hall::all();
-        $lastindex = count($hall)-1;
+    public function store(Request $request) {
+        $data=$request->all();
+        $name = $request->input('name');
+        //dd($name);
         $newHall = new Hall;
-        if($lastindex >= 0) {
-            $lastValueStr = ($hall[$lastindex]->nameHall);
-            $last = strlen($lastValueStr) - 1;
-            $numb = $lastValueStr[$last]+1;
-            $totalValue = "Зал {$numb}";
-            $newHall->nameHall = $totalValue;
-            $newHall->save();
-        } else {
-            $numb = 1;
-            $totalValue = "Зал {$numb}";
-            $newHall = new Hall;
-            $newHall->nameHall = $totalValue;
-            $newHall->save();
-        }
+        $newHall->nameHall = $name;
+        $newHall->save();
         return redirect()->action([HallController::class, 'index']);
     }
 
@@ -42,7 +31,9 @@ class HallController extends Controller
         // return view('test');
     }
     public function destroy($id) {
+        dd($id);
         $el = Hall::find($id);
+        // dd($el);
         $el->delete();
         return redirect()->action([HallController::class, 'index']);
     }

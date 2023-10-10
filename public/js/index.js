@@ -1,22 +1,48 @@
 //появление попапа "Создать зал" / "Добавить зал"
 let createHallBtn = document.querySelector('.create-hall-btn');
-let popup = document.querySelector('.popup');
+let popupCreate = document.querySelector('.popap_create');
 createHallBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    popup.style.display = 'block';
+    popupCreate.style.display = 'block';
 });
 
 //обработка клика по "Отменить" в попапе "Добавление зала"
 let closeCreateHallBtn = document.querySelector('.close-create_hall-btn');
 closeCreateHallBtn.addEventListener('click', (e) => {
-    popup.style.display = 'none';
+    popupCreate.style.display = 'none';
 })
 
 //обработка клика по крестику в попапе "Добавление зала":
-let popupDismiss = document.querySelector('.popup__dismiss');
-popupDismiss.addEventListener('click', (e) => {
-    popup.style.display = 'none';
+let smallCrossCreate = document.querySelector('.small_cross_create');
+smallCrossCreate.addEventListener('click', (e) => {
+    popupCreate.style.display = 'none';
 })
+
+//обработка нажатия на иконку корзины:
+let popapDelete = document.querySelector('.popap_delete');
+let deleteHallBtn = document.querySelectorAll('.delete_hall-btn');
+deleteHallBtn.forEach((item) => {
+    item.addEventListener('click', (e) => {
+        e.preventDefault();
+        popapDelete.style.display = 'block';
+    })
+})
+
+//обработка клика по "Отменить" в попапе "Удаление зала"
+let closeDeleteHallBtn = document.querySelector('.close-delete_hall-btn');
+console.log(closeDeleteHallBtn);
+closeDeleteHallBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    popapDelete.style.display = 'none';
+})
+
+//обработка клика по крестику в попапе "Удаление зала":
+let smallCrossDelete = document.querySelector('.small_cross_delete');
+smallCrossDelete.addEventListener('click', (e) => {
+    e.preventDefault();
+    popapDelete.style.display = 'none';
+})
+
 
 //обработка появления, скрытия ЭКРАНА:
 let chairsHall = document.getElementsByName('chairs-hall');

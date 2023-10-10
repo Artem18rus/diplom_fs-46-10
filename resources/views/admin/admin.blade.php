@@ -44,11 +44,11 @@
         <ul class="conf-step__list">
           @foreach ($hall as $item)
               <li>{{$item->nameHall}}
-                <form action="{{ route('admin-hall.delete', $item->id) }}" method="POST">
+                {{-- <form action="{{ route('admin-hall.delete', $item->id) }}" method="POST">
                   @csrf
-                  @method('delete')
-                  <button type="submit" class="conf-step__button conf-step__button-trash"></button>
-                </form>
+                  @method('delete') --}}
+                  <button type="button" class="conf-step__button conf-step__button-trash delete_hall-btn"></button>
+                {{-- </form> --}}
               </li>
           @endforeach
 <!--           {{-- <li>Зал 1
@@ -57,17 +57,19 @@
           <li>Зал 2
             <button class="conf-step__button conf-step__button-trash"></button>
           </li> --}} -->
-          <button class="conf-step__button conf-step__button-accent create-hall-btn">Создать зал</button>
-          <!-- {{-- <button onclick="event.preventDefault(); location.href='admin/store'" type="submit" class="conf-step__button conf-step__button-accent">Создать зал</button> --}} -->
         </ul>
+        <button class="conf-step__button conf-step__button-accent create-hall-btn">Создать зал</button>
+          <!-- {{-- <button onclick="event.preventDefault(); location.href='admin/store'" type="submit" class="conf-step__button conf-step__button-accent">Создать зал</button> --}} -->
+
       </div>
-      <div class="popup">
+
+      <div class="popup popap_create">
         <div class="popup__container">
           <div class="popup__content">
               <div class="popup__header">
               <h2 class="popup__title">
                   Добавление зала
-                  <a class="popup__dismiss" href="#"><img src="i/close.png" alt="Закрыть"></a>
+                  <a class="popup__dismiss small_cross_create" href="#"><img src="i/close.png" alt="Закрыть"></a>
               </h2>
       
               </div>
@@ -87,6 +89,37 @@
           </div>
         </div>
       </div>
+
+      
+
+      <div class="popup popap_delete">
+        <div class="popup__container">
+          <div class="popup__content">
+            <div class="popup__header">
+              <h2 class="popup__title">
+                Удаление зала
+                <a class="popup__dismiss small_cross_delete" href="#"><img src="i/close.png" alt="Закрыть"></a>
+              </h2>      
+            </div>
+            <div class="popup__wrapper">
+              
+              <form action="{{ route('admin-hall.delete', $item->id) }}" method="post" accept-charset="utf-8">
+                {{$hall}}
+                @csrf
+                @method('delete');
+                <p class="conf-step__paragraph">Вы действительно хотите удалить зал <span></span>?</p>
+                <!-- В span будет подставляться название зала -->
+                <div class="conf-step__buttons text-center">
+                  <input type="submit" value="Удалить" class="conf-step__button conf-step__button-accent">
+                  <button class="conf-step__button conf-step__button-regular close-delete_hall-btn">Отменить</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
     </section>
     
     <section class="conf-step">
