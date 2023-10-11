@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'index');
-Route::get('/admin', [App\Http\Controllers\HallController::class, 'index'])->name('admin-hall.index');
-Route::post('/admin/store', [App\Http\Controllers\HallController::class, 'store'])->name('admin-hall.store');
-Route::delete('/admin/destroy/{id}', [App\Http\Controllers\HallController::class, 'destroy'])->name('admin-hall.delete');
-// Route::get('/', function () {
-//     return redirect('/login');
-// });
+
+Route::group(['middleware'=>'auth'], function() {
+  Route::get('/admin', [App\Http\Controllers\HallController::class, 'index'])->name('admin-hall.index');
+  Route::post('/admin/store', [App\Http\Controllers\HallController::class, 'store'])->name('admin-hall.store');
+  Route::delete('/admin/destroy/{id}', [App\Http\Controllers\HallController::class, 'destroy'])->name('admin-hall.delete');
+});
 
 Route::get('/admin/edit', [App\Http\Controllers\HallController::class, 'edit'])->name('hall.edit');
 
