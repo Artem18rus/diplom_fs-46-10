@@ -31,9 +31,7 @@ class HallController extends Controller
         // return view('test');
     }
     public function destroy($id) {
-        dd($id);
-        $el = Hall::find($id);
-        // dd($el);
+        $el = Hall::find($id); 
         $el->delete();
         return redirect()->action([HallController::class, 'index']);
     }

@@ -48,7 +48,31 @@
                   @csrf
                   @method('delete') --}}
                   <button type="button" class="conf-step__button conf-step__button-trash delete_hall-btn"></button>
-                {{-- </form> --}}
+                  <div class="popup popap_delete">
+                    <div class="popup__container">
+                      <div class="popup__content">
+                        <div class="popup__header">
+                          <h2 class="popup__title">
+                            Удаление зала
+                            <a class="popup__dismiss small_cross_delete" href="#"><img src="i/close.png" alt="Закрыть"></a>
+                          </h2>      
+                        </div>
+                        <div class="popup__wrapper">
+                          
+                          <form action="{{ route('admin-hall.delete', $item->id) }}" method="POST" accept-charset="utf-8">
+                            @csrf
+                            @method('delete')
+                            <p class="conf-step__paragraph">Вы действительно хотите удалить <span>{{$item->nameHall}}</span>?</p>
+                            <!-- В span будет подставляться название зала -->
+                            <div class="conf-step__buttons text-center">
+                              <input type="submit" value="Удалить" class="conf-step__button conf-step__button-accent">
+                              <button class="conf-step__button conf-step__button-regular close-delete_hall-btn">Отменить</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
               </li>
           @endforeach
 <!--           {{-- <li>Зал 1
@@ -74,17 +98,17 @@
       
               </div>
               <div class="popup__wrapper">
-              <form action="admin/store" method="post" accept-charset="utf-8">
-                @csrf
-                  <label class="conf-step__label conf-step__label-fullsize" for="name">
-                  Название зала
-                  <input class="conf-step__input" type="text" placeholder="Например, &laquo;Зал 1&raquo;" name="name" required>
-                  </label>
-                  <div class="conf-step__buttons text-center">
-                  <input type="submit" value="Добавить зал" class="conf-step__button conf-step__button-accent">
-                  <button class="conf-step__button conf-step__button-regular close-create_hall-btn">Отменить</button>
-                  </div>
-              </form>
+                <form action="admin/store" method="post" accept-charset="utf-8">
+                  @csrf
+                    <label class="conf-step__label conf-step__label-fullsize" for="name">
+                    Название зала
+                    <input class="conf-step__input" type="text" placeholder="Например, &laquo;Зал 1&raquo;" name="name" required>
+                    </label>
+                    <div class="conf-step__buttons text-center">
+                    <input type="submit" value="Добавить зал" class="conf-step__button conf-step__button-accent">
+                    <button class="conf-step__button conf-step__button-regular close-create_hall-btn">Отменить</button>
+                    </div>
+                </form>
               </div>
           </div>
         </div>
@@ -92,32 +116,7 @@
 
       
 
-      <div class="popup popap_delete">
-        <div class="popup__container">
-          <div class="popup__content">
-            <div class="popup__header">
-              <h2 class="popup__title">
-                Удаление зала
-                <a class="popup__dismiss small_cross_delete" href="#"><img src="i/close.png" alt="Закрыть"></a>
-              </h2>      
-            </div>
-            <div class="popup__wrapper">
-              
-              <form action="{{ route('admin-hall.delete', $item->id) }}" method="post" accept-charset="utf-8">
-                {{$hall}}
-                @csrf
-                @method('delete');
-                <p class="conf-step__paragraph">Вы действительно хотите удалить зал <span></span>?</p>
-                <!-- В span будет подставляться название зала -->
-                <div class="conf-step__buttons text-center">
-                  <input type="submit" value="Удалить" class="conf-step__button conf-step__button-accent">
-                  <button class="conf-step__button conf-step__button-regular close-delete_hall-btn">Отменить</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+
       
 
     </section>
