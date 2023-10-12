@@ -21,8 +21,9 @@ Route::group(['middleware'=>'auth'], function() {
   Route::delete('/admin/destroy/{id}', [App\Http\Controllers\HallController::class, 'destroy'])->name('admin-hall.delete');
 });
 
-Route::get('/admin/edit', [App\Http\Controllers\HallController::class, 'edit'])->name('hall.edit');
+Route::post('/admin/edit', [App\Http\Controllers\HallController::class, 'edit'])->name('hall.edit');
 
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

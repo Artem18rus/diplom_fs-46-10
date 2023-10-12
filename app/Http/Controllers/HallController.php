@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\HallFormRequest\StoreHallRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Hall;
@@ -14,8 +15,10 @@ class HallController extends Controller
         $hall = Hall::all(); 
         return view('admin/admin', compact('hall'));
     }
-    public function store(Request $request) {
-        $data=$request->all();
+    public function store(StoreHallRequest $request) {
+        // $validated = $request->validated();
+        // dd($validated);
+        // $data=$request->all();
         $name = $request->input('name');
         //dd($name);
         $newHall = new Hall;

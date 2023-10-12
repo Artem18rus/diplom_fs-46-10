@@ -133,16 +133,17 @@
           @endforeach
         </ul>
         
-
+        <form action="admin/edit" method="post" accept-charset="utf-8">
+        @csrf
         <ul class="list-box-hidden">
           @foreach ($hall as $item)
             <li class="item-box-hidden">
               <div class="conf-box-hidden">
               <p class="conf-step__paragraph">Укажите количество рядов и максимальное количество кресел в ряду:</p>
               <div class="conf-step__legend">
-                <label class="conf-step__label">Рядов, шт<input type="text" class="conf-step__input" placeholder="10" ></label>
+                <label class="conf-step__label">Рядов, шт<input type="text" class="conf-step__input" placeholder="10" name="{{ $item->nameHall }} row"></label>
                 <span class="multiplier">x</span>
-                <label class="conf-step__label">Мест, шт<input type="text" class="conf-step__input" placeholder="8" ></label>
+                <label class="conf-step__label">Мест, шт<input type="text" class="conf-step__input" placeholder="8" name="{{ $item->nameHall }} chair"></label>
               </div>
               <p class="conf-step__paragraph">Теперь вы можете указать типы кресел на схеме зала:</p>
               <div class="conf-step__legend">
@@ -225,8 +226,7 @@
                     <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>          
                   </div> --}}
                 </div>  
-              </div>
-            
+              </div>            
             </li>
           @endforeach
         </ul>
@@ -236,11 +236,7 @@
           <button class="conf-step__button conf-step__button-regular">Отмена</button>
           <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
         </fieldset>
-      
-
-
-
-
+      </form>
 
 
 

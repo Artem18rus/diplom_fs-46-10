@@ -56,9 +56,6 @@ smallCrossDelete.forEach((item, idx) => {
 })
 
 
-//обработка клика по "Добавить" попапа "Удаление зала":
-
-
 
 //обработка появления, скрытия ЭКРАНА:
 let chairsHall = document.getElementsByName('chairs-hall');
@@ -153,32 +150,32 @@ let сonfStepTitleConfHall = document.querySelectorAll('.conf-step__title');
 // let confStepButtonAccent = document.querySelectorAll('.conf-step__button-accent');
 // console.log(confStepButtonAccent[2].parentElement.parentElement.parentElement);
 
-сonfStepTitleConfHall = document.querySelectorAll('.conf-step__title');
-сonfStepTitleConfHall.forEach((item) => {
-    if(item.outerText === 'КОНФИГУРАЦИЯ ЗАЛОВ') {
-        let confStepButtonAccent = item.parentElement.nextElementSibling.querySelector('.conf-step__button-accent');
-        // console.log(e.target);
-        confStepButtonAccent.addEventListener('click', (e) => {
-            // e.preventDefault();
-            let fieldInput = item.parentElement.parentElement.querySelectorAll('.conf-step__input');
-            // console.log(e.target);
-            //console.log(fieldInput[0].value);
-            
-            const user = "Tom"; 
-            const xhr = new XMLHttpRequest();
-// POST-запрос к ресурсу /user
-            xhr.open("post", "/admin/edit");
-// обработчик получения ответа сервера
-            // xhr.onload = () => {
-            //     if (xhr.status == 200) { 
-            //         console.log(xhr.responseText);
-            //     } else {
-            //         console.log("Server response: ", xhr.statusText);
-            //     }
-            // };
-            xhr.send(user);
-            location.href='/admin/edit';
-        })
-    }
+// сonfStepTitleConfHall = document.querySelectorAll('.conf-step__title');
+// сonfStepTitleConfHall.forEach((item) => {
+//     if(item.outerText === 'КОНФИГУРАЦИЯ ЗАЛОВ') {
+//         let confStepButtonAccent = item.parentElement.nextElementSibling.querySelector('.conf-step__button-accent');
+//         // console.log(e.target);
+//         confStepButtonAccent.addEventListener('click', (e) => {
+//             // e.preventDefault();
+//             // let fieldInput = item.parentElement.parentElement.querySelectorAll('.conf-step__input');
+//             // console.log(e.target);
+//             //console.log(fieldInput[0].value);
 
-})
+// //             const user = "Tom"; 
+// //             const xhr = new XMLHttpRequest();
+// // // POST-запрос к ресурсу /user
+// //             xhr.open("post", "/admin/edit");
+// // // обработчик получения ответа сервера
+// //             // xhr.onload = () => {
+// //             //     if (xhr.status == 200) { 
+// //             //         console.log(xhr.responseText);
+// //             //     } else {
+// //             //         console.log("Server response: ", xhr.statusText);
+// //             //     }
+// //             // };
+// //             xhr.send(user);
+// //             location.href='/admin/edit';
+//         })
+//     }
+
+// })
