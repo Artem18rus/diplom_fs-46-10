@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('halls', function (Blueprint $table) {
-            $table->integer('row')->default(0);
-            $table->integer('chair')->default(0);
+            $table->integer('row')->nullable();
+            $table->integer('chair')->nullable();
         });
     }
 
