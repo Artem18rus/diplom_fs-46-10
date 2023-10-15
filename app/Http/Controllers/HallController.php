@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\HallFormRequest\EditHallRequest;
 use App\Http\Requests\HallFormRequest\StoreHallRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,24 +19,24 @@ class HallController extends Controller
     }
 
     public function store(StoreHallRequest $request) {
-        // $validated = $request->validated();
-        // dd($validated);
-        $data=$request->all();
+        
         $name = $request->input('name');
-        //dd($name);
         $newHall = new Hall;
         $newHall->nameHall = $name;
         $newHall->save();
         return redirect()->action([HallController::class, 'index']);
     }
 
-    public function edit(Request $request) {
+    //добавление рядов и мест в базу данных:
+    public function edit(EditHallRequest $request) {
+        $data=$request->all();
         $params = $request->except('_token');
+        dd($params);
         $arrPick=[];
         $keys = array_keys($params);
         foreach ($keys as $key => $value) {
-            $b = strstr($value, '_', true);
-            array_push($arrPick, $b);
+            $numberId = strstr($value, '_', true);
+            array_push($arrPick, $numberId);
         }
         $values = array_values($params);
         for ($i = 0; $i < sizeof($values); $i++) {
@@ -50,7 +51,7 @@ class HallController extends Controller
                 $modelRow->save();
             }
         }
-        return redirect()->action([HallController::class, 'index']);
+        // return redirect()->action([HallController::class, 'index']);
     }
     public function destroy($id) {
         $el = Hall::find($id); 

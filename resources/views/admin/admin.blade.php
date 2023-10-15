@@ -113,12 +113,6 @@
           </div>
         </div>
       </div>
-
-      
-
-
-      
-
     </section>
     
     <section class="conf-step">
@@ -135,6 +129,7 @@
         
         <form action="admin/edit" method="post" accept-charset="utf-8">
         @csrf
+
         <ul class="list-box-hidden">
           @foreach ($hall as $item)
             <li class="item-box-hidden">
