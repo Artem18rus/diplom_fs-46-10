@@ -21,12 +21,9 @@ class EditHallRequest extends FormRequest
      */
     public function rules(): array
     {
-        $row = "/^[1-9][0-9]?.[r]/";
-        $char = "/^[1-9][0-9]?.[c]/";
         return [
-            "$row" => ['string'],
-            "$char" => ['string'],
-            // 'row' => 'required',
+            '*_r' => ['required', 'max:1'],
+            '*_c' => ['required', 'max:1'],
         ];
     }
 }

@@ -29,9 +29,7 @@ class HallController extends Controller
 
     //добавление рядов и мест в базу данных:
     public function edit(EditHallRequest $request) {
-        $data=$request->all();
         $params = $request->except('_token');
-        dd($params);
         $arrPick=[];
         $keys = array_keys($params);
         foreach ($keys as $key => $value) {
@@ -51,7 +49,7 @@ class HallController extends Controller
                 $modelRow->save();
             }
         }
-        // return redirect()->action([HallController::class, 'index']);
+        return redirect()->action([HallController::class, 'index']);
     }
     public function destroy($id) {
         $el = Hall::find($id); 

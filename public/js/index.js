@@ -25,7 +25,6 @@ let deleteHallBtn = document.querySelectorAll('.delete_hall-btn');
 deleteHallBtn.forEach((item, idx) => {
     item.addEventListener('click', (e) => {
         e.preventDefault();
-        console.log('нет');
         popapDelete.forEach((i) => {
             if(i.style.display == 'block') {
                 i.style.display = 'none';
@@ -104,7 +103,6 @@ itemBoxHidden.forEach((elem) => {
                     el.classList.add('conf-step__chair_disabled');
                 } else if (el.classList.contains('conf-step__chair_disabled')) {
                     el.classList.remove('conf-step__chair_disabled');
-                    el.classList.add('conf-step__chair_standart');
                 } else {
                     el.classList.add('conf-step__chair_standart');
                 }
@@ -147,35 +145,31 @@ let сonfStepTitleConfHall = document.querySelectorAll('.conf-step__title');
 
 
 //обработка нажатия на кнопку "Сохранить" ЭКРАНА:
-// let confStepButtonAccent = document.querySelectorAll('.conf-step__button-accent');
-// console.log(confStepButtonAccent[2].parentElement.parentElement.parentElement);
+let confStepButtonAccent = document.querySelectorAll('.conf-step__button-accent');
 
-// сonfStepTitleConfHall = document.querySelectorAll('.conf-step__title');
-// сonfStepTitleConfHall.forEach((item) => {
-//     if(item.outerText === 'КОНФИГУРАЦИЯ ЗАЛОВ') {
-//         let confStepButtonAccent = item.parentElement.nextElementSibling.querySelector('.conf-step__button-accent');
-//         // console.log(e.target);
-//         confStepButtonAccent.addEventListener('click', (e) => {
-//             // e.preventDefault();
-//             // let fieldInput = item.parentElement.parentElement.querySelectorAll('.conf-step__input');
-//             // console.log(e.target);
-//             //console.log(fieldInput[0].value);
-
-// //             const user = "Tom"; 
-// //             const xhr = new XMLHttpRequest();
-// // // POST-запрос к ресурсу /user
-// //             xhr.open("post", "/admin/edit");
-// // // обработчик получения ответа сервера
-// //             // xhr.onload = () => {
-// //             //     if (xhr.status == 200) { 
-// //             //         console.log(xhr.responseText);
-// //             //     } else {
-// //             //         console.log("Server response: ", xhr.statusText);
-// //             //     }
-// //             // };
-// //             xhr.send(user);
-// //             location.href='/admin/edit';
-//         })
-//     }
-
-// })
+сonfStepTitleConfHall = document.querySelectorAll('.conf-step__title');
+сonfStepTitleConfHall.forEach((item) => {
+    if(item.outerText === 'КОНФИГУРАЦИЯ ЗАЛОВ') {
+        let confStepButtonAccent = item.parentElement.nextElementSibling.querySelector('.conf-step__button-accent');
+        confStepButtonAccent.addEventListener('click', (e) => {
+            e.preventDefault();
+            let hallsConfig = document.querySelector('.halls-config');
+            let confStepHallWrapper = hallsConfig.querySelectorAll('.conf-step__hall-wrapper');
+            // console.log(confStepHallWrapper);
+            let arrRowStandart = [];
+            confStepHallWrapper.forEach((el, index) => {
+                let chairsHallActiv = document.getElementsByName('chairs-hall');
+                let confStepRow = el.querySelectorAll('.conf-step__row');
+                confStepRow.forEach((element, ind) => {
+                    let confStepChair = element.querySelectorAll('.conf-step__chair');
+                    confStepChair.forEach((elem, i) => {
+                        if(elem.classList.contains('conf-step__chair_standart')) {
+                            arrRowStandart.push(`${chairsHallActiv[index].nextElementSibling.outerText}, строка ${ind+1}, место ${i+1}`);
+                        }
+                    })
+                })
+            })
+            console.log(arrRowStandart);
+        })
+    }
+})
