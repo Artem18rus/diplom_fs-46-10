@@ -30,6 +30,7 @@ class HallController extends Controller
     //добавление рядов и мест в базу данных:
     public function edit(EditHallRequest $request) {
         $params = $request->except('_token');
+        dd($params);
         $arrPick=[];
         $keys = array_keys($params);
         foreach ($keys as $key => $value) {

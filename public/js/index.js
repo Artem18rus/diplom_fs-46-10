@@ -169,7 +169,20 @@ let confStepButtonAccent = document.querySelectorAll('.conf-step__button-accent'
                     })
                 })
             })
-            console.log(arrRowStandart);
+            // console.log(arrRowStandart);
+            $.ajax({
+                type: 'POST',
+                url: '/admin/edit',
+                data: {
+                   data: [1, 2, 3]
+                },
+                success: function(response) {
+                   console.log(response);
+                },
+                error: function(error) {
+                   console.log(error);
+                }
+             });
         })
     }
 })
