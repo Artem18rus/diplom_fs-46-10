@@ -22,7 +22,7 @@ class StoreHallRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'regex:/^Зал\s[1-9]\z/|bail|unique:halls,nameHall',
+            'name' => 'regex:/^Зал\s[1-9][0-9]?\z/|bail|unique:halls,nameHall',
         ];
     }
 }

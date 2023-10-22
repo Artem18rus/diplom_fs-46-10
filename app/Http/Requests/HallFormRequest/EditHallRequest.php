@@ -22,8 +22,8 @@ class EditHallRequest extends FormRequest
     public function rules(): array
     {
         return [
-            '*_r' => ['required', 'max:1'],
-            '*_c' => ['required', 'max:1'],
+            '*_r' => ['required', 'max:2'],
+            '*_c' => ['required', 'max:2'],
         ];
     }
 }
