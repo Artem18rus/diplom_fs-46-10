@@ -9,6 +9,7 @@ createHallBtn.addEventListener('click', (e) => {
 //обработка клика по "Отменить" в попапе "Добавление зала"
 let closeCreateHallBtn = document.querySelector('.close-create_hall-btn');
 closeCreateHallBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     popupCreate.style.display = 'none';
 })
 
