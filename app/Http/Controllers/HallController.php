@@ -8,6 +8,7 @@ use App\Http\Requests\HallFormRequest\StoreHallRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Hall;
+use App\Models\Standart_type;
 use Illuminate\Support\Facades\Schema;
 use PhpParser\Node\Stmt\Foreach_;
 
@@ -31,6 +32,8 @@ class HallController extends Controller
     public function edit(EditHallRequest $request) {
         // $data = $request->all();
         $params = $request->except('_token');
+        dump($params);
+
 
         foreach ($params as $key => $value) {
             if($value == null){
@@ -76,7 +79,7 @@ class HallController extends Controller
             unset($arrPickChair[$key]);
           }
         }
-        //dd($arrPickChair);
+        // dump($arrPickChair);
 
         $arrPickChairResult = [];
         foreach ($arrPickChair as $key => $value) {
@@ -84,7 +87,8 @@ class HallController extends Controller
           array_push($arrPickChairResult, $pieces);
         }
         $newArrPickChair = array_merge(...$arrPickChairResult);
-        // dd($newArrPickChair);
+        // dump($arrPickChairResult);
+        // dump($newArrPickChair);
 
         foreach ($newArrPickChair as $key => $value) {
           if($value == '') {
@@ -106,48 +110,44 @@ class HallController extends Controller
         foreach ($valuesPickChair as $key => $value) {
           $regexpHall = '/^ЗАЛ\s[1-9][0-9]?/';
           $resultHall = preg_match($regexpHall, $value, $foundHall);
-          array_push($listNameHallFr, mb_strtolower($foundHall[0]));
+          array_push($listNameHallFr, $foundHall[0]);
 
           $result = str_replace("$foundHall[0], ", '', $value);
           array_push($strChair, $result);
         }
-        // dump($strChair);
-        // dump($listNameHallFr);//arrFr
+        dump($listNameHallFr); //arrFr
+        dump($strChair);
 
-        $valueNameHallBd = Hall::pluck('nameHall');
-        $listNameHallBd = [];
-        foreach ($valueNameHallBd as $key => $value) {
-          array_push($listNameHallBd, mb_strtolower($value));
+        $arrRowChair = [];
+        foreach ($strChair as $key => $value) {
+          $pieces = explode(", ", $value);
+          array_push($arrRowChair, $pieces);
         }
-        // dump($listNameHallBd);//arrBd
+        dump($arrRowChair);
 
-        function mb_strtoupper_first($str, $encoding = 'UTF8')
-        {
-          return
-            mb_strtoupper(mb_substr($str, 0, 1, $encoding), $encoding) .
-            mb_substr($str, 1, mb_strlen($str, $encoding), $encoding);
+        $arrNumberHall = [];
+        foreach ($listNameHallFr as $key => $value) {
+          // dump($value);
+          array_push($arrNumberHall, ltrim(strstr($value, ' ')));
         }
-        $resStrChair = $strChair;
-        // dump($resStrChair);
-        
-        $acc = array();
-        foreach($resStrChair as $someString){
-          $acc[] = array($someString);
-        }
-        // dd($acc);
+        dump($arrNumberHall);
 
-        // dd($resStrChair);
-        for ($i = 0; $i < sizeof($listNameHallFr); $i++) {
-          foreach ($listNameHallBd as $k => $v) {
-              if ($listNameHallFr[$i] == $v) {
-                  $firstBig = mb_strtoupper_first($v, $encoding = 'UTF8');
-                DB::table('halls')
-                  ->where('nameHall', $firstBig)
-                  ->update(['type-standart' => json_encode($acc[$i])]);
-              }
-          }
-      }
-      return redirect()->action([HallController::class, 'index']);
+
+        dump(Standart_type::all()->pluck('hall_id')->toArray());
+        // foreach (Standart_type::all() as $key => $value) {
+        //   dump($value->id);
+        // }
+
+
+
+        // for ($i = 0; $i < sizeof($arrNumberHall); $i++) {
+
+        //   // dump($arrNumberHall[$i]);
+        // }
+        // $c = array_combine($arrNumberHall, $arrRowChair);
+        // dump($c);
+
+      // return redirect()->action([HallController::class, 'index']);
     }
     public function destroy($id) {
         $el = Hall::find($id); 

@@ -5,13 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Hall extends Model
+class Standart_type extends Model
 {
     use HasFactory;
-    protected $table = 'halls';
+    protected $table = 'standart_types';
     protected $guarded = false;
-
-    public function type_standart () {
-        $this->hasMany(Hall::class);
-    }
 }
