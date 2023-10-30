@@ -110,13 +110,20 @@ class HallController extends Controller
         foreach ($valuesPickChair as $key => $value) {
           $regexpHall = '/^ЗАЛ\s[1-9][0-9]?/';
           $resultHall = preg_match($regexpHall, $value, $foundHall);
-          array_push($listNameHallFr, $foundHall[0]);
+          array_push($listNameHallFr, mb_strtolower($foundHall[0]));
 
           $result = str_replace("$foundHall[0], ", '', $value);
           array_push($strChair, $result);
         }
         dump($listNameHallFr); //arrFr
         dump($strChair);
+
+        $valueNameHallBd = Hall::pluck('nameHall');
+        $listNameHallBd = [];
+        foreach ($valueNameHallBd as $key => $value) {
+          array_push($listNameHallBd, mb_strtolower($value));
+        }
+        dump($listNameHallBd);//arrBd
 
         $arrRowChair = [];
         foreach ($strChair as $key => $value) {
@@ -133,21 +140,22 @@ class HallController extends Controller
         dump($arrNumberHall);
 
 
-        dump(Standart_type::all()->pluck('hall_id')->toArray());
-        // foreach (Standart_type::all() as $key => $value) {
-        //   dump($value->id);
-        // }
+        $idHallTable = Hall::all()->pluck('id')->toArray();
+        dump($idHallTable);
+        
+        Standart_type::truncate();
+        foreach ($listNameHallFr as $key => $value) {
+          // dump($value);
+          foreach ($listNameHallBd as $key2 => $value2) {
+            if($value == $value2) {
+              Standart_type::insert([
+                ['pick_row' => $arrRowChair[$key][0], 'pick_chair' => $arrRowChair[$key][1], 'hall_id' => $idHallTable[$key2]],
+            ]);
+            }
+          }
+        }
 
-
-
-        // for ($i = 0; $i < sizeof($arrNumberHall); $i++) {
-
-        //   // dump($arrNumberHall[$i]);
-        // }
-        // $c = array_combine($arrNumberHall, $arrRowChair);
-        // dump($c);
-
-      // return redirect()->action([HallController::class, 'index']);
+      return redirect()->action([HallController::class, 'index']);
     }
     public function destroy($id) {
         $el = Hall::find($id); 
