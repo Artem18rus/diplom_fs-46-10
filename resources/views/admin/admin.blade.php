@@ -13,6 +13,7 @@
 </head>
 
 <body>
+
   <div class="greeting-logout">
       <div class="greeting-text" href="#">
           Привет, {{ Auth::user()->name }}!
@@ -360,7 +361,6 @@
       </div>
     </section>
   </main>
-
 
 
   <script src="js/accordeon.js"></script>
