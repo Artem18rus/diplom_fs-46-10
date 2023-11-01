@@ -32,7 +32,7 @@ class HallController extends Controller
     public function edit(EditHallRequest $request) {
         // $data = $request->all();
         $params = $request->except('_token');
-        dump($params);
+        dd($params);
 
 
         foreach ($params as $key => $value) {

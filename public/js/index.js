@@ -153,12 +153,12 @@ let confStepButtonAccent = document.querySelectorAll('.conf-step__button-accent'
     if(item.outerText === 'КОНФИГУРАЦИЯ ЗАЛОВ') {
         let confStepButtonAccent = item.parentElement.nextElementSibling.querySelector('.conf-step__button-accent');
         confStepButtonAccent.addEventListener('click', (e) => {
-            // e.preventDefault();
+            e.preventDefault();
             let hallsConfig = document.querySelector('.halls-config');
             let confStepHallWrapper = hallsConfig.querySelectorAll('.conf-step__hall-wrapper');
             // console.log(confStepHallWrapper);
             confStepHallWrapper.forEach((el, index) => {
-                let arrRowStandart = [];
+                let arrRowStandart = {};
                 let chairsHallActiv = document.getElementsByName('chairs-hall');
                 let confStepRow = el.querySelectorAll('.conf-step__row');
                 confStepRow.forEach((element, ind) => {
@@ -166,15 +166,23 @@ let confStepButtonAccent = document.querySelectorAll('.conf-step__button-accent'
                     let confStepChair = element.querySelectorAll('.conf-step__chair');
                     confStepChair.forEach((elem, i) => {
                         if(elem.classList.contains('conf-step__chair_standart')) {
-                            arrRowStandart.push(`${chairsHallActiv[index].nextElementSibling.outerText}, ${ind+1}, ${i+1};`); //зал, строка, место
+                            let numberHall = chairsHallActiv[index].nextElementSibling.outerText;
+                            // arrRowStandart.push(`${chairsHallActiv[index].nextElementSibling.outerText}, ${ind+1}, ${i+1};`); //зал, строка, место
+                            // arrRowStandart.push(`${numberHall.slice(4, numberHall.length)}, ${ind+1}, ${i+1};`); //зал, строка, место
+                            arrRowStandart.hall = numberHall.slice(4, numberHall.length);
+                            arrRowStandart.row = ind+1;
+                            arrRowStandart.chair = i+1;
                         }
                     })
                 })
+                // str.slice(4, str.length)
                 console.log(arrRowStandart);
+                // let arrRowStandartJson = 
                     let input = document.createElement('input');
                     input.setAttribute("type", "hidden");
                     input.setAttribute("name", `arrRowStandart ${index}`);
-                    input.setAttribute("value", arrRowStandart);
+                    input.setAttribute("value", JSON.stringify(arrRowStandart));
+                    // input.setAttribute("value", arrRowStandart);
                     el.appendChild(input);
             })
         })
