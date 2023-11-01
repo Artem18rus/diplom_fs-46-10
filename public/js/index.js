@@ -153,16 +153,16 @@ let confStepButtonAccent = document.querySelectorAll('.conf-step__button-accent'
     if(item.outerText === 'КОНФИГУРАЦИЯ ЗАЛОВ') {
         let confStepButtonAccent = item.parentElement.nextElementSibling.querySelector('.conf-step__button-accent');
         confStepButtonAccent.addEventListener('click', (e) => {
-            e.preventDefault();
+            // e.preventDefault();
             let hallsConfig = document.querySelector('.halls-config');
             let confStepHallWrapper = hallsConfig.querySelectorAll('.conf-step__hall-wrapper');
             // console.log(confStepHallWrapper);
             confStepHallWrapper.forEach((el, index) => {
-                let arrRowStandart = {};
+                // let arrRowStandart = {};
                 let chairsHallActiv = document.getElementsByName('chairs-hall');
                 let confStepRow = el.querySelectorAll('.conf-step__row');
                 confStepRow.forEach((element, ind) => {
-                    // let arrRowStandart = [];
+                    let arrRowStandart = {};
                     let confStepChair = element.querySelectorAll('.conf-step__chair');
                     confStepChair.forEach((elem, i) => {
                         if(elem.classList.contains('conf-step__chair_standart')) {
@@ -174,16 +174,26 @@ let confStepButtonAccent = document.querySelectorAll('.conf-step__button-accent'
                             arrRowStandart.chair = i+1;
                         }
                     })
-                })
-                // str.slice(4, str.length)
-                console.log(arrRowStandart);
-                // let arrRowStandartJson = 
+                    // console.log(arrRowStandart);
+                    // for (key in arrRowStandart) {
+                    //     console.log(key);
+                    //   }
                     let input = document.createElement('input');
                     input.setAttribute("type", "hidden");
                     input.setAttribute("name", `arrRowStandart ${index}`);
                     input.setAttribute("value", JSON.stringify(arrRowStandart));
                     // input.setAttribute("value", arrRowStandart);
                     el.appendChild(input);
+                })
+                // str.slice(4, str.length)
+
+                // let arrRowStandartJson = 
+                    // let input = document.createElement('input');
+                    // input.setAttribute("type", "hidden");
+                    // input.setAttribute("name", `arrRowStandart ${index}`);
+                    // input.setAttribute("value", JSON.stringify(arrRowStandart));
+                    // // input.setAttribute("value", arrRowStandart);
+                    // el.appendChild(input);
             })
         })
     }
