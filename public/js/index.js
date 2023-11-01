@@ -165,17 +165,12 @@ let confStepButtonAccent = document.querySelectorAll('.conf-step__button-accent'
                     // let arrRowStandart = [];
                     let confStepChair = element.querySelectorAll('.conf-step__chair');
                     confStepChair.forEach((elem, i) => {
-
                         if(elem.classList.contains('conf-step__chair_standart')) {
                             arrRowStandart.push(`${chairsHallActiv[index].nextElementSibling.outerText}, ${ind+1}, ${i+1};`); //зал, строка, место
                         }
                     })
-                    // let input = document.createElement('input');
-                    // input.setAttribute("type", "hidden");
-                    // input.setAttribute("name", `arrRowStandart ${ind}`);
-                    // input.setAttribute("value", arrRowStandart);
-                    // el.appendChild(input);
                 })
+                console.log(arrRowStandart);
                     let input = document.createElement('input');
                     input.setAttribute("type", "hidden");
                     input.setAttribute("name", `arrRowStandart ${index}`);

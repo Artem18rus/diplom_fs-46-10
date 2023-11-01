@@ -143,19 +143,19 @@ class HallController extends Controller
         $idHallTable = Hall::all()->pluck('id')->toArray();
         dump($idHallTable);
         
-        Standart_type::truncate();
-        foreach ($listNameHallFr as $key => $value) {
-          // dump($value);
-          foreach ($listNameHallBd as $key2 => $value2) {
-            if($value == $value2) {
-              Standart_type::insert([
-                ['pick_row' => $arrRowChair[$key][0], 'pick_chair' => $arrRowChair[$key][1], 'hall_id' => $idHallTable[$key2]],
-            ]);
-            }
-          }
-        }
+        // Standart_type::truncate();
+        // foreach ($listNameHallFr as $key => $value) {
+        //   // dump($value);
+        //   foreach ($listNameHallBd as $key2 => $value2) {
+        //     if($value == $value2) {
+        //       Standart_type::insert([
+        //         ['pick_row' => $arrRowChair[$key][0], 'pick_chair' => $arrRowChair[$key][1], 'hall_id' => $idHallTable[$key2]],
+        //     ]);
+        //     }
+        //   }
+        // }
 
-      return redirect()->action([HallController::class, 'index']);
+      // return redirect()->action([HallController::class, 'index']);
     }
     public function destroy($id) {
         $el = Hall::find($id); 

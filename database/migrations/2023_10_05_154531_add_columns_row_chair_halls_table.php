@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('halls', function (Blueprint $table) {
             $table->integer('row')->nullable();
             $table->integer('chair')->nullable();
+            $table->string('hall_scheme')->nullable();
         });
     }
 
@@ -23,7 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('halls', function (Blueprint $table) {
-            $table->dropColumn(['row', 'chair']);
+            $table->dropColumn(['row', 'chair', 'hall_scheme']);
         });
     }
 };
