@@ -61,7 +61,7 @@
                         </div>
                         <div class="popup__wrapper">
                           
-                          <form action="{{ route('admin-hall.delete', $item->id) }}" method="POST" accept-charset="utf-8">
+                          <form action="{{ route('admin-countHall.delete', $item->id) }}" method="POST" accept-charset="utf-8">
                             @csrf
                             @method('delete')
                             <p class="conf-step__paragraph">Вы действительно хотите удалить <span>{{$item->nameHall}}</span>?</p>
@@ -100,7 +100,7 @@
       
               </div>
               <div class="popup__wrapper">
-                <form action="admin/store" method="post" accept-charset="utf-8">
+                <form action="admin/countHallStore" method="post" accept-charset="utf-8">
                   @csrf
                     <label class="conf-step__label conf-step__label-fullsize" for="name">
                     Название зала
@@ -129,9 +129,8 @@
           @endforeach
         </ul>
         
-        <form class='halls-config' action="admin/edit" method="post" accept-charset="utf-8">
+        <form class='halls-config' action="admin/schemeHallStore" method="post" accept-charset="utf-8">
         @csrf
-
         <ul class="list-box-hidden">
           @foreach ($hall as $item)
             <li class="item-box-hidden">
@@ -220,10 +219,10 @@
                     <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
                     <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
                     <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>          
+                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
                   </div> --}}
-                </div>  
-              </div>            
+                </div>
+              </div>
             </li>
           @endforeach
         </ul>
@@ -258,16 +257,16 @@
           <div class="conf-step__legend">
             <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" placeholder="0" ></label>
             за <span class="conf-step__chair conf-step__chair_standart"></span> обычные кресла
-          </div>  
+          </div>
           <div class="conf-step__legend">
             <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" placeholder="0" value="350"></label>
             за <span class="conf-step__chair conf-step__chair_vip"></span> VIP кресла
-          </div>  
+          </div>
         
         <fieldset class="conf-step__buttons text-center">
           <button class="conf-step__button conf-step__button-regular">Отмена</button>
           <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
-        </fieldset>  
+        </fieldset>
       </div>
     </section>
     
@@ -308,7 +307,7 @@
             <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
             <h3 class="conf-step__movie-title">Кот Да Винчи</h3>
             <p class="conf-step__movie-duration">100 минут</p>
-          </div>            
+          </div>
         </div>
         
         <div class="conf-step__seances">

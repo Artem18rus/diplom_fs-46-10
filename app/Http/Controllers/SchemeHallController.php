@@ -2,36 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\HallFormRequest\StoreShemeHallRequest;
+use App\Models\Hall;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\HallFormRequest\EditHallRequest;
-use App\Http\Requests\HallFormRequest\StoreHallRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Hall;
-use App\Models\Standart_type;
-use Illuminate\Support\Facades\Schema;
-use PhpParser\Node\Stmt\Foreach_;
 
-class HallController extends Controller
+class SchemeHallController extends Controller
 {
-    public function index() {
-        $hall = Hall::all(); 
-        return view('admin/admin', compact('hall'));
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+
     }
 
-    public function store(StoreHallRequest $request) {
-        $name = $request->input('name');
-        $newHall = new Hall;
-        $newHall->nameHall = $name;
-        $newHall->save();
-        return redirect()->action([HallController::class, 'index']);
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
     }
 
-    
-    public function edit(EditHallRequest $request) {
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreShemeHallRequest $request)
+    {
         // $data = $request->all();
         $params = $request->except('_token');
-        // dump($params);
+        dump($params);
 
 //добавление рядов и мест в БД:
         $arrPickRowChair = $params;
@@ -47,7 +49,10 @@ class HallController extends Controller
             $numberId = strstr($value, '_', true);
             array_push($arrPickRowChairResult, $numberId);
         }
+        dump($arrPickRowChairResult);
+
         $values = array_values($arrPickRowChair);
+        dump($values);
         for ($i = 0; $i < sizeof($values); $i++) {
             if ($i % 2 !== 0) {
                 $modelChair = Hall::find($arrPickRowChairResult[$i]);
@@ -59,7 +64,8 @@ class HallController extends Controller
                 $modelRow->save();
             }
         }
-        // dump($arrPickRowChair); // количество рядов и мест
+        dump($arrPickRowChair); // количество рядов и мест
+        // dd();
 
 //добавление выбранных мест в БД:
         $arrPickTypeChair = $params;
@@ -74,7 +80,7 @@ class HallController extends Controller
         $valueNameHallBd = Hall::pluck('nameHall');
         $listNameHallBd = [];
         foreach ($valueNameHallBd as $key => $value) {
-          array_push($listNameHallBd, $value);
+            array_push($listNameHallBd, $value);
         }
         // dump($listNameHallBd);//arrBd
 
@@ -92,11 +98,38 @@ class HallController extends Controller
                 }
             }
         }
-      return redirect()->action([HallController::class, 'index']);
+        return redirect()->action([CountHallController::class, 'index']);
     }
-    public function destroy($id) {
-        $el = Hall::find($id); 
-        $el->delete();
-        return redirect()->action([HallController::class, 'index']);
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Hall $hall)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Hall $hall)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Hall $hall)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Hall $hall)
+    {
+        //
     }
 }

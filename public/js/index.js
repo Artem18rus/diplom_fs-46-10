@@ -52,7 +52,7 @@ smallCrossDelete.forEach((item, idx) => {
     item.addEventListener('click', (e) => {
     e.preventDefault();
     popapDelete[idx].style.display = 'none';
-})
+    })
 })
 
 

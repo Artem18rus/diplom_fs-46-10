@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('halls', function (Blueprint $table) {
-            $table->integer('price')->nullable();
+            $table->integer('standart_price')->nullable();
+            $table->integer('vip_price')->nullable();
         });
     }
 
@@ -22,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('halls', function (Blueprint $table) {
-            $table->dropColumn(['price']);
+            $table->dropColumn(['standart_price', 'vip_price']);
         });
     }
 };

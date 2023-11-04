@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'index');
 
 Route::group(['middleware'=>'auth'], function() {
-  Route::get('/admin', [App\Http\Controllers\HallController::class, 'index'])->name('admin-hall.index');
-  Route::post('/admin/store', [App\Http\Controllers\HallController::class, 'store'])->name('admin-hall.store');
-  Route::delete('/admin/destroy/{id}', [App\Http\Controllers\HallController::class, 'destroy'])->name('admin-hall.delete');  
+  Route::get('/admin', [App\Http\Controllers\CountHallController::class, 'index'])->name('admin-countHall.index');
+  Route::post('/admin/countHallStore', [App\Http\Controllers\CountHallController::class, 'store'])->name('admin-countHall.store');
+  Route::delete('/admin/destroy/{id}', [App\Http\Controllers\CountHallController::class, 'destroy'])->name('admin-countHall.delete');
 });
 
-Route::post('/admin/edit', [App\Http\Controllers\HallController::class, 'edit'])->name('hall.edit');
+Route::post('/admin/schemeHallStore', [App\Http\Controllers\SchemeHallController::class, 'store'])->name('admin-schemeHall.store');
 
 Auth::routes();
 

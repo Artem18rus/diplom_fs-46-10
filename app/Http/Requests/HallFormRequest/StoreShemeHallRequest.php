@@ -4,7 +4,7 @@ namespace App\Http\Requests\HallFormRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreHallRequest extends FormRequest
+class StoreShemeHallRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreHallRequest extends FormRequest
     {
         return true;
     }
-    
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,7 +22,8 @@ class StoreHallRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'regex:/^Зал\s[1-9][0-9]?\z/|bail|unique:halls,nameHall',
+            '*_r' => ['required', 'max:2'],
+            '*_c' => ['required', 'max:2'],
         ];
     }
 }
