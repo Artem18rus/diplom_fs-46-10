@@ -20,7 +20,6 @@ class HallController extends Controller
     }
 
     public function store(StoreHallRequest $request) {
-        
         $name = $request->input('name');
         $newHall = new Hall;
         $newHall->nameHall = $name;
@@ -32,22 +31,15 @@ class HallController extends Controller
     public function edit(EditHallRequest $request) {
         // $data = $request->all();
         $params = $request->except('_token');
-        dd($params);
+        // dump($params);
 
-
-        foreach ($params as $key => $value) {
-            if($value == null){
-                unset($params[$key]);
-            }
-        }
-
-        //добавление рядов и мест в БД:
+//добавление рядов и мест в БД:
         $arrPickRowChair = $params;
         foreach ($arrPickRowChair as $key => $value) {
             $pickKey = strstr($key, '_', true);
-                if(!is_numeric($pickKey)) {
-                    unset($arrPickRowChair[$key]);
-                }
+            if(!is_numeric($pickKey)) {
+                unset($arrPickRowChair[$key]);
+            }
         }
         $keys = array_keys($arrPickRowChair);
         $arrPickRowChairResult = [];
@@ -55,10 +47,8 @@ class HallController extends Controller
             $numberId = strstr($value, '_', true);
             array_push($arrPickRowChairResult, $numberId);
         }
-        // dump($arrPickRowChairResult);
         $values = array_values($arrPickRowChair);
         for ($i = 0; $i < sizeof($values); $i++) {
-            // dump($values[$i]);
             if ($i % 2 !== 0) {
                 $modelChair = Hall::find($arrPickRowChairResult[$i]);
                 $modelChair->chair = $values[$i];
@@ -69,93 +59,40 @@ class HallController extends Controller
                 $modelRow->save();
             }
         }
+        // dump($arrPickRowChair); // количество рядов и мест
 
-        //добавление выбранных мест в БД:
-        // dd($params);
-        $arrPickChair = $params;
-        foreach ($arrPickChair as $key => $value) {
-          $pickKey = strstr($key, '_', true);
-          if($pickKey !== "arrRowStandart") {
-            unset($arrPickChair[$key]);
-          }
+//добавление выбранных мест в БД:
+        $arrPickTypeChair = $params;
+        foreach ($arrPickTypeChair as $key => $value) {
+            $pickKey = strstr($key, '_', true);
+                if(is_numeric($pickKey)) {
+                    unset($arrPickTypeChair[$key]);
+                }
         }
-        // dump($arrPickChair);
-
-        $arrPickChairResult = [];
-        foreach ($arrPickChair as $key => $value) {
-          $pieces = explode(";", $value);
-          array_push($arrPickChairResult, $pieces);
-        }
-        $newArrPickChair = array_merge(...$arrPickChairResult);
-        // dump($arrPickChairResult);
-        // dump($newArrPickChair);
-
-        foreach ($newArrPickChair as $key => $value) {
-          if($value == '') {
-            unset($newArrPickChair[$key]);
-          }
-        }
-        // dump($newArrPickChair);
-
-        foreach ($newArrPickChair as $key => $value) {
-          $newArrPickChair[$key] = ltrim($value, ','); 
-        }
-        // dd($newArrPickChair);
-
-        $valuesPickChair = array_values($newArrPickChair);
-        // dump($valuesPickChair);
-
-        $listNameHallFr = [];
-        $strChair = [];
-        foreach ($valuesPickChair as $key => $value) {
-          $regexpHall = '/^ЗАЛ\s[1-9][0-9]?/';
-          $resultHall = preg_match($regexpHall, $value, $foundHall);
-          array_push($listNameHallFr, mb_strtolower($foundHall[0]));
-
-          $result = str_replace("$foundHall[0], ", '', $value);
-          array_push($strChair, $result);
-        }
-        dump($listNameHallFr); //arrFr
-        dump($strChair);
+        // dump($arrPickTypeChair); // типы выбранных мест //arrFr
 
         $valueNameHallBd = Hall::pluck('nameHall');
         $listNameHallBd = [];
         foreach ($valueNameHallBd as $key => $value) {
-          array_push($listNameHallBd, mb_strtolower($value));
+          array_push($listNameHallBd, $value);
         }
-        dump($listNameHallBd);//arrBd
+        // dump($listNameHallBd);//arrBd
 
-        $arrRowChair = [];
-        foreach ($strChair as $key => $value) {
-          $pieces = explode(", ", $value);
-          array_push($arrRowChair, $pieces);
+        // $idHallTable = Hall::all()->pluck('id')->toArray();
+        // dump($idHallTable);
+
+        foreach ($arrPickTypeChair as $key => $value) {
+            $strRes = str_replace("_", " ", $key);
+            foreach ($listNameHallBd as $keyBd => $valueBd) {
+                // dump($valueBd);
+                if($valueBd == $strRes) {
+                    DB::table('halls')
+                    ->where('nameHall', $strRes)
+                    ->update(['hall_scheme' => $value]);
+                }
+            }
         }
-        dump($arrRowChair);
-
-        $arrNumberHall = [];
-        foreach ($listNameHallFr as $key => $value) {
-          // dump($value);
-          array_push($arrNumberHall, ltrim(strstr($value, ' ')));
-        }
-        dump($arrNumberHall);
-
-
-        $idHallTable = Hall::all()->pluck('id')->toArray();
-        dump($idHallTable);
-        
-        // Standart_type::truncate();
-        // foreach ($listNameHallFr as $key => $value) {
-        //   // dump($value);
-        //   foreach ($listNameHallBd as $key2 => $value2) {
-        //     if($value == $value2) {
-        //       Standart_type::insert([
-        //         ['pick_row' => $arrRowChair[$key][0], 'pick_chair' => $arrRowChair[$key][1], 'hall_id' => $idHallTable[$key2]],
-        //     ]);
-        //     }
-        //   }
-        // }
-
-      // return redirect()->action([HallController::class, 'index']);
+      return redirect()->action([HallController::class, 'index']);
     }
     public function destroy($id) {
         $el = Hall::find($id); 

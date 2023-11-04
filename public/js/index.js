@@ -158,42 +158,49 @@ let confStepButtonAccent = document.querySelectorAll('.conf-step__button-accent'
             let confStepHallWrapper = hallsConfig.querySelectorAll('.conf-step__hall-wrapper');
             // console.log(confStepHallWrapper);
             confStepHallWrapper.forEach((el, index) => {
-                // let arrRowStandart = {};
+                let arrPick = [];
+                let numberHall;
                 let chairsHallActiv = document.getElementsByName('chairs-hall');
                 let confStepRow = el.querySelectorAll('.conf-step__row');
                 confStepRow.forEach((element, ind) => {
-                    let arrRowStandart = {};
+                    // let arrRowStandart = [];
                     let confStepChair = element.querySelectorAll('.conf-step__chair');
                     confStepChair.forEach((elem, i) => {
+                        let nameHall = chairsHallActiv[index].nextElementSibling.outerText;
+                        numberHall = nameHall.slice(4, nameHall.length);
                         if(elem.classList.contains('conf-step__chair_standart')) {
-                            let numberHall = chairsHallActiv[index].nextElementSibling.outerText;
-                            // arrRowStandart.push(`${chairsHallActiv[index].nextElementSibling.outerText}, ${ind+1}, ${i+1};`); //зал, строка, место
-                            // arrRowStandart.push(`${numberHall.slice(4, numberHall.length)}, ${ind+1}, ${i+1};`); //зал, строка, место
-                            arrRowStandart.hall = numberHall.slice(4, numberHall.length);
-                            arrRowStandart.row = ind+1;
-                            arrRowStandart.chair = i+1;
+                            // arrRowStandart.push(`type-standart, ${nameHall.slice(4, nameHall.length)}, ${ind+1}, ${i+1};`); //тип, зал, строка, место
+                            let obj = { 
+                              type: 'standart',
+                              hall: `${numberHall}`,
+                              row: `${ind+1}`,
+                              chair: `${i+1}`,
+                            }
+                            arrPick.push(obj);
+                        } else if(elem.classList.contains('conf-step__chair_vip')) {
+                            let obj = { 
+                              type: 'vip',
+                              hall: `${numberHall}`,
+                              row: `${ind+1}`,
+                              chair: `${i+1}`,
+                            }
+                            arrPick.push(obj);
+                        } else if(elem.classList.contains('conf-step__chair_disabled')) {
+                            let obj = { 
+                              type: 'disabled',
+                              hall: `${numberHall}`,
+                              row: `${ind+1}`,
+                              chair: `${i+1}`,
+                            }
+                            arrPick.push(obj);
                         }
                     })
-                    // console.log(arrRowStandart);
-                    // for (key in arrRowStandart) {
-                    //     console.log(key);
-                    //   }
+                })
                     let input = document.createElement('input');
                     input.setAttribute("type", "hidden");
-                    input.setAttribute("name", `arrRowStandart ${index}`);
-                    input.setAttribute("value", JSON.stringify(arrRowStandart));
-                    // input.setAttribute("value", arrRowStandart);
+                    input.setAttribute("name", `Зал ${numberHall}`);
+                    input.setAttribute("value", JSON.stringify(arrPick));
                     el.appendChild(input);
-                })
-                // str.slice(4, str.length)
-
-                // let arrRowStandartJson = 
-                    // let input = document.createElement('input');
-                    // input.setAttribute("type", "hidden");
-                    // input.setAttribute("name", `arrRowStandart ${index}`);
-                    // input.setAttribute("value", JSON.stringify(arrRowStandart));
-                    // // input.setAttribute("value", arrRowStandart);
-                    // el.appendChild(input);
             })
         })
     }

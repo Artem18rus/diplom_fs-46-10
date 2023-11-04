@@ -11,7 +11,4 @@ class Hall extends Model
     protected $table = 'halls';
     protected $guarded = false;
 
-    public function type_standart () {
-        $this->hasMany(Hall::class);
-    }
 }
