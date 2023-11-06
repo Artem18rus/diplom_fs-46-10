@@ -14,8 +14,9 @@ closeCreateHallBtn.addEventListener('click', (e) => {
 })
 
 //обработка клика по крестику в попапе "Добавление зала":
-let smallCrossCreate = document.querySelector('.small_cross_create');
-smallCrossCreate.addEventListener('click', (e) => {
+let crossCreateHall = document.querySelector('.cross_create_hall');
+crossCreateHall.addEventListener('click', (e) => {
+    e.preventDefault();
     popupCreate.style.display = 'none';
 })
 
@@ -204,4 +205,42 @@ let confStepButtonAccent = document.querySelectorAll('.conf-step__button-accent'
             })
         })
     }
+})
+
+
+//обработка появления, скрытия УСТАНОВКИ ЦЕН:
+let pricesHall = document.getElementsByName('prices-hall');
+pricesHall.forEach((item, idx)=> {
+    item.addEventListener('click', (e) => {
+        let itemBoxHiddenPrice = document.querySelectorAll('.item-box-hidden-price');
+        itemBoxHiddenPrice.forEach((el) => el.style.display = 'none');
+        itemBoxHiddenPrice[idx].style.display = 'block';
+    })
+})
+
+
+
+//появление попапа "Добавить фильм"
+let createFilmBtn = document.querySelector('.create-film-btn');
+// console.log(createFilmBtn);
+let popupActive = document.querySelector('.active');
+// console.log(popupActive);
+createFilmBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    popupActive.style.display = 'block';
+});
+
+//обработка клика по "Отменить" в попапе "Добавление фильма"
+let closeCreateFilmBtn = document.querySelector('.close-create_film-btn');
+closeCreateFilmBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    popupActive.style.display = 'none';
+})
+
+
+//обработка клика по крестику в попапе "Добавление фильма":
+let crossCreateFilm = document.querySelector('.cross_create_film');
+crossCreateFilm.addEventListener('click', (e) => {
+    e.preventDefault();
+    popupActive.style.display = 'none';
 })

@@ -95,7 +95,7 @@
               <div class="popup__header">
               <h2 class="popup__title">
                   Добавление зала
-                  <a class="popup__dismiss small_cross_create" href="#"><img src="i/close.png" alt="Закрыть"></a>
+                  <a class="popup__dismiss small_cross_create cross_create_hall" href="#"><img src="i/close.png" alt="Закрыть"></a>
               </h2>
       
               </div>
@@ -253,20 +253,32 @@
           <li><input type="radio" class="conf-step__radio" name="prices-hall" value="Зал 2" checked><span class="conf-step__selector">Зал 2</span></li> --}}
         </ul>
           
-        <p class="conf-step__paragraph">Установите цены для типов кресел:</p>
-          <div class="conf-step__legend">
-            <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" placeholder="0" ></label>
-            за <span class="conf-step__chair conf-step__chair_standart"></span> обычные кресла
-          </div>
-          <div class="conf-step__legend">
-            <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" placeholder="0" value="350"></label>
-            за <span class="conf-step__chair conf-step__chair_vip"></span> VIP кресла
-          </div>
-        
+
+        <form class='halls-price' action="admin/priceStore" method="post" accept-charset="utf-8">
+          @csrf
+          <ul class="list-box-hidden-price">
+            @foreach ($hall as $item)
+              <li class="item-box-hidden-price">
+                <p class="conf-step__paragraph">Установите цены для типов кресел:</p>
+                <div class="conf-step__legend">
+                  <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" placeholder="0" name="{{ $item->nameHall }}:standart-price"></label>
+                    за <span class="conf-step__chair conf-step__chair_standart"></span> обычные кресла
+                </div>
+                <div class="conf-step__legend">
+                  <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" placeholder="0" value="350" name="{{ $item->nameHall }}:vip-price"></label>
+                    за <span class="conf-step__chair conf-step__chair_vip"></span> VIP кресла
+                </div>
+              </li>
+            @endforeach
+          </ul>
+
         <fieldset class="conf-step__buttons text-center">
           <button class="conf-step__button conf-step__button-regular">Отмена</button>
           <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
         </fieldset>
+      </form>
+
+
       </div>
     </section>
     
@@ -276,7 +288,7 @@
       </header>
       <div class="conf-step__wrapper">
         <p class="conf-step__paragraph">
-          <button class="conf-step__button conf-step__button-accent">Добавить фильм</button>
+          <button class="conf-step__button conf-step__button-accent create-film-btn">Добавить фильм</button>
         </p>
         <div class="conf-step__movies">
           <div class="conf-step__movie">
@@ -346,7 +358,33 @@
         <fieldset class="conf-step__buttons text-center">
           <button class="conf-step__button conf-step__button-regular">Отмена</button>
           <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
-        </fieldset>  
+        </fieldset>
+      </div>
+
+      <div class="popup active">
+        <div class="popup__container">
+          <div class="popup__content">
+            <div class="popup__header">
+              <h2 class="popup__title">
+                Добавление фильма
+                <a class="popup__dismiss cross_create_film" href="#"><img src="i/close.png" alt="Закрыть"></a>
+              </h2>
+      
+            </div>
+            <div class="popup__wrapper">
+              <form action="add_movie" method="post" accept-charset="utf-8">
+                <label class="conf-step__label conf-step__label-fullsize" for="name">
+                  Название фильма
+                  <input class="conf-step__input" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name" required>
+                </label>
+                <div class="conf-step__buttons text-center">
+                  <input type="submit" value="Добавить фильм" class="conf-step__button conf-step__button-accent">
+                  <button class="conf-step__button conf-step__button-regular close-create_film-btn">Отменить</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
     

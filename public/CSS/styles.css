@@ -18,6 +18,10 @@
   display: none;
 }
 
+.item-box-hidden-price {
+  display: none;
+}
+
 .greeting-logout {
   margin: 15px;
 }
@@ -522,11 +526,11 @@ box-shadow: 0px 0px 18px 6px #63536c;
     font-weight: 700;
     text-transform: uppercase; }
   .popup.active {
-    display: block;
+    /* display: block; */
     background: rgba(0, 0, 0, 0.7);
     animation: 0.5s ease-out 0s 1 darken; }
     .popup.active .popup__content {
-      top: 100px;
+      /* top: 100px; */
       animation: 0.5s ease-out 0s 1 slideFromTop; }
   .popup__container {
     margin: 0 auto; 

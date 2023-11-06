@@ -90,7 +90,6 @@ class SchemeHallController extends Controller
         foreach ($arrPickTypeChair as $key => $value) {
             $strRes = str_replace("_", " ", $key);
             foreach ($listNameHallBd as $keyBd => $valueBd) {
-                // dump($valueBd);
                 if($valueBd == $strRes) {
                     DB::table('halls')
                     ->where('nameHall', $strRes)
