@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HallFormRequest\StoreHallCountRequest;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Hall;
@@ -14,6 +15,7 @@ class CountHallController extends Controller
 {
     public function index() {
         $hall = Hall::all();
+
         // dd($hall);
         return view('admin/admin', compact('hall'));
     }

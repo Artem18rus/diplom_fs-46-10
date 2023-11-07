@@ -367,18 +367,23 @@
             <div class="popup__header">
               <h2 class="popup__title">
                 Добавление фильма
-                <a class="popup__dismiss cross_create_film" href="#"><img src="i/close.png" alt="Закрыть"></a>
+                <a class="popup__dismiss cross_create_movie" href="#"><img src="i/close.png" alt="Закрыть"></a>
               </h2>
       
             </div>
             <div class="popup__wrapper">
-              <form action="add_movie" method="post" accept-charset="utf-8">
+              <form action="/admin/movieStore" method="post" accept-charset="utf-8">
+                @csrf
                 <label class="conf-step__label conf-step__label-fullsize" for="name">
                   Название фильма
-                  <input class="conf-step__input" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name" required>
+                  <input class="conf-step__input add-movie_input" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name" required>
+                </label>
+                <label class="conf-step__label conf-step__label-fullsize" for="duration">
+                  Продолжительность фильма в мин
+                  <input class="conf-step__input add-movie_input" type="text" placeholder="Например, &laquo;130&raquo;" name="duration" required>
                 </label>
                 <div class="conf-step__buttons text-center">
-                  <input type="submit" value="Добавить фильм" class="conf-step__button conf-step__button-accent">
+                  <input type="submit" value="Добавить фильм" class="conf-step__button conf-step__button-accent add-movie_btn">
                   <button class="conf-step__button conf-step__button-regular close-create_film-btn">Отменить</button>
                 </div>
               </form>
