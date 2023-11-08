@@ -380,7 +380,7 @@
                 </label>
                 <label class="conf-step__label conf-step__label-fullsize" for="duration">
                   Продолжительность фильма в мин
-                  <input class="conf-step__input add-movie_input" type="text" placeholder="Например, &laquo;130&raquo;" name="duration" required>
+                  <input class="conf-step__input add-duration_input" type="text" placeholder="Например, &laquo;130&raquo;" name="duration" required>
                 </label>
                 <div class="conf-step__buttons text-center">
                   <input type="submit" value="Добавить фильм" class="conf-step__button conf-step__button-accent add-movie_btn">

@@ -251,13 +251,14 @@ addMovieBtn.addEventListener('click', (e) => {
     // e.preventDefault();
     let addMovieInput = document.querySelector('.add-movie_input');
     // console.log(addMovieInput.value);
+    let addDurationInput = document.querySelector('.add-duration_input');
     let confStepMovies = document.querySelector('.conf-step__movies');
     console.log(confStepMovies);
     confStepMovies.insertAdjacentHTML('beforeend', `
     <div class="conf-step__movie">
         <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
         <h3 class="conf-step__movie-title">${addMovieInput.value}</h3>
-        <p class="conf-step__movie-duration">130 минут</p>
+        <p class="conf-step__movie-duration">${addDurationInput.value} минут</p>
     </div>
     `);
     popupActive.style.display = 'none';

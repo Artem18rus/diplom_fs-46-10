@@ -33,7 +33,7 @@ class MovieController extends Controller
     {
         // $data = $request->all();
         $params = $request->except('_token');
-        dump($params);
+        // dd($params);
 
         $name = $request->input('name');
         $duration = $request->input('duration');
