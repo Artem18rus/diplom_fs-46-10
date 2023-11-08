@@ -372,15 +372,16 @@
       
             </div>
             <div class="popup__wrapper">
-              <form action="/admin/movieStore" method="post" accept-charset="utf-8">
+              <form id="form-add-movie">
+                {{-- action="/admin/movieStore" method="post" accept-charset="utf-8" --}}
                 @csrf
                 <label class="conf-step__label conf-step__label-fullsize" for="name">
                   Название фильма
-                  <input class="conf-step__input add-movie_input" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name" required>
+                  <input class="conf-step__input add-movie_input" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name" id="name" required>
                 </label>
                 <label class="conf-step__label conf-step__label-fullsize" for="duration">
                   Продолжительность фильма в мин
-                  <input class="conf-step__input add-duration_input" type="text" placeholder="Например, &laquo;130&raquo;" name="duration" required>
+                  <input class="conf-step__input add-duration_input" type="text" placeholder="Например, &laquo;130&raquo;" name="duration" id="duration" required>
                 </label>
                 <div class="conf-step__buttons text-center">
                   <input type="submit" value="Добавить фильм" class="conf-step__button conf-step__button-accent add-movie_btn">
@@ -408,5 +409,42 @@
   <script src="js/accordeon.js"></script>
   <script src="js/index.js"></script>
   {{-- <script src="js/pic.js"></script> --}}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <script>
+    $('#form-add-movie').on('submit',function(event){
+        event.preventDefault();
+        let name = $('#name').val();
+        let duration = $('#duration').val();
+       
+        $.ajax({
+          url: "/admin/movieStore",
+          type:"POST",
+          data:{
+            "_token": "{{ csrf_token() }}",
+            name:name,
+            duration:duration,
+          },
+          success:function(response){
+            console.log(response);
+          },
+        });
+    let addMovieInput = document.querySelector('.add-movie_input');
+    // console.log(addMovieInput.value);
+    let addDurationInput = document.querySelector('.add-duration_input');
+    let confStepMovies = document.querySelector('.conf-step__movies');
+    console.log(confStepMovies);
+    confStepMovies.insertAdjacentHTML('beforeend', `
+    <div class="conf-step__movie">
+        <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
+        <h3 class="conf-step__movie-title">${addMovieInput.value}</h3>
+        <p class="conf-step__movie-duration">${addDurationInput.value} минут</p>
+    </div>
+    `);
+
+        let popupActive = document.querySelector('.active');
+        popupActive.style.display = 'none';
+      })
+  </script>
 </body>
 </html>

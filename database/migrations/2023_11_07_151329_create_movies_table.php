@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('movies', function (Blueprint $table) {
             $table->id();
-            $table->string('NameMovie')->nullable();
-            $table->string('DurationMovie')->nullable();
+            $table->string('nameMovie')->nullable();
+            $table->string('durationMovie')->nullable();
             $table->timestamps();
         });
     }

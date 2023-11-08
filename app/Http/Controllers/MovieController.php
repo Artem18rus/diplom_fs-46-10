@@ -31,18 +31,22 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        // $data = $request->all();
-        $params = $request->except('_token');
-        // dd($params);
+        // $params = $request->except('_token');
+        // $name = $request->input('name');
+        // $duration = $request->input('duration');
+        // $newMovie = new Movie;
+        // $newMovie->NameMovie = $name;
+        // $newMovie->DurationMovie = $duration;
+        // $newMovie->save();
 
-        $name = $request->input('name');
-        $duration = $request->input('duration');
-        $newMovie = new Movie;
-        $newMovie->NameMovie = $name;
-        $newMovie->DurationMovie = $duration;
-        $newMovie->save();
-
-        return redirect()->action([CountHallController::class, 'index']);
+        // return redirect()->action([CountHallController::class, 'index']);
+        
+        $movie = new Movie;
+        $movie->nameMovie = $request->name;
+        $movie->durationMovie = $request->duration;
+        $movie->save();
+        
+        return response()->json(['success'=>'Form is successfully submitted!']);
     }
 
     /**
