@@ -13,7 +13,10 @@
 </head>
 
 <body>
-
+{{-- {{$movie}} --}}
+@foreach ($movie as $item)
+  {{$item}};
+@endforeach
   <div class="greeting-logout">
       <div class="greeting-text" href="#">
           Привет, {{ Auth::user()->name }}!
@@ -291,7 +294,16 @@
           <button class="conf-step__button conf-step__button-accent create-film-btn">Добавить фильм</button>
         </p>
         <div class="conf-step__movies">
-          <div class="conf-step__movie">
+
+          @foreach ($movie as $item)
+            <div class="conf-step__movie">
+              <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
+              <h3 class="conf-step__movie-title">{{$item->nameMovie}}</h3>
+              <p class="conf-step__movie-duration">{{$item->durationMovie}} минут</p>
+            </div>
+          @endforeach
+
+          {{-- <div class="conf-step__movie">
             <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
             <h3 class="conf-step__movie-title">Звёздные войны XXIII: Атака клонированных клонов</h3>
             <p class="conf-step__movie-duration">130 минут</p>
@@ -319,7 +331,7 @@
             <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
             <h3 class="conf-step__movie-title">Кот Да Винчи</h3>
             <p class="conf-step__movie-duration">100 минут</p>
-          </div>
+          </div> --}}
         </div>
         
         <div class="conf-step__seances">
@@ -405,46 +417,46 @@
     </section>
   </main>
 
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="js/accordeon.js"></script>
   <script src="js/index.js"></script>
   {{-- <script src="js/pic.js"></script> --}}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 
   <script>
     $('#form-add-movie').on('submit',function(event){
-        event.preventDefault();
-        let name = $('#name').val();
-        let duration = $('#duration').val();
-       
-        $.ajax({
-          url: "/admin/movieStore",
-          type:"POST",
-          data:{
-            "_token": "{{ csrf_token() }}",
-            name:name,
-            duration:duration,
-          },
-          success:function(response){
-            console.log(response);
-          },
-        });
-    let addMovieInput = document.querySelector('.add-movie_input');
-    // console.log(addMovieInput.value);
-    let addDurationInput = document.querySelector('.add-duration_input');
-    let confStepMovies = document.querySelector('.conf-step__movies');
-    console.log(confStepMovies);
-    confStepMovies.insertAdjacentHTML('beforeend', `
-    <div class="conf-step__movie">
-        <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
-        <h3 class="conf-step__movie-title">${addMovieInput.value}</h3>
-        <p class="conf-step__movie-duration">${addDurationInput.value} минут</p>
-    </div>
-    `);
+      event.preventDefault();
+      let name = $('#name').val();
+      let duration = $('#duration').val();
+      
+      $.ajax({
+        url: "/admin/movieStore",
+        type:"POST",
+        data:{
+          "_token": "{{ csrf_token() }}",
+          name:name,
+          duration:duration,
+        },
+        success:function(response){
+          console.log(response);
+        },
+      });
+      let addMovieInput = document.querySelector('.add-movie_input');
+      // console.log(addMovieInput.value);
+      let addDurationInput = document.querySelector('.add-duration_input');
+      let confStepMovies = document.querySelector('.conf-step__movies');
+      console.log(confStepMovies);
+      confStepMovies.insertAdjacentHTML('beforeend', `
+        <div class="conf-step__movie">
+            <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
+            <h3 class="conf-step__movie-title">${addMovieInput.value}</h3>
+            <p class="conf-step__movie-duration">${addDurationInput.value} минут</p>
+        </div>
+      `);
 
-        let popupActive = document.querySelector('.active');
-        popupActive.style.display = 'none';
-      })
+      let popupActive = document.querySelector('.active');
+      popupActive.style.display = 'none';
+    })
   </script>
 </body>
 </html>

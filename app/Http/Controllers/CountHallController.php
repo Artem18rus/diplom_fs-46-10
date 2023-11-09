@@ -17,7 +17,8 @@ class CountHallController extends Controller
         $hall = Hall::all();
 
         // dd($hall);
-        return view('admin/admin', compact('hall'));
+        // return view('admin/admin', compact('hall'));
+        return view('admin/admin', ['hall' => Hall::all(), 'movie' => Movie::all()]);
     }
 
     public function store(StoreHallCountRequest $request) {

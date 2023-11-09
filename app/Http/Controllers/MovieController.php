@@ -32,6 +32,8 @@ class MovieController extends Controller
     public function store(Request $request)
     {
         // $params = $request->except('_token');
+        // $data = Movie::all();
+        // // dd($data);
         // $name = $request->input('name');
         // $duration = $request->input('duration');
         // $newMovie = new Movie;
@@ -46,7 +48,8 @@ class MovieController extends Controller
         $movie->durationMovie = $request->duration;
         $movie->save();
         
-        return response()->json(['success'=>'Form is successfully submitted!']);
+        // return response()->json(['success'=>'Form is successfully submitted!']);
+        return redirect()->action([CountHallController::class, 'index']);
     }
 
     /**
