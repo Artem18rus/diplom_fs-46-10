@@ -22,7 +22,7 @@ class StorePriceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            '*price' => ['required', 'min:2', 'max:4'],
+            '*price' => ['bail', 'required', 'min:2', 'max:4'],
         ];
     }
 }

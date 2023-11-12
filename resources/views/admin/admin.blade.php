@@ -14,9 +14,9 @@
 
 <body>
 {{-- {{$movie}} --}}
-@foreach ($movie as $item)
+{{-- @foreach ($movie as $item)
   {{$item}};
-@endforeach
+@endforeach --}}
   <div class="greeting-logout">
       <div class="greeting-text" href="#">
           Привет, {{ Auth::user()->name }}!
@@ -294,46 +294,50 @@
           <button class="conf-step__button conf-step__button-accent create-film-btn">Добавить фильм</button>
         </p>
         <div class="conf-step__movies">
-
           @foreach ($movie as $item)
             <div class="conf-step__movie">
               <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
               <h3 class="conf-step__movie-title">{{$item->nameMovie}}</h3>
-              <p class="conf-step__movie-duration">{{$item->durationMovie}} минут</p>
+              <p class="conf-step__movie-duration">{{$item->durationMovie}} минут(ы)</p>
             </div>
           @endforeach
-
-          {{-- <div class="conf-step__movie">
-            <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
-            <h3 class="conf-step__movie-title">Звёздные войны XXIII: Атака клонированных клонов</h3>
-            <p class="conf-step__movie-duration">130 минут</p>
-          </div>
-          
-          <div class="conf-step__movie">
-            <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
-            <h3 class="conf-step__movie-title">Миссия выполнима</h3>
-            <p class="conf-step__movie-duration">120 минут</p>
-          </div>
-          
-          <div class="conf-step__movie">
-            <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
-            <h3 class="conf-step__movie-title">Серая пантера</h3>
-            <p class="conf-step__movie-duration">90 минут</p>
-          </div>
-          
-          <div class="conf-step__movie">
-            <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
-            <h3 class="conf-step__movie-title">Движение вбок</h3>
-            <p class="conf-step__movie-duration">95 минут</p>
-          </div>   
-          
-          <div class="conf-step__movie">
-            <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
-            <h3 class="conf-step__movie-title">Кот Да Винчи</h3>
-            <p class="conf-step__movie-duration">100 минут</p>
-          </div> --}}
         </div>
+
+        <div class="popup active">
+          <div class="popup__container">
+            <div class="popup__content">
+              <div class="popup__header">
+                <h2 class="popup__title">
+                  Добавление фильма
+                  <a class="popup__dismiss cross_create_movie" href="#"><img src="i/close.png" alt="Закрыть"></a>
+                </h2>
         
+              </div>
+              <div class="popup__wrapper">
+                <form id="form-add-movie">
+                  {{-- action="/admin/movieStore" method="post" accept-charset="utf-8" --}}
+                  @csrf
+                  <label class="conf-step__label conf-step__label-fullsize" for="name">
+                    Название фильма
+                    <input class="conf-step__input add-movie_input" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name" id="name" required>
+                  </label>
+                  <label class="conf-step__label conf-step__label-fullsize" for="duration">
+                    Продолжительность фильма в мин
+                    <input class="conf-step__input add-duration_input" type="text" placeholder="Например, &laquo;130&raquo;" name="duration" id="duration" required>
+                  </label>
+                  <div class="conf-step__buttons text-center">
+                    <input type="submit" value="Добавить фильм" class="conf-step__button conf-step__button-accent add-movie_btn">
+                    <button class="conf-step__button conf-step__button-regular close-create_film-btn">Отменить</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="conf-step__paragraph">
+          <button class="conf-step__button conf-step__button-accent create-seances-btn">Добавить сеанс</button>
+        </p>
         <div class="conf-step__seances">
           <div class="conf-step__seances-hall">
             <h3 class="conf-step__seances-title">Зал 1</h3>
@@ -349,7 +353,7 @@
               <div class="conf-step__seances-movie" style="width: 65px; background-color: rgb(202, 255, 133); left: 420px;">
                 <p class="conf-step__seances-movie-title">Звёздные войны XXIII: Атака клонированных клонов</p>
                 <p class="conf-step__seances-movie-start">14:00</p>
-              </div>              
+              </div>
             </div>
           </div>
           <div class="conf-step__seances-hall">
@@ -366,6 +370,48 @@
             </div>
           </div>
         </div>
+
+        <div class="popup popup-seances">
+          <div class="popup__container">
+            <div class="popup__content">
+              <div class="popup__header">
+                <h2 class="popup__title">
+                  Добавление сеанса
+                  <a class="popup__dismiss cross_create_seances" href="#"><img src="i/close.png" alt="Закрыть"></a>
+                </h2>
+        
+              </div>
+              <div class="popup__wrapper">
+                <form action="add_movie" method="post" accept-charset="utf-8">
+                  <label class="conf-step__label conf-step__label-fullsize" for="hall">
+                    Название зала
+                    <select class="conf-step__input" name="hall" required>
+                      @foreach ($hall as $item)
+                        <option value={{ mb_substr($item->nameHall, 4, strlen($item->nameHall)) }}>{{$item->nameHall}}</option>
+                      @endforeach
+                      {{-- <option value="1" selected>Зал 1</option>
+                      <option value="2">Зал 2</option> --}}
+                    </select>
+                  </label>
+                  <label class="conf-step__label conf-step__label-fullsize" for="name">
+                    Время начала
+                    <input class="conf-step__input" type="time" value="00:00" name="start_time" required>
+                  </label>
+        
+                  <label class="conf-step__label conf-step__label-fullsize" for="name">
+                    Название зала
+                    <input class="conf-step__input" type="text" placeholder="Например, &laquo;Зал 1&raquo;" name="name" required>
+                  </label>
+        
+                  <div class="conf-step__buttons text-center">
+                    <input type="submit" value="Добавить" class="conf-step__button conf-step__button-accent">
+                    <button class="conf-step__button conf-step__button-regular close-create_seances-btn">Отменить</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
         
         <fieldset class="conf-step__buttons text-center">
           <button class="conf-step__button conf-step__button-regular">Отмена</button>
@@ -373,37 +419,7 @@
         </fieldset>
       </div>
 
-      <div class="popup active">
-        <div class="popup__container">
-          <div class="popup__content">
-            <div class="popup__header">
-              <h2 class="popup__title">
-                Добавление фильма
-                <a class="popup__dismiss cross_create_movie" href="#"><img src="i/close.png" alt="Закрыть"></a>
-              </h2>
-      
-            </div>
-            <div class="popup__wrapper">
-              <form id="form-add-movie">
-                {{-- action="/admin/movieStore" method="post" accept-charset="utf-8" --}}
-                @csrf
-                <label class="conf-step__label conf-step__label-fullsize" for="name">
-                  Название фильма
-                  <input class="conf-step__input add-movie_input" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name" id="name" required>
-                </label>
-                <label class="conf-step__label conf-step__label-fullsize" for="duration">
-                  Продолжительность фильма в мин
-                  <input class="conf-step__input add-duration_input" type="text" placeholder="Например, &laquo;130&raquo;" name="duration" id="duration" required>
-                </label>
-                <div class="conf-step__buttons text-center">
-                  <input type="submit" value="Добавить фильм" class="conf-step__button conf-step__button-accent add-movie_btn">
-                  <button class="conf-step__button conf-step__button-regular close-create_film-btn">Отменить</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+
     </section>
     
     <section class="conf-step">
@@ -439,23 +455,22 @@
         },
         success:function(response){
           console.log(response);
+          let responseEndValue = response[response.length-1];
+          console.log(response[response.length-1]);
+          let addMovieInput = document.querySelector('.add-movie_input');
+          let addDurationInput = document.querySelector('.add-duration_input');
+          let confStepMovies = document.querySelector('.conf-step__movies');
+          confStepMovies.insertAdjacentHTML('beforeend', `
+            <div class="conf-step__movie">
+                <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
+                <h3 class="conf-step__movie-title">${responseEndValue.nameMovie}</h3>
+                <p class="conf-step__movie-duration">${responseEndValue.durationMovie} минут(ы)</p>
+            </div>
+          `);
+          let popupActive = document.querySelector('.active');
+          popupActive.style.display = 'none';
         },
       });
-      let addMovieInput = document.querySelector('.add-movie_input');
-      // console.log(addMovieInput.value);
-      let addDurationInput = document.querySelector('.add-duration_input');
-      let confStepMovies = document.querySelector('.conf-step__movies');
-      console.log(confStepMovies);
-      confStepMovies.insertAdjacentHTML('beforeend', `
-        <div class="conf-step__movie">
-            <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
-            <h3 class="conf-step__movie-title">${addMovieInput.value}</h3>
-            <p class="conf-step__movie-duration">${addDurationInput.value} минут</p>
-        </div>
-      `);
-
-      let popupActive = document.querySelector('.active');
-      popupActive.style.display = 'none';
     })
   </script>
 </body>

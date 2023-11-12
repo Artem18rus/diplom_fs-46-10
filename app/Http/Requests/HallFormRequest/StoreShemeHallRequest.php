@@ -22,8 +22,8 @@ class StoreShemeHallRequest extends FormRequest
     public function rules(): array
     {
         return [
-            '*_r' => ['required', 'max:2'],
-            '*_c' => ['required', 'max:2'],
+            '*_r' => ['bail', 'required', 'max:2'],
+            '*_c' => ['bail', 'required', 'max:2'],
         ];
     }
 }

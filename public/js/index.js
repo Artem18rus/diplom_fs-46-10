@@ -296,3 +296,26 @@ crossCreateMovie.addEventListener('click', (e) => {
 //     let popupActive = document.querySelector('.active');
 //     popupActive.style.display = 'none';
 //   })
+
+//появление попапа "Добавить сеанс"
+let createSeancesBtn = document.querySelector('.create-seances-btn');
+let popupSeances = document.querySelector('.popup-seances');
+createSeancesBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    popupSeances.style.display = 'block';
+});
+
+//обработка клика по "Отменить" в попапе "Добавление сеанса"
+let closeCreateSeancesBtn = document.querySelector('.close-create_seances-btn');
+console.log(closeCreateSeancesBtn);
+closeCreateSeancesBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    popupSeances.style.display = 'none';
+});
+
+//обработка клика по крестику в попапе "Добавление сеанса":
+let crossCreateSeances = document.querySelector('.cross_create_seances');
+crossCreateSeances.addEventListener('click', (e) => {
+    e.preventDefault();
+    popupSeances.style.display = 'none';
+})
