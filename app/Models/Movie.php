@@ -10,4 +10,8 @@ class Movie extends Model
     use HasFactory;
     protected $table = 'movies';
     protected $guarded = false;
+
+    public function movies() {
+        return $this->hasMany(Movie::class);
+    }
 }

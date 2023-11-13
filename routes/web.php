@@ -24,6 +24,9 @@ Route::group(['middleware'=>'auth'], function() {
   // Route::post('/admin/movieStore', [App\Http\Controllers\MovieController::class, 'store'])->name('admin-movie.store');
   // Route::get('/admin/movieStore', [App\Http\Controllers\MovieController::class, 'create']);
   Route::post('/admin/movieStore', [App\Http\Controllers\MovieController::class, 'store']);
+
+  // Route::get('/admin/seanceIndex', [App\Http\Controllers\SeanceController::class, 'index']);
+  Route::post('/admin/add_seance', [App\Http\Controllers\SeanceController::class, 'store']);
   
 });
 

@@ -13,7 +13,7 @@ class SeanceController extends Controller
      */
     public function index()
     {
-        //
+        dd('/admin/seanceIndex');
     }
 
     /**
@@ -29,7 +29,12 @@ class SeanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
+        $seanse = new Seance;
+        $seanse->startTime = $request->start_time;
+        $seanse->hall_id = $request->hall_id;
+        $seanse->movie_id = $request->movie_id;
+        // $movie->save();
     }
 
     /**

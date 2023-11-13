@@ -11,4 +11,7 @@ class Hall extends Model
     protected $table = 'halls';
     protected $guarded = false;
 
+    public function seances() {
+        return $this->hasMany(Seance::class);
+    }
 }
