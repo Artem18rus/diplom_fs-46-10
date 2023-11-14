@@ -1,3 +1,4 @@
+
 //появление попапа "Создать зал" / "Добавить зал"
 let createHallBtn = document.querySelector('.create-hall-btn');
 let popupCreate = document.querySelector('.popap_create');
@@ -262,40 +263,6 @@ crossCreateMovie.addEventListener('click', (e) => {
 //     `);
 //     popupActive.style.display = 'none';
 // })
-
-// $('#form-add-movie').on('submit',function(event){
-//     event.preventDefault();
-//     let name = $('#name').val();
-//     let duration = $('#duration').val();
-   
-//     $.ajax({
-//       url: "/admin/movieStore",
-//       type:"POST",
-//       data:{
-//         "_token": "{{ csrf_token() }}",
-//         name:name,
-//         duration:duration,
-//       },
-//       success:function(response){
-//         console.log(response);
-//       },
-//     });
-// let addMovieInput = document.querySelector('.add-movie_input');
-// // console.log(addMovieInput.value);
-// let addDurationInput = document.querySelector('.add-duration_input');
-// let confStepMovies = document.querySelector('.conf-step__movies');
-// console.log(confStepMovies);
-// confStepMovies.insertAdjacentHTML('beforeend', `
-// <div class="conf-step__movie">
-//     <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
-//     <h3 class="conf-step__movie-title">${addMovieInput.value}</h3>
-//     <p class="conf-step__movie-duration">${addDurationInput.value} минут</p>
-// </div>
-// `);
-// 
-//     let popupActive = document.querySelector('.active');
-//     popupActive.style.display = 'none';
-//   })
 
 //появление попапа "Добавить сеанс"
 let createSeancesBtn = document.querySelector('.create-seances-btn');

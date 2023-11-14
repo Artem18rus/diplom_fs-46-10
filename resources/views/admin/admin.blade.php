@@ -5,15 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>ИдёмВКино</title>
   <link rel="stylesheet" href="CSS/normalize.css">
   <link rel="stylesheet" href="CSS/styles.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
-{{$movie}}
+{{-- {{$movie}} --}}
 {{-- @foreach ($movie as $item)
   {{$item}};
 @endforeach --}}
@@ -319,11 +319,11 @@
                   @csrf
                   <label class="conf-step__label conf-step__label-fullsize" for="name">
                     Название фильма
-                    <input class="conf-step__input add-movie_input" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name" id="name" required>
+                    <input class="conf-step__input add-movie_input" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name" id="name-movie" required>
                   </label>
                   <label class="conf-step__label conf-step__label-fullsize" for="duration">
                     Продолжительность фильма в мин
-                    <input class="conf-step__input add-duration_input" type="text" placeholder="Например, &laquo;130&raquo;" name="duration" id="duration" required>
+                    <input class="conf-step__input add-duration_input" type="text" placeholder="Например, &laquo;130&raquo;" name="duration" id="duration-movie" required>
                   </label>
                   <div class="conf-step__buttons text-center">
                     <input type="submit" value="Добавить фильм" class="conf-step__button conf-step__button-accent add-movie_btn">
@@ -382,11 +382,12 @@
         
               </div>
               <div class="popup__wrapper">
-                <form action="admin/add_seance" method="post" accept-charset="utf-8" id="add_seance">
+                <form id="add_seance">
+                  {{-- action="admin/add_seance" method="post" accept-charset="utf-8"  --}}
                   @csrf
                   <label class="conf-step__label conf-step__label-fullsize" for="hall">
                     Название зала
-                    <select class="conf-step__input" name="hall_id" required>
+                    <select class="conf-step__input selected_name_hall" name="hall_id" required>
                       @foreach ($hall as $item)
                         <option value={{ $item->id }}>{{$item->nameHall}}</option>
                       @endforeach
@@ -395,9 +396,9 @@
                     </select>
                   </label>
                   {{-- <div class="popup_add_field"> --}}
-                    <label class="conf-step__label conf-step__label-fullsize" for="name">
+                    <label class="conf-step__label conf-step__label-fullsize ind helper-class" for="name">
                       Время начала
-                      <input class="conf-step__input" type="time" value="00:00" name="start_time" required>
+                      <input class="conf-step__input selected_start_time" type="time" value="00:00" name="start_time" required>
                     </label>
           
   {{--                   <label class="conf-step__label conf-step__label-fullsize" for="name">
@@ -407,7 +408,7 @@
 
                     <label class="conf-step__label conf-step__label-fullsize" for="movie">
                       Название фильма
-                      <select class="conf-step__input" name="movie_id" required>
+                      <select class="conf-step__input selected_name_movie" name="movie_id" required>
                         @foreach ($movie as $item)
                           <option value={{ $item->id }}>{{$item->nameMovie}}</option>
                         @endforeach
@@ -415,18 +416,18 @@
                         <option value="2">Зал 2</option> --}}
                       </select>
                     </label>
-                  {{-- </div> --}}
-                  {{-- <a  href="#"> --}}
+
                     <img class="add_cross" src="i/cross-sign.png" alt="Добавить" onclick="event.preventDefault();
+                    let ind = document.querySelectorAll('.ind').length;
                     document.querySelector('.add_cross').insertAdjacentHTML('beforebegin', `
-                      <label class='conf-step__label conf-step__label-fullsize' for='name'>
+                      <label class='conf-step__label conf-step__label-fullsize ind helper-class' for='name'>
                         Время начала
-                        <input class='conf-step__input' type='time' value='00:00' name='start_time' required>
+                        <input class='conf-step__input selected_start_time' type='time' value='00:00' name='start_time-${ind}' required>
                       </label>
           
                       <label class='conf-step__label conf-step__label-fullsize' for='movie'>
                         Название фильма
-                        <select class='conf-step__input' name='movie_id' required>
+                        <select class='conf-step__input selected_name_movie' name='movie_id-${ind}' required>
                           @foreach ($movie as $item)
                             <option value={{ $item->id }}>{{$item->nameMovie}}</option>
                           @endforeach
@@ -474,8 +475,8 @@
   <script>
     $('#form-add-movie').on('submit',function(event){
       event.preventDefault();
-      let name = $('#name').val();
-      let duration = $('#duration').val();
+      let name = $('#name-movie').val();
+      let duration = $('#duration-movie').val();
       
       $.ajax({
         url: "/admin/movieStore",
@@ -486,21 +487,35 @@
           duration:duration,
         },
         success:function(response){
-          console.log(response);
-          let responseEndValue = response[response.length-1];
-          console.log(response[response.length-1]);
-          let addMovieInput = document.querySelector('.add-movie_input');
-          let addDurationInput = document.querySelector('.add-duration_input');
-          let confStepMovies = document.querySelector('.conf-step__movies');
-          confStepMovies.insertAdjacentHTML('beforeend', `
-            <div class="conf-step__movie">
-                <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
-                <h3 class="conf-step__movie-title">${responseEndValue.nameMovie}</h3>
-                <p class="conf-step__movie-duration">${responseEndValue.durationMovie} минут(ы)</p>
-            </div>
-          `);
-          let popupActive = document.querySelector('.active');
-          popupActive.style.display = 'none';
+          location.reload();
+        },
+      });
+    })
+
+    $('#add_seance').on('submit',function(event){
+      event.preventDefault();
+      // let name = $('#name-movie').val();
+      // let duration = $('#duration-movie').val();
+      let result = [];
+      let options = select && select.options;
+      let opt;
+      for (let i=0, iLen=options.length; i<iLen; i++) {
+        opt = options[i];
+        if (opt.selected) {
+          result.push(opt.value || opt.text);
+        }
+      }
+      
+      $.ajax({
+        url: "/admin/movieStore",
+        type:"POST",
+        data:{
+          "_token": "{{ csrf_token() }}",
+          name:name,
+          duration:duration,
+        },
+        success:function(response){
+          location.reload();
         },
       });
     })
