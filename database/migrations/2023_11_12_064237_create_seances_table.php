@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('seances', function (Blueprint $table) {
             $table->id();
-            $table->string('startTime')->nullable();
+            $table->json('startTime')->nullable();
             $table->foreignId('hall_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('movie_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();

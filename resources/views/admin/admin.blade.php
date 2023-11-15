@@ -513,6 +513,7 @@
       $.ajax({
         url: "/admin/add_seance",
         type:"POST",
+        dataType: 'json',
         data:{
           "_token": "{{ csrf_token() }}",
           hallTagId:hallTagId,

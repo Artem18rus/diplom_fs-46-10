@@ -31,16 +31,16 @@ class SeanceController extends Controller
     {
         //dd($request->all());
         $seanse = new Seance;
-        // $seanse->startTime = json_encode($request->timeTag);
-        // $seanse->hall_id = $request->hallTagId;
-        // $seanse->movie_id = json_encode($request->movieTagId);
-        // $seanse->save();
+        $seanse->startTime = $request->timeTag[0];
+        $seanse->hall_id = $request->hallTagId;
+        $seanse->movie_id = $request->movieTagId[0];
+        $seanse->save();
 
 
         // $data = $request;
         // return response()->json(['success'=>'Form is successfully submitted!']);
         // return redirect()->action([CountHallController::class, 'index']);
-        return response()->json($seanse->startTime);
+        return response()->json($seanse);
     }
 
     /**
