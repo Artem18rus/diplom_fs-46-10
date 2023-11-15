@@ -387,7 +387,7 @@
                   @csrf
                   <label class="conf-step__label conf-step__label-fullsize" for="hall">
                     Название зала
-                    <select class="conf-step__input selected_name_hall" name="hall_id" required>
+                    <select class="conf-step__input selected_name_hall" name="hall_id" id="hall-tag-id" required>
                       @foreach ($hall as $item)
                         <option value={{ $item->id }}>{{$item->nameHall}}</option>
                       @endforeach
@@ -398,7 +398,7 @@
                   {{-- <div class="popup_add_field"> --}}
                     <label class="conf-step__label conf-step__label-fullsize ind helper-class" for="name">
                       Время начала
-                      <input class="conf-step__input selected_start_time" type="time" value="00:00" name="start_time" required>
+                      <input class="conf-step__input selected_start_time" type="time" value="00:00" name="start_time" id="time-tag-id" required>
                     </label>
           
   {{--                   <label class="conf-step__label conf-step__label-fullsize" for="name">
@@ -408,7 +408,7 @@
 
                     <label class="conf-step__label conf-step__label-fullsize" for="movie">
                       Название фильма
-                      <select class="conf-step__input selected_name_movie" name="movie_id" required>
+                      <select class="conf-step__input selected_name_movie" name="movie_id" id="movie-tag-id" required>
                         @foreach ($movie as $item)
                           <option value={{ $item->id }}>{{$item->nameMovie}}</option>
                         @endforeach
@@ -422,14 +422,14 @@
                     document.querySelector('.add_cross').insertAdjacentHTML('beforebegin', `
                       <label class='conf-step__label conf-step__label-fullsize ind helper-class' for='name'>
                         Время начала
-                        <input class='conf-step__input selected_start_time' type='time' value='00:00' name='start_time-${ind}' required>
+                        <input class='conf-step__input selected_start_time' type='time' value='00:00' name='start_time-${ind}' id='time-tag-id' required>
                       </label>
           
                       <label class='conf-step__label conf-step__label-fullsize' for='movie'>
                         Название фильма
-                        <select class='conf-step__input selected_name_movie' name='movie_id-${ind}' required>
+                        <select class='conf-step__input selected_name_movie' name='movie_id-${ind}' id='movie-tag-id' required>
                           @foreach ($movie as $item)
-                            <option value={{ $item->id }}>{{$item->nameMovie}}</option>
+                            <option value={{ $item->id }}>{{ $item->nameMovie }}</option>
                           @endforeach
                         </select>
                       </label>
@@ -473,11 +473,10 @@
 
 
   <script>
-    $('#form-add-movie').on('submit',function(event){
+    $('#form-add-movie').on('submit', function(event){
       event.preventDefault();
       let name = $('#name-movie').val();
       let duration = $('#duration-movie').val();
-      
       $.ajax({
         url: "/admin/movieStore",
         type:"POST",
@@ -487,35 +486,43 @@
           duration:duration,
         },
         success:function(response){
+          // console.log(response);
           location.reload();
         },
       });
     })
 
-    $('#add_seance').on('submit',function(event){
+    $('#add_seance').on('submit', function(event){
       event.preventDefault();
-      // let name = $('#name-movie').val();
-      // let duration = $('#duration-movie').val();
-      let result = [];
-      let options = select && select.options;
-      let opt;
-      for (let i=0, iLen=options.length; i<iLen; i++) {
-        opt = options[i];
-        if (opt.selected) {
-          result.push(opt.value || opt.text);
-        }
-      }
+      
+      let hallTagId = $('#hall-tag-id').val();
+      let timeTag = [];
+      let timeTagList = document.querySelectorAll('#time-tag-id');
+      $.each(timeTagList, function(i, v) {
+        // console.log(v.value);
+        timeTag.push(v.value);
+      })
+
+      let movieTagId = [];
+      let movieTagList = document.querySelectorAll('#movie-tag-id');
+      $.each(movieTagList, function(i, v) {
+        // console.log(v.value);
+        movieTagId.push(v.value);
+      })
       
       $.ajax({
-        url: "/admin/movieStore",
+        url: "/admin/add_seance",
         type:"POST",
         data:{
           "_token": "{{ csrf_token() }}",
-          name:name,
-          duration:duration,
+          hallTagId:hallTagId,
+          timeTag:timeTag,
+          movieTagId:movieTagId,
         },
         success:function(response){
-          location.reload();
+          console.log(response);
+          // window.location.replace('/admin/add_seance')
+          // location.reload();
         },
       });
     })
