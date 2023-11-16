@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Hall;
 use Illuminate\Support\Facades\Schema;
 use PhpParser\Node\Stmt\Foreach_;
+use App\Models\Seance;
 
 class CountHallController extends Controller
 {
@@ -18,7 +19,7 @@ class CountHallController extends Controller
 
         // dd($hall);
         // return view('admin/admin', compact('hall'));
-        return view('admin/admin', ['hall' => Hall::all(), 'movie' => Movie::all()]);
+        return view('admin/admin', ['hall' => Hall::all(), 'movie' => Movie::all(), 'seance' => Seance::all()]);
     }
 
     public function store(StoreHallCountRequest $request) {

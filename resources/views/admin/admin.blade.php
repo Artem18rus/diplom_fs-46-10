@@ -13,7 +13,7 @@
 </head>
 
 <body>
-{{-- {{$movie}} --}}
+{{$seance}}
 {{-- @foreach ($movie as $item)
   {{$item}};
 @endforeach --}}
@@ -339,24 +339,26 @@
           <button class="conf-step__button conf-step__button-accent create-seances-btn">Добавить сеанс</button>
         </p>
         <div class="conf-step__seances">
+          @foreach ($seance as $item)
           <div class="conf-step__seances-hall">
-            <h3 class="conf-step__seances-title">Зал 1</h3>
+            <h3 class="conf-step__seances-title">{{ DB::table('halls')->where('id', $item->hall_id)->value('nameHall') }}</h3>
             <div class="conf-step__seances-timeline">
               <div class="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 0;">
-                <p class="conf-step__seances-movie-title">Миссия выполнима</p>
-                <p class="conf-step__seances-movie-start">00:00</p>
+                <p class="conf-step__seances-movie-title">{{DB::table('movies')->where('id', $item->movie_id)->value('nameMovie')}}</p>
+                <p class="conf-step__seances-movie-start">{{$item->startTime}}</p>
               </div>
-              <div class="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 360px;">
+              {{-- <div class="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 360px;">
                 <p class="conf-step__seances-movie-title">Миссия выполнима</p>
                 <p class="conf-step__seances-movie-start">12:00</p>
               </div>
               <div class="conf-step__seances-movie" style="width: 65px; background-color: rgb(202, 255, 133); left: 420px;">
                 <p class="conf-step__seances-movie-title">Звёздные войны XXIII: Атака клонированных клонов</p>
                 <p class="conf-step__seances-movie-start">14:00</p>
-              </div>
+              </div> --}}
             </div>
           </div>
-          <div class="conf-step__seances-hall">
+          @endforeach
+          {{-- <div class="conf-step__seances-hall">
             <h3 class="conf-step__seances-title">Зал 2</h3>
             <div class="conf-step__seances-timeline">
               <div class="conf-step__seances-movie" style="width: 65px; background-color: rgb(202, 255, 133); left: 595px;">
@@ -368,7 +370,7 @@
                 <p class="conf-step__seances-movie-start">22:00</p>
               </div>
             </div>
-          </div>
+          </div> --}}
         </div>
 
         <div class="popup popup-seances">
@@ -495,12 +497,14 @@
     $('#add_seance').on('submit', function(event){
       event.preventDefault();
       
-      let hallTagId = $('#hall-tag-id').val();
+      let hallTagIdItem = $('#hall-tag-id').val();
+      let hallTagId = [];
       let timeTag = [];
       let timeTagList = document.querySelectorAll('#time-tag-id');
       $.each(timeTagList, function(i, v) {
         // console.log(v.value);
         timeTag.push(v.value);
+        hallTagId.push(hallTagIdItem);
       })
 
       let movieTagId = [];
@@ -513,7 +517,6 @@
       $.ajax({
         url: "/admin/add_seance",
         type:"POST",
-        dataType: 'json',
         data:{
           "_token": "{{ csrf_token() }}",
           hallTagId:hallTagId,
@@ -523,7 +526,7 @@
         success:function(response){
           console.log(response);
           // window.location.replace('/admin/add_seance')
-          // location.reload();
+          location.reload();
         },
       });
     })

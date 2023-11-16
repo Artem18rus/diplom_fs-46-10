@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Seance;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SeanceController extends Controller
 {
@@ -31,16 +32,23 @@ class SeanceController extends Controller
     {
         //dd($request->all());
         $seanse = new Seance;
-        $seanse->startTime = $request->timeTag[0];
-        $seanse->hall_id = $request->hallTagId;
-        $seanse->movie_id = $request->movieTagId[0];
-        $seanse->save();
 
+        $BdHallId = Seance::pluck('hall_id');
+        foreach ($BdHallId as $key => $value) {
+            DB::table('seances')->where('hall_id', $request->hallTagId)->delete();
+        }
 
+        foreach ($request->hallTagId as $key => $value) {
+            Seance::create([
+                'startTime' => $request->timeTag[$key],
+                'hall_id' => $value,
+                'movie_id' => $request->movieTagId[$key],
+                ]);
+        }
         // $data = $request;
         // return response()->json(['success'=>'Form is successfully submitted!']);
         // return redirect()->action([CountHallController::class, 'index']);
-        return response()->json($seanse);
+        return response()->json($request);
     }
 
     /**
