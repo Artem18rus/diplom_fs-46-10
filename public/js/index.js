@@ -274,7 +274,6 @@ createSeancesBtn.addEventListener('click', (e) => {
 
 //обработка клика по "Отменить" в попапе "Добавление сеанса"
 let closeCreateSeancesBtn = document.querySelector('.close-create_seances-btn');
-console.log(closeCreateSeancesBtn);
 closeCreateSeancesBtn.addEventListener('click', (e) => {
     e.preventDefault();
     popupSeances.style.display = 'none';

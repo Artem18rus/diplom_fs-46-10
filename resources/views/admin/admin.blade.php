@@ -519,10 +519,11 @@
         type:"POST",
         data:{
           "_token": "{{ csrf_token() }}",
-          hallTagId:hallTagId,
-          timeTag:timeTag,
-          movieTagId:movieTagId,
+          hallTagId: hallTagId,
+          timeTag: timeTag,
+          movieTagId: movieTagId,
         },
+        // contentType: "application/json",
         success:function(response){
           console.log(response);
           // window.location.replace('/admin/add_seance')
