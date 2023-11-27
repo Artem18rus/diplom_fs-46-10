@@ -10,4 +10,12 @@ class Seance extends Model
     use HasFactory;
     protected $table = 'seances';
     protected $guarded = false;
+
+    public function movies() {
+        return $this->hasMany(Movie::class);
+    }
+
+    public function halls() {
+        return $this->hasMany(Hall::class);
+    }
 }

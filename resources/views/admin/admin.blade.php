@@ -339,24 +339,72 @@
           <button class="conf-step__button conf-step__button-accent create-seances-btn">Добавить сеанс</button>
         </p>
         <div class="conf-step__seances">
-          @foreach ($seance as $item)
-          <div class="conf-step__seances-hall">
-            <h3 class="conf-step__seances-title">{{ DB::table('halls')->where('id', $item->hall_id)->value('nameHall') }}</h3>
-            <div class="conf-step__seances-timeline">
-              <div class="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 0;">
-                <p class="conf-step__seances-movie-title">{{DB::table('movies')->where('id', $item->movie_id)->value('nameMovie')}}</p>
-                <p class="conf-step__seances-movie-start">{{$item->startTime}}</p>
+          {{$movie}}
+          <hr/>
+          {{$hall}}
+          <hr/>
+          {{-- {{$seance->hall_id}} --}}
+          {{-- {{ $arrHallId = DB::table('seances')->pluck('hall_id');
+          $countedArray = array_count_values($arrHallId) }} --}}
+
+          @php
+            $bdSeancesHallId = DB::table('seances')->pluck('hall_id')->all();
+            print_r($bdSeancesHallId);
+            echo '</br>';
+            
+            $countsSeancesHallId = array_count_values($bdSeancesHallId);
+            print_r($countsSeancesHallId);
+            echo '</br>';
+
+            $valuesCountsSeancesHallId = array_values($countsSeancesHallId);
+            print_r($valuesCountsSeancesHallId);
+            echo '</br>';
+
+            $bdMoviesId = DB::table('movies')->pluck('id')->all();
+            print_r($bdMoviesId);
+            echo '</br>';
+            // $countsSeancesHallId = array_count_values($bdSeancesHallId);
+            // print_r($countsSeancesHallId);
+
+            $bdMoviesMovieId = DB::table('seances')->pluck('movie_id')->all();
+            print_r($bdMoviesMovieId);
+            echo '</br>';
+
+
+            
+          @endphp
+
+          @foreach ($countsSeancesHallId as $val => $count)
+            {{-- @foreach ($seance as $item) --}}
+              {{-- {{$jh}} --}}
+              <div class="conf-step__seances-hall">
+                <h3 class="conf-step__seances-title">{{ DB::table('halls')->where('id', $val)->value('nameHall') }}</h3>
+                <div class="conf-step__seances-timeline">
+                  {{-- @foreach (DB::table('seances')->pluck('hall_id') as $i) --}}
+                  @if ($count > 1)
+                    @for ($i = 0; $i < $count; $i++)
+                      {{-- @foreach ($bdMoviesMovieId as $v => $c) --}}
+                      {{-- {{dump($v)}} --}}
+                        {{-- @if () --}}
+                        <div class="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 0;">
+                          <p class="conf-step__seances-movie-title">{{DB::table('movies')->where('id', DB::table('seances')->where('hall_id', $val)->value('movie_id'))->value('nameMovie')}}</p>
+                          {{-- <p class="conf-step__seances-movie-start">{{DB::table('seances')->where('hall_id', $val)->value('startTime')}}</p> --}}
+                        </div>
+                        {{-- <div class="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 360px;">
+                          <p class="conf-step__seances-movie-title">Миссия выполнима</p>
+                          <p class="conf-step__seances-movie-start">12:00</p>
+                        </div>
+                        <div class="conf-step__seances-movie" style="width: 65px; background-color: rgb(202, 255, 133); left: 420px;">
+                          <p class="conf-step__seances-movie-title">Звёздные войны XXIII: Атака клонированных клонов</p>
+                          <p class="conf-step__seances-movie-start">14:00</p> --}}
+                        {{-- </div> --}}
+                        {{-- @endif --}}
+                      {{-- @endforeach --}}
+                    @endfor
+                    @endif
+                </div>
               </div>
-              {{-- <div class="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 360px;">
-                <p class="conf-step__seances-movie-title">Миссия выполнима</p>
-                <p class="conf-step__seances-movie-start">12:00</p>
-              </div>
-              <div class="conf-step__seances-movie" style="width: 65px; background-color: rgb(202, 255, 133); left: 420px;">
-                <p class="conf-step__seances-movie-title">Звёздные войны XXIII: Атака клонированных клонов</p>
-                <p class="conf-step__seances-movie-start">14:00</p>
-              </div> --}}
-            </div>
-          </div>
+            {{-- @endforeach --}}
           @endforeach
           {{-- <div class="conf-step__seances-hall">
             <h3 class="conf-step__seances-title">Зал 2</h3>

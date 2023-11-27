@@ -285,3 +285,23 @@ crossCreateSeances.addEventListener('click', (e) => {
     e.preventDefault();
     popupSeances.style.display = 'none';
 })
+
+//обработка отображения сеансов:
+let confStepSeancesTitle = document.querySelectorAll('.conf-step__seances-title');
+console.log(confStepSeancesTitle);
+// // for(let i = 0; i < confStepSeancesTitle.length; i++) {
+
+// // }
+
+// //const arr = [1, 2, 3, 2, 4, 5, 4, 6];
+// const duplicates = [];
+
+// for (let i = 0; i < confStepSeancesTitle.length; i++) {
+//   for (let j = i + 1; j < confStepSeancesTitle.length; j++) {
+//     if (confStepSeancesTitle[i].outerText !== confStepSeancesTitle[j].outerText && !duplicates.includes(confStepSeancesTitle[i].outerText)) {
+//       duplicates.push(confStepSeancesTitle[i].outerText);
+//     }
+//   }
+// }
+
+// console.log(duplicates); // [2, 4]

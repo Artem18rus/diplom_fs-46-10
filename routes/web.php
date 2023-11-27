@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Movie;
+use App\Models\Seance;
+use App\Models\Hall;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +32,35 @@ Route::group(['middleware'=>'auth'], function() {
   Route::post('/admin/add_seance', [App\Http\Controllers\SeanceController::class, 'store']);
   
 });
+
+Route::get('/admin/2', function() {
+  // $halls = \App\Models\Hall::all();
+  // foreach ($halls as $value) {
+  //   echo $value.'<br>';
+  //   foreach ($value as $v) {
+  //     echo $v['nameMovie'];
+  //   }
+  //   echo '------------------------------<br>';
+  // }
+
+  $halls = Hall::all();
+  $movies = Movie::all();
+  $seances = Seance::all();
+  // echo $movies;
+
+  $seanc = Seance::find(72);
+  $ha = $seanc->hall_id;
+  echo $ha;
+  // foreach ($seances as $value) {
+  //   // echo $value['movie_id'].'<br>';
+  //   foreach ($value->movies as $v) {
+  //     echo $v;
+  //   }
+  //   echo '------------------------------<br>';
+  // }
+
+});
+
 
 Auth::routes();
 
