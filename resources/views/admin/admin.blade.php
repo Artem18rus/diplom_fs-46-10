@@ -60,7 +60,7 @@
                           <h2 class="popup__title">
                             Удаление зала
                             <a class="popup__dismiss small_cross_delete" href="#"><img src="i/close.png" alt="Закрыть"></a>
-                          </h2>      
+                          </h2>
                         </div>
                         <div class="popup__wrapper">
                           
@@ -134,111 +134,35 @@
         
         <form class='halls-config' action="admin/schemeHallStore" method="post" accept-charset="utf-8">
         @csrf
-        <ul class="list-box-hidden">
-          @foreach ($hall as $item)
-            <li class="item-box-hidden">
-              <div class="conf-box-hidden">
-              <p class="conf-step__paragraph">Укажите количество рядов и максимальное количество кресел в ряду:</p>
-              <div class="conf-step__legend">
-                <label class="conf-step__label">Рядов, шт<input type="number" class="conf-step__input" placeholder="10" name="{{ $item->id }} r"></label>
-                <span class="multiplier">x</span>
-                <label class="conf-step__label">Мест, шт<input type="number" class="conf-step__input" placeholder="8" name="{{ $item->id }} c"></label>
-              </div>
-              <p class="conf-step__paragraph">Теперь вы можете указать типы кресел на схеме зала:</p>
-              <div class="conf-step__legend">
-                <span class="conf-step__chair conf-step__chair_standart"></span> — обычные кресла
-                <span class="conf-step__chair conf-step__chair_vip"></span> — VIP кресла
-                <span class="conf-step__chair conf-step__chair_disabled"></span> — заблокированные (нет кресла)
-                <p class="conf-step__hint">Чтобы изменить вид кресла, нажмите по нему левой кнопкой мыши</p>
-              </div> 
-            </div>
-            
-              <div class="conf-step__hall">
-                <div class="conf-step__hall-wrapper">
-                  {{-- <div class="conf-step__row">
-                    <span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-                    <span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-                    <span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-                  </div>  
-
-                  <div class="conf-step__row">
-                    <span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-                  </div>  
-
-                  <div class="conf-step__row">
-                    <span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-                  </div>  
-
-                  <div class="conf-step__row">
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_vip"></span>
-                    <span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-                  </div>  
-
-                  <div class="conf-step__row">
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span>
-                    <span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-                  </div>  
-
-                  <div class="conf-step__row">
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span>
-                    <span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-                  </div>  
-
-                  <div class="conf-step__row">
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span>
-                    <span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-                  </div>  
-
-                  <div class="conf-step__row">
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-                  </div>  
-
-                  <div class="conf-step__row">
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                  </div>  
-
-                  <div class="conf-step__row">
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                    <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-                  </div> --}}
+          <ul class="list-box-hidden">
+            @foreach ($hall as $item)
+              <li class="item-box-hidden">
+                <div class="conf-box-hidden">
+                  <p class="conf-step__paragraph">Укажите количество рядов и максимальное количество кресел в ряду:</p>
+                  <div class="conf-step__legend">
+                    <label class="conf-step__label">Рядов, шт<input type="number" class="conf-step__input" placeholder="10" name="{{ $item->id }} r"></label>
+                    <span class="multiplier">x</span>
+                    <label class="conf-step__label">Мест, шт<input type="number" class="conf-step__input" placeholder="8" name="{{ $item->id }} c"></label>
+                  </div>
+                  <p class="conf-step__paragraph">Теперь вы можете указать типы кресел на схеме зала:</p>
+                  <div class="conf-step__legend">
+                    <span class="conf-step__chair conf-step__chair_standart"></span> — обычные кресла
+                    <span class="conf-step__chair conf-step__chair_vip"></span> — VIP кресла
+                    <span class="conf-step__chair conf-step__chair_disabled"></span> — заблокированные (нет кресла)
+                    <p class="conf-step__hint">Чтобы изменить вид кресла, нажмите по нему левой кнопкой мыши</p>
+                  </div> 
                 </div>
-              </div>
-            </li>
-          @endforeach
-        </ul>
-
-
-        <fieldset class="conf-step__buttons text-center">
-          <button class="conf-step__button conf-step__button-regular">Отмена</button>
-          <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
-        </fieldset>
-      </form>
-
-
-
+                <div class="conf-step__hall">
+                  <div class="conf-step__hall-wrapper"></div>
+                </div>
+              </li>
+            @endforeach
+          </ul>
+          <fieldset class="conf-step__buttons text-center">
+            <button class="conf-step__button conf-step__button-regular">Отмена</button>
+            <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
+          </fieldset>
+        </form>
       </div>
     </section>
     
@@ -343,9 +267,7 @@
           <hr/>
           {{$hall}}
           <hr/>
-          {{-- {{$seance->hall_id}} --}}
-          {{-- {{ $arrHallId = DB::table('seances')->pluck('hall_id');
-          $countedArray = array_count_values($arrHallId) }} --}}
+
 
           @php
             $bdSeancesHallId = DB::table('seances')->pluck('hall_id')->all();
@@ -370,41 +292,64 @@
             print_r($bdMoviesMovieId);
             echo '</br>';
 
+            $bdSeancesId = DB::table('seances')->pluck('id')->all();
+            print_r($bdSeancesId);
+            echo '</br>';
 
+            $colorBackground = ['#caff85', '#85ff89', '#85ffd3', '#85e2ff', '#8599ff', '#ba85ff', '#ff85fb', '#ff85b1', '#ffa285'];
             
+            // $incomingTime = DB::table('seances')->where('id', 94)->value('startTime');
+            // $time = explode(':', $incomingTime);
+            // $countMinutes = $time[0]*60 + ($time[1]);
+            // $percentageMinutes = $countMinutes * 100 / 1440;
+            // $resultPx = 720 * $percentageMinutes / 100;
+            // print_r($resultPx);
+            // echo '</br>';
+
+            // $incomingDurationFilm = DB::table('movies')->where('id', 65)->value('durationMovie');
+            // echo $incomingDurationFilm;
+            // echo '</br>';
+            // $percentageDurationFilm = $incomingDurationFilm * 100 / 1440;
+            // // $count = $percentageDurationFilm
+            // $resultPxMovie = 720 * $percentageDurationFilm / 100;
+            // echo $resultPxMovie;
           @endphp
 
           @foreach ($countsSeancesHallId as $val => $count)
-            {{-- @foreach ($seance as $item) --}}
-              {{-- {{$jh}} --}}
-              <div class="conf-step__seances-hall">
-                <h3 class="conf-step__seances-title">{{ DB::table('halls')->where('id', $val)->value('nameHall') }}</h3>
-                <div class="conf-step__seances-timeline">
-                  {{-- @foreach (DB::table('seances')->pluck('hall_id') as $i) --}}
-                  @if ($count > 1)
-                    @for ($i = 0; $i < $count; $i++)
-                      {{-- @foreach ($bdMoviesMovieId as $v => $c) --}}
-                      {{-- {{dump($v)}} --}}
-                        {{-- @if () --}}
-                        <div class="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 0;">
-                          <p class="conf-step__seances-movie-title">{{DB::table('movies')->where('id', DB::table('seances')->where('hall_id', $val)->value('movie_id'))->value('nameMovie')}}</p>
-                          {{-- <p class="conf-step__seances-movie-start">{{DB::table('seances')->where('hall_id', $val)->value('startTime')}}</p> --}}
-                        </div>
-                        {{-- <div class="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 360px;">
-                          <p class="conf-step__seances-movie-title">Миссия выполнима</p>
-                          <p class="conf-step__seances-movie-start">12:00</p>
-                        </div>
-                        <div class="conf-step__seances-movie" style="width: 65px; background-color: rgb(202, 255, 133); left: 420px;">
-                          <p class="conf-step__seances-movie-title">Звёздные войны XXIII: Атака клонированных клонов</p>
-                          <p class="conf-step__seances-movie-start">14:00</p> --}}
-                        {{-- </div> --}}
-                        {{-- @endif --}}
-                      {{-- @endforeach --}}
-                    @endfor
-                    @endif
-                </div>
+            <div class="conf-step__seances-hall">
+              <h3 class="conf-step__seances-title">{{ DB::table('halls')->where('id', $val)->value('nameHall') }}</h3>
+              <div class="conf-step__seances-timeline">
+                @for ($i = 0; $i < sizeof($bdSeancesId); $i++)
+                  @if ($val == $bdSeancesHallId[$i])
+                    @php
+                      $incomingTime = DB::table('seances')->where('id', $bdSeancesId[$i])->value('startTime');
+                      $time = explode(':', $incomingTime);
+                      $countMinutes = $time[0]*60 + ($time[1]);
+                      $percentageMinutes = $countMinutes * 100 / 1440;
+                      $resultPx = 720 * $percentageMinutes / 100;
+
+                      $incomingDurationFilm = DB::table('movies')->where('id', DB::table('seances')->where('id', $bdSeancesId[$i])->value('movie_id'))->value('durationMovie');
+                      $percentageDurationFilm = $incomingDurationFilm * 100 / 180;
+                      $count = 720 / 8;
+                      $resultPxMovie = $count * $percentageDurationFilm / 100;
+                    @endphp
+                    
+                    <div class="conf-step__seances-movie" style="width: {{$resultPxMovie}}px; background-color: {{$colorBackground[$i]}}; left: {{$resultPx}}px;">
+                      <p class="conf-step__seances-movie-title">{{DB::table('movies')->where('id', DB::table('seances')->where('id', $bdSeancesId[$i])->value('movie_id'))->value('nameMovie')}}</p>
+                      <p class="conf-step__seances-movie-start">{{DB::table('seances')->where('id', $bdSeancesId[$i])->value('startTime')}}</p>
+                    </div>
+                    {{-- <div class="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 360px;">
+                      <p class="conf-step__seances-movie-title">Миссия выполнима</p>
+                      <p class="conf-step__seances-movie-start">12:00</p>
+                    </div>
+                    <div class="conf-step__seances-movie" style="width: 65px; background-color: rgb(202, 255, 133); left: 420px;">
+                      <p class="conf-step__seances-movie-title">Звёздные войны XXIII: Атака клонированных клонов</p>
+                      <p class="conf-step__seances-movie-start">14:00</p> --}}
+                    {{-- </div> --}}
+                  @endif
+                @endfor
               </div>
-            {{-- @endforeach --}}
+            </div>
           @endforeach
           {{-- <div class="conf-step__seances-hall">
             <h3 class="conf-step__seances-title">Зал 2</h3>
@@ -419,6 +364,7 @@
               </div>
             </div>
           </div> --}}
+          <button class="conf-step__button conf-step__button-regular" type="submit">Очистить</button>
         </div>
 
         <div class="popup popup-seances">
@@ -496,11 +442,39 @@
           </div>
         </div>
         
-        <fieldset class="conf-step__buttons text-center">
+        {{-- <fieldset class="conf-step__buttons text-center"> --}}
+          {{-- <form id="delete-all_seance">
+            @csrf
+            <button class="conf-step__button conf-step__button-regular" type="submit">Отмена</button>
+          </form> --}}
+
+          {{-- <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
+        </fieldset> --}}
+
+        {{-- <fieldset class="conf-step__buttons text-center">
           <button class="conf-step__button conf-step__button-regular">Отмена</button>
           <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
-        </fieldset>
+        </fieldset> --}}
+        
+        {{-- <div class="conf-step__buttons text-center">
+          <button type="submit" class="conf-step__button conf-step__button-regular" onclick=
+          "event.preventDefault();
+          {{DB::table('seances')->truncate()}};
+          location.reload();">Отмена</button>
+        </div> --}}
       </div>
+
+
+      {{-- <form action="{{ route('admin-countHall.delete', $item->id) }}" method="POST" accept-charset="utf-8">
+        @csrf
+        @method('delete')
+        <p class="conf-step__paragraph">Вы действительно хотите удалить <span>{{$item->nameHall}}</span>?</p>
+        <!-- В span будет подставляться название зала -->
+        <div class="conf-step__buttons text-center">
+          <input type="submit" value="Удалить" class="conf-step__button conf-step__button-accent">
+          <button class="conf-step__button conf-step__button-regular close-delete_hall-btn">Отменить</button>
+        </div>
+      </form> --}}
 
 
     </section>
@@ -577,6 +551,25 @@
           // window.location.replace('/admin/add_seance')
           location.reload();
         },
+      });
+
+      $("#delete-all_seance").on('submit', function(event) {
+        event.preventDefault();
+        console.log('dsfsdf');
+          // $.ajax({
+          //     url: "/admin/deleteAllSeance",
+          //     method: 'DELETE',
+          //     data: {
+          //       // "seances": {{$seance}},
+          //       "_token": "{{ csrf_token() }}",
+          //     },
+          //     success: function (resp) {
+          //       alert(resp["success"]);
+          //     },
+          //     error: function(event) {
+          //       console.log(event); 
+          //     }
+          // });
       });
     })
   </script>

@@ -11,11 +11,15 @@ class Seance extends Model
     protected $table = 'seances';
     protected $guarded = false;
 
-    public function movies() {
-        return $this->hasMany(Movie::class);
-    }
+    // public function movies() {
+    //     return $this->hasMany(Movie::class);
+    // }
 
-    public function halls() {
-        return $this->hasMany(Hall::class);
-    }
+    // public function halls() {
+    //     return $this->hasMany(Hall::class, 'hall_id', 'id');
+    // }
+
+    // public function sean() {
+    //         return $this->belongsTo(Hall::class);
+    // }
 }

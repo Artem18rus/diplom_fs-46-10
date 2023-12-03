@@ -32,9 +32,9 @@ class MovieController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        $validatedData = $request->validate([
+        $this->validate($request, [
             'name' => ['bail', 'required', 'max:255'],
-            'duration' => ['bail', 'required', 'max:4'],
+            'duration' => 'bail|required|max:3|gte:30|lte:180',
         ]);
 
         $movie = new Movie;

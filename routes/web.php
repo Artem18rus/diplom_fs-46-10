@@ -30,36 +30,20 @@ Route::group(['middleware'=>'auth'], function() {
 
   // Route::get('/admin/seanceIndex', [App\Http\Controllers\SeanceController::class, 'index']);
   Route::post('/admin/add_seance', [App\Http\Controllers\SeanceController::class, 'store']);
-  
+  Route::delete('/admin/deleteAllSeance', [App\Http\Controllers\SeanceController::class, 'destroy'])->name('admin-deleteAllSeance.delete');;
 });
 
-Route::get('/admin/2', function() {
-  // $halls = \App\Models\Hall::all();
-  // foreach ($halls as $value) {
-  //   echo $value.'<br>';
-  //   foreach ($value as $v) {
-  //     echo $v['nameMovie'];
-  //   }
-  //   echo '------------------------------<br>';
-  // }
-
-  $halls = Hall::all();
-  $movies = Movie::all();
-  $seances = Seance::all();
-  // echo $movies;
-
-  $seanc = Seance::find(72);
-  $ha = $seanc->hall_id;
-  echo $ha;
-  // foreach ($seances as $value) {
-  //   // echo $value['movie_id'].'<br>';
-  //   foreach ($value->movies as $v) {
-  //     echo $v;
-  //   }
-  //   echo '------------------------------<br>';
-  // }
-
-});
+// Route::get('/admin/2', function() {
+//   $hall = Hall::all();
+//   $seance = Seance::all();
+//   //dd($seance);
+//   $h = Hall::find(27);
+//   // dd($h->sea);
+//   // $s = Seance::find(74);
+//   // dd($s->sean);
+//     $j = Seance::find(72);
+//     dd($j->sean);
+// });
 
 
 Auth::routes();

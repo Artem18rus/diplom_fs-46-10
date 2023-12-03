@@ -287,8 +287,8 @@ crossCreateSeances.addEventListener('click', (e) => {
 })
 
 //обработка отображения сеансов:
-let confStepSeancesTitle = document.querySelectorAll('.conf-step__seances-title');
-console.log(confStepSeancesTitle);
+// let confStepSeancesTitle = document.querySelectorAll('.conf-step__seances-title');
+// console.log(confStepSeancesTitle);
 // // for(let i = 0; i < confStepSeancesTitle.length; i++) {
 
 // // }
