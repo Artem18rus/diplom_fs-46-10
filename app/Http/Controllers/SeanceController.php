@@ -88,10 +88,10 @@ class SeanceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Seance $seance)
+    public function destroy()
     {
         // return view('admin/deleteAllSeance');
-        Seance::all()->delete();
-        return response()->json(['success' => 'Post deleted successfully!']);
+        Seance::truncate();
+        return response()->json(Seance::all());
     }
 }

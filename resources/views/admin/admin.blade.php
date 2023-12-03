@@ -364,7 +364,8 @@
               </div>
             </div>
           </div> --}}
-          <button class="conf-step__button conf-step__button-regular" type="submit">Очистить</button>
+          {{-- <input type="submit" value="Очистить" class="conf-step__button conf-step__button-accent"> --}}
+          {{-- <button class="conf-step__button conf-step__button-regular" type="submit">Очистить</button> --}}
         </div>
 
         <div class="popup popup-seances">
@@ -451,9 +452,9 @@
           {{-- <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
         </fieldset> --}}
 
-        {{-- <fieldset class="conf-step__buttons text-center">
-          <button class="conf-step__button conf-step__button-regular">Отмена</button>
-          <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
+        {{-- <fieldset class="conf-step__buttons text-center"> --}}
+          <button id="delete-all_seance" class="conf-step__button conf-step__button-regular">Удалить все сеансы</button>
+          {{-- <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
         </fieldset> --}}
         
         {{-- <div class="conf-step__buttons text-center">
@@ -552,26 +553,25 @@
           location.reload();
         },
       });
-
-      $("#delete-all_seance").on('submit', function(event) {
-        event.preventDefault();
-        console.log('dsfsdf');
-          // $.ajax({
-          //     url: "/admin/deleteAllSeance",
-          //     method: 'DELETE',
-          //     data: {
-          //       // "seances": {{$seance}},
-          //       "_token": "{{ csrf_token() }}",
-          //     },
-          //     success: function (resp) {
-          //       alert(resp["success"]);
-          //     },
-          //     error: function(event) {
-          //       console.log(event); 
-          //     }
-          // });
-      });
     })
+
+    $("#delete-all_seance").click(function() {
+        console.log('inf');
+          $.ajax({
+              url: "{{route('admin-deleteAllSeance.delete')}}",
+              method: 'DELETE',
+              data: {
+                "_token": "{{ csrf_token() }}",
+              },
+              success: function (response) {
+                console.log(response);
+                location.reload();
+              },
+              error: function(event) {
+                console.log(event); 
+              }
+          });
+      });
   </script>
 </body>
 </html>
