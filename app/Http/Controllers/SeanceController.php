@@ -90,7 +90,6 @@ class SeanceController extends Controller
      */
     public function destroy()
     {
-        // return view('admin/deleteAllSeance');
         Seance::truncate();
         return response()->json(Seance::all());
     }

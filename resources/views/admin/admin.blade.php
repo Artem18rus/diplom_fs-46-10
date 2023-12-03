@@ -246,7 +246,7 @@
                     <input class="conf-step__input add-movie_input" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name" id="name-movie" required>
                   </label>
                   <label class="conf-step__label conf-step__label-fullsize" for="duration">
-                    Продолжительность фильма в мин
+                    Продолжительность фильма в мин (от 30 до 180)
                     <input class="conf-step__input add-duration_input" type="text" placeholder="Например, &laquo;130&raquo;" name="duration" id="duration-movie" required>
                   </label>
                   <div class="conf-step__buttons text-center">
@@ -333,39 +333,15 @@
                       $count = 720 / 8;
                       $resultPxMovie = $count * $percentageDurationFilm / 100;
                     @endphp
-                    
                     <div class="conf-step__seances-movie" style="width: {{$resultPxMovie}}px; background-color: {{$colorBackground[$i]}}; left: {{$resultPx}}px;">
                       <p class="conf-step__seances-movie-title">{{DB::table('movies')->where('id', DB::table('seances')->where('id', $bdSeancesId[$i])->value('movie_id'))->value('nameMovie')}}</p>
                       <p class="conf-step__seances-movie-start">{{DB::table('seances')->where('id', $bdSeancesId[$i])->value('startTime')}}</p>
                     </div>
-                    {{-- <div class="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 360px;">
-                      <p class="conf-step__seances-movie-title">Миссия выполнима</p>
-                      <p class="conf-step__seances-movie-start">12:00</p>
-                    </div>
-                    <div class="conf-step__seances-movie" style="width: 65px; background-color: rgb(202, 255, 133); left: 420px;">
-                      <p class="conf-step__seances-movie-title">Звёздные войны XXIII: Атака клонированных клонов</p>
-                      <p class="conf-step__seances-movie-start">14:00</p> --}}
-                    {{-- </div> --}}
                   @endif
                 @endfor
               </div>
             </div>
           @endforeach
-          {{-- <div class="conf-step__seances-hall">
-            <h3 class="conf-step__seances-title">Зал 2</h3>
-            <div class="conf-step__seances-timeline">
-              <div class="conf-step__seances-movie" style="width: 65px; background-color: rgb(202, 255, 133); left: 595px;">
-                <p class="conf-step__seances-movie-title">Звёздные войны XXIII: Атака клонированных клонов</p>
-                <p class="conf-step__seances-movie-start">19:50</p>
-              </div>
-              <div class="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 660px;">
-                <p class="conf-step__seances-movie-title">Миссия выполнима</p>
-                <p class="conf-step__seances-movie-start">22:00</p>
-              </div>
-            </div>
-          </div> --}}
-          {{-- <input type="submit" value="Очистить" class="conf-step__button conf-step__button-accent"> --}}
-          {{-- <button class="conf-step__button conf-step__button-regular" type="submit">Очистить</button> --}}
         </div>
 
         <div class="popup popup-seances">
