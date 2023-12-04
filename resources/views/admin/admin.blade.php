@@ -13,7 +13,7 @@
 </head>
 
 <body>
-{{$seance}}
+{{-- {{$seance}} --}}
 {{-- @foreach ($movie as $item)
   {{$item}};
 @endforeach --}}
@@ -80,16 +80,8 @@
                   </div>
               </li>
           @endforeach
-<!--           {{-- <li>Зал 1
-            <button class="conf-step__button conf-step__button-trash"></button>
-          </li>
-          <li>Зал 2
-            <button class="conf-step__button conf-step__button-trash"></button>
-          </li> --}} -->
         </ul>
         <button class="conf-step__button conf-step__button-accent create-hall-btn">Создать зал</button>
-          <!-- {{-- <button onclick="event.preventDefault(); location.href='admin/store'" type="submit" class="conf-step__button conf-step__button-accent">Создать зал</button> --}} -->
-
       </div>
 
       <div class="popup popap_create">
@@ -176,8 +168,6 @@
           @foreach ($hall as $item)
             <li><input type="radio" class="conf-step__radio" name="prices-hall" value={{$item->nameHall}}><span class="conf-step__selector">{{$item->nameHall}}</span></li>
           @endforeach
-          {{-- <li><input type="radio" class="conf-step__radio" name="prices-hall" value="Зал 1"><span class="conf-step__selector">Зал 1</span></li>
-          <li><input type="radio" class="conf-step__radio" name="prices-hall" value="Зал 2" checked><span class="conf-step__selector">Зал 2</span></li> --}}
         </ul>
           
 
@@ -263,56 +253,35 @@
           <button class="conf-step__button conf-step__button-accent create-seances-btn">Добавить сеанс</button>
         </p>
         <div class="conf-step__seances">
-          {{$movie}}
-          <hr/>
-          {{$hall}}
-          <hr/>
-
 
           @php
             $bdSeancesHallId = DB::table('seances')->pluck('hall_id')->all();
-            print_r($bdSeancesHallId);
-            echo '</br>';
+            // print_r($bdSeancesHallId);
+            // echo '</br>';
             
             $countsSeancesHallId = array_count_values($bdSeancesHallId);
-            print_r($countsSeancesHallId);
-            echo '</br>';
+            // print_r($countsSeancesHallId);
+            // echo '</br>';
 
             $valuesCountsSeancesHallId = array_values($countsSeancesHallId);
-            print_r($valuesCountsSeancesHallId);
-            echo '</br>';
+            // print_r($valuesCountsSeancesHallId);
+            // echo '</br>';
 
             $bdMoviesId = DB::table('movies')->pluck('id')->all();
-            print_r($bdMoviesId);
-            echo '</br>';
+            // print_r($bdMoviesId);
+            // echo '</br>';
             // $countsSeancesHallId = array_count_values($bdSeancesHallId);
             // print_r($countsSeancesHallId);
 
             $bdMoviesMovieId = DB::table('seances')->pluck('movie_id')->all();
-            print_r($bdMoviesMovieId);
-            echo '</br>';
+            // print_r($bdMoviesMovieId);
+            // echo '</br>';
 
             $bdSeancesId = DB::table('seances')->pluck('id')->all();
-            print_r($bdSeancesId);
-            echo '</br>';
+            // print_r($bdSeancesId);
+            // echo '</br>';
 
             $colorBackground = ['#caff85', '#85ff89', '#85ffd3', '#85e2ff', '#8599ff', '#ba85ff', '#ff85fb', '#ff85b1', '#ffa285'];
-            
-            // $incomingTime = DB::table('seances')->where('id', 94)->value('startTime');
-            // $time = explode(':', $incomingTime);
-            // $countMinutes = $time[0]*60 + ($time[1]);
-            // $percentageMinutes = $countMinutes * 100 / 1440;
-            // $resultPx = 720 * $percentageMinutes / 100;
-            // print_r($resultPx);
-            // echo '</br>';
-
-            // $incomingDurationFilm = DB::table('movies')->where('id', 65)->value('durationMovie');
-            // echo $incomingDurationFilm;
-            // echo '</br>';
-            // $percentageDurationFilm = $incomingDurationFilm * 100 / 1440;
-            // // $count = $percentageDurationFilm
-            // $resultPxMovie = 720 * $percentageDurationFilm / 100;
-            // echo $resultPxMovie;
           @endphp
 
           @foreach ($countsSeancesHallId as $val => $count)
@@ -364,29 +333,18 @@
                       @foreach ($hall as $item)
                         <option value={{ $item->id }}>{{$item->nameHall}}</option>
                       @endforeach
-                      {{-- <option value="1" selected>Зал 1</option>
-                      <option value="2">Зал 2</option> --}}
                     </select>
                   </label>
-                  {{-- <div class="popup_add_field"> --}}
                     <label class="conf-step__label conf-step__label-fullsize ind helper-class" for="name">
                       Время начала
                       <input class="conf-step__input selected_start_time" type="time" value="00:00" name="start_time" id="time-tag-id" required>
                     </label>
-          
-  {{--                   <label class="conf-step__label conf-step__label-fullsize" for="name">
-                      Название зала
-                      <input class="conf-step__input" type="text" placeholder="Например, &laquo;Зал 1&raquo;" name="name" required>
-                    </label> --}}
-
                     <label class="conf-step__label conf-step__label-fullsize" for="movie">
                       Название фильма
                       <select class="conf-step__input selected_name_movie" name="movie_id" id="movie-tag-id" required>
                         @foreach ($movie as $item)
                           <option value={{ $item->id }}>{{$item->nameMovie}}</option>
                         @endforeach
-                        {{-- <option value="1" selected>Зал 1</option>
-                        <option value="2">Зал 2</option> --}}
                       </select>
                     </label>
 
@@ -407,7 +365,6 @@
                         </select>
                       </label>
                     `)">
-                  {{-- </a> --}}
 
                   <div class="conf-step__buttons text-center">
                     <input type="submit" value="Добавить" class="conf-step__button conf-step__button-accent">
@@ -418,42 +375,8 @@
             </div>
           </div>
         </div>
-        
-        {{-- <fieldset class="conf-step__buttons text-center"> --}}
-          {{-- <form id="delete-all_seance">
-            @csrf
-            <button class="conf-step__button conf-step__button-regular" type="submit">Отмена</button>
-          </form> --}}
-
-          {{-- <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
-        </fieldset> --}}
-
-        {{-- <fieldset class="conf-step__buttons text-center"> --}}
           <button id="delete-all_seance" class="conf-step__button conf-step__button-regular">Удалить все сеансы</button>
-          {{-- <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
-        </fieldset> --}}
-        
-        {{-- <div class="conf-step__buttons text-center">
-          <button type="submit" class="conf-step__button conf-step__button-regular" onclick=
-          "event.preventDefault();
-          {{DB::table('seances')->truncate()}};
-          location.reload();">Отмена</button>
-        </div> --}}
       </div>
-
-
-      {{-- <form action="{{ route('admin-countHall.delete', $item->id) }}" method="POST" accept-charset="utf-8">
-        @csrf
-        @method('delete')
-        <p class="conf-step__paragraph">Вы действительно хотите удалить <span>{{$item->nameHall}}</span>?</p>
-        <!-- В span будет подставляться название зала -->
-        <div class="conf-step__buttons text-center">
-          <input type="submit" value="Удалить" class="conf-step__button conf-step__button-accent">
-          <button class="conf-step__button conf-step__button-regular close-delete_hall-btn">Отменить</button>
-        </div>
-      </form> --}}
-
-
     </section>
     
     <section class="conf-step">
@@ -525,7 +448,6 @@
         // contentType: "application/json",
         success:function(response){
           console.log(response);
-          // window.location.replace('/admin/add_seance')
           location.reload();
         },
       });

@@ -24,11 +24,8 @@ Route::group(['middleware'=>'auth'], function() {
   Route::delete('/admin/destroy/{id}', [App\Http\Controllers\CountHallController::class, 'destroy'])->name('admin-countHall.delete');
   Route::post('/admin/schemeHallStore', [App\Http\Controllers\SchemeHallController::class, 'store'])->name('admin-schemeHall.store');
   Route::post('/admin/priceStore', [App\Http\Controllers\PriceController::class, 'store'])->name('admin-price.store');
-  // Route::post('/admin/movieStore', [App\Http\Controllers\MovieController::class, 'store'])->name('admin-movie.store');
-  // Route::get('/admin/movieStore', [App\Http\Controllers\MovieController::class, 'create']);
   Route::post('/admin/movieStore', [App\Http\Controllers\MovieController::class, 'store']);
 
-  // Route::get('/admin/seanceIndex', [App\Http\Controllers\SeanceController::class, 'index']);
   Route::post('/admin/add_seance', [App\Http\Controllers\SeanceController::class, 'store']);
   Route::delete('/admin/deleteAllSeance', [App\Http\Controllers\SeanceController::class, 'destroy'])->name('admin-deleteAllSeance.delete');;
 });
