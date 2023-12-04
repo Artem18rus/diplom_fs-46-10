@@ -44,7 +44,19 @@
 
   <main>
     @php
-      $itemMovieDiscription = ['Две сотни лет назад малороссийские хутора разоряла шайка нехристей-ляхов во главе с могущественным колдуном.', '20 тысяч лет назад Земля была холодным и неуютным местом, в котором смерть подстерегала человека на каждом шагу.', 'Самые опасные хищники Вселенной, прибыв из глубин космоса, высаживаются на улицах маленького городка, чтобы начать свою кровавую охоту. Генетически модернизировав себя с помощью ДНК других видов, охотники стали ещё сильнее, умнее и беспощаднее.', 'Подросток из Нью-Джерси переезжает в Калифорнию и встречает мастера боевых искусств, который учит, как защититься от местных хулиганов.', 'На Аляске терпит крушение самолет, и оставшиеся в живых пассажиры оказываются в плену безлюдной снежной пустыни, где только стая волков скрашивает пейзаж. Люди хотят выжить любой ценой, и теперь им предстоит смертельная схватка.']
+      echo '<hr>';
+      $itemMovieDiscription = ['Две сотни лет назад малороссийские хутора разоряла шайка нехристей-ляхов во главе с могущественным колдуном.', '20 тысяч лет назад Земля была холодным и неуютным местом, в котором смерть подстерегала человека на каждом шагу.', 'Самые опасные хищники Вселенной, прибыв из глубин космоса, высаживаются на улицах маленького городка, чтобы начать свою кровавую охоту. Генетически модернизировав себя с помощью ДНК других видов, охотники стали ещё сильнее, умнее и беспощаднее.', 'Подросток из Нью-Джерси переезжает в Калифорнию и встречает мастера боевых искусств, который учит, как защититься от местных хулиганов.', 'На Аляске терпит крушение самолет, и оставшиеся в живых пассажиры оказываются в плену безлюдной снежной пустыни, где только стая волков скрашивает пейзаж. Люди хотят выжить любой ценой, и теперь им предстоит смертельная схватка.'];
+      $bdSeancesHallId = DB::table('seances')->pluck('hall_id')->all();
+      print_r($bdSeancesHallId);
+      echo '<hr>';
+
+      $bdSeancesMovieId = DB::table('seances')->pluck('movie_id')->all();
+      print_r($bdSeancesMovieId);
+      echo '<hr>';
+
+      $bdSeancesId = DB::table('seances')->pluck('id')->all();
+      print_r($bdSeancesMovieId);
+      echo '<hr>';
     @endphp
 
     @for ($i = 0; $i < sizeof($movie); $i++)
@@ -63,16 +75,27 @@
           </div>
         </div>
 
-        <div class="movie-seances__hall">
-          <h3 class="movie-seances__hall-title">Зал 1</h3>
-          <ul class="movie-seances__list">
-            <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">10:20</a></li>
-            <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">14:10</a></li>
-            <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">18:40</a></li>
-            <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">22:00</a></li>
-          </ul>
-        </div>
-        <div class="movie-seances__hall">
+        @for ($j = 0; $j < sizeof($bdSeancesId); $j++)
+        {{-- {{$movie[$i]->id}}
+        @php
+        echo '<hr>';
+        @endphp
+        {{$item}} --}}
+          @if($movie[$i]->id == $bdSeancesMovieId[$j])
+            <div class="movie-seances__hall">
+              <h3 class="movie-seances__hall-title">{{ DB::table('halls')->where('id', DB::table('seances')->where('id', $bdSeancesId[$j])->value('hall_id'))->value('nameHall') }}</h3>
+              <ul class="movie-seances__list">
+                <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">10:20</a></li>
+                <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">14:10</a></li>
+                <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">18:40</a></li>
+                <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">22:00</a></li>
+              </ul>
+            </div>
+          @endif
+        @endfor
+
+
+        {{-- <div class="movie-seances__hall">
           <h3 class="movie-seances__hall-title">Зал 2</h3>
           <ul class="movie-seances__list">
             <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">11:15</a></li>
@@ -82,7 +105,7 @@
             <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">21:00</a></li>
             <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">23:30</a></li>
           </ul>
-        </div>
+        </div> --}}
       </section>
     @endfor
     
