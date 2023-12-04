@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>ИдёмВКино</title>
-  <link rel="stylesheet" href="CSS/normalize.css">
-  <link rel="stylesheet" href="CSS/styles.css">
+  <link rel="stylesheet" href="CSS/admin/normalize.css">
+  <link rel="stylesheet" href="CSS/admin/styles.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
 </head>
 
@@ -59,7 +59,7 @@
                         <div class="popup__header">
                           <h2 class="popup__title">
                             Удаление зала
-                            <a class="popup__dismiss small_cross_delete" href="#"><img src="i/close.png" alt="Закрыть"></a>
+                            <a class="popup__dismiss small_cross_delete" href="#"><img src="i/admin/close.png" alt="Закрыть"></a>
                           </h2>
                         </div>
                         <div class="popup__wrapper">
@@ -90,7 +90,7 @@
               <div class="popup__header">
               <h2 class="popup__title">
                   Добавление зала
-                  <a class="popup__dismiss small_cross_create cross_create_hall" href="#"><img src="i/close.png" alt="Закрыть"></a>
+                  <a class="popup__dismiss small_cross_create cross_create_hall" href="#"><img src="i/admin/close.png" alt="Закрыть"></a>
               </h2>
       
               </div>
@@ -210,7 +210,7 @@
         <div class="conf-step__movies">
           @foreach ($movie as $item)
             <div class="conf-step__movie">
-              <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
+              <img class="conf-step__movie-poster" alt="poster" src="i/admin/poster.png">
               <h3 class="conf-step__movie-title">{{$item->nameMovie}}</h3>
               <p class="conf-step__movie-duration">{{$item->durationMovie}} минут(ы)</p>
             </div>
@@ -223,7 +223,7 @@
               <div class="popup__header">
                 <h2 class="popup__title">
                   Добавление фильма
-                  <a class="popup__dismiss cross_create_movie" href="#"><img src="i/close.png" alt="Закрыть"></a>
+                  <a class="popup__dismiss cross_create_movie" href="#"><img src="i/admin/close.png" alt="Закрыть"></a>
                 </h2>
         
               </div>
@@ -256,30 +256,16 @@
 
           @php
             $bdSeancesHallId = DB::table('seances')->pluck('hall_id')->all();
-            // print_r($bdSeancesHallId);
-            // echo '</br>';
             
             $countsSeancesHallId = array_count_values($bdSeancesHallId);
-            // print_r($countsSeancesHallId);
-            // echo '</br>';
 
             $valuesCountsSeancesHallId = array_values($countsSeancesHallId);
-            // print_r($valuesCountsSeancesHallId);
-            // echo '</br>';
 
             $bdMoviesId = DB::table('movies')->pluck('id')->all();
-            // print_r($bdMoviesId);
-            // echo '</br>';
-            // $countsSeancesHallId = array_count_values($bdSeancesHallId);
-            // print_r($countsSeancesHallId);
 
             $bdMoviesMovieId = DB::table('seances')->pluck('movie_id')->all();
-            // print_r($bdMoviesMovieId);
-            // echo '</br>';
 
             $bdSeancesId = DB::table('seances')->pluck('id')->all();
-            // print_r($bdSeancesId);
-            // echo '</br>';
 
             $colorBackground = ['#caff85', '#85ff89', '#85ffd3', '#85e2ff', '#8599ff', '#ba85ff', '#ff85fb', '#ff85b1', '#ffa285'];
           @endphp
@@ -319,7 +305,7 @@
               <div class="popup__header">
                 <h2 class="popup__title">
                   Добавление сеанса
-                  <a class="popup__dismiss cross_create_seances" href="#"><img src="i/close.png" alt="Закрыть"></a>
+                  <a class="popup__dismiss cross_create_seances" href="#"><img src="i/admin/close.png" alt="Закрыть"></a>
                 </h2>
         
               </div>
@@ -335,6 +321,7 @@
                       @endforeach
                     </select>
                   </label>
+                  {{-- <div class="popup_add_field"> --}}
                     <label class="conf-step__label conf-step__label-fullsize ind helper-class" for="name">
                       Время начала
                       <input class="conf-step__input selected_start_time" type="time" value="00:00" name="start_time" id="time-tag-id" required>
@@ -345,10 +332,12 @@
                         @foreach ($movie as $item)
                           <option value={{ $item->id }}>{{$item->nameMovie}}</option>
                         @endforeach
+                        {{-- <option value="1" selected>Зал 1</option>
+                        <option value="2">Зал 2</option> --}}
                       </select>
                     </label>
 
-                    <img class="add_cross" src="i/cross-sign.png" alt="Добавить" onclick="event.preventDefault();
+                    <img class="add_cross" src="i/admin/cross-sign.png" alt="Добавить" onclick="event.preventDefault();
                     let ind = document.querySelectorAll('.ind').length;
                     document.querySelector('.add_cross').insertAdjacentHTML('beforebegin', `
                       <label class='conf-step__label conf-step__label-fullsize ind helper-class' for='name'>
@@ -365,6 +354,7 @@
                         </select>
                       </label>
                     `)">
+                  {{-- </a> --}}
 
                   <div class="conf-step__buttons text-center">
                     <input type="submit" value="Добавить" class="conf-step__button conf-step__button-accent">
@@ -392,7 +382,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="js/accordeon.js"></script>
-  <script src="js/index.js"></script>
+  <script src="js/indexAdmin.js"></script>
   {{-- <script src="js/pic.js"></script> --}}
 
 
@@ -448,6 +438,7 @@
         // contentType: "application/json",
         success:function(response){
           console.log(response);
+          // window.location.replace('/admin/add_seance')
           location.reload();
         },
       });

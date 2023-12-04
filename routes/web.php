@@ -16,7 +16,7 @@ use App\Models\Hall;
 |
 */
 
-Route::view('/', 'index');
+// Route::view('/', '/client/client');
 
 Route::group(['middleware'=>'auth'], function() {
   Route::get('/admin', [App\Http\Controllers\CountHallController::class, 'index'])->name('admin-countHall.index');
@@ -27,8 +27,9 @@ Route::group(['middleware'=>'auth'], function() {
   Route::post('/admin/movieStore', [App\Http\Controllers\MovieController::class, 'store']);
 
   Route::post('/admin/add_seance', [App\Http\Controllers\SeanceController::class, 'store']);
-  Route::delete('/admin/deleteAllSeance', [App\Http\Controllers\SeanceController::class, 'destroy'])->name('admin-deleteAllSeance.delete');;
+  Route::delete('/admin/deleteAllSeance', [App\Http\Controllers\SeanceController::class, 'destroy'])->name('admin-deleteAllSeance.delete');
 });
+Auth::routes();
 
 // Route::get('/admin/2', function() {
 //   $hall = Hall::all();
@@ -42,8 +43,7 @@ Route::group(['middleware'=>'auth'], function() {
 //     dd($j->sean);
 // });
 
-
-Auth::routes();
+Route::get('/', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-movie.index');
 
 
 
