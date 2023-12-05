@@ -31,17 +31,15 @@ Route::group(['middleware'=>'auth'], function() {
 });
 Auth::routes();
 
-// Route::get('/admin/2', function() {
-//   $hall = Hall::all();
-//   $seance = Seance::all();
-//   //dd($seance);
-//   $h = Hall::find(27);
-//   // dd($h->sea);
-//   // $s = Seance::find(74);
-//   // dd($s->sean);
-//     $j = Seance::find(72);
-//     dd($j->sean);
-// });
+Route::get('/admin/2', function() {
+  // $hal = Hall::find(35);
+  // dump($hal->movies);
+  // foreach ($hal->movies as $mov) {
+  //     dump($mov);
+  // }
+  $mov = Movie::find(67);
+  dump($mov->halls);
+});
 
 Route::get('/', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-movie.index');
 

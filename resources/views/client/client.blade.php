@@ -13,7 +13,7 @@
 </head>
 
 <body>
-  <button onclick="location.href='/login'" style="cursor: pointer">Войти в админпанель</button>
+  <button onclick="location.href='/login'" style="cursor: pointer; padding: 10px; font-size: 16px">Войти в админпанель</button>
   <header class="page-header">
     <h1 class="page-header__title">Идём<span>в</span>кино</h1>
   </header>
@@ -57,6 +57,10 @@
       $bdSeancesId = DB::table('seances')->pluck('id')->all();
       print_r($bdSeancesMovieId);
       echo '<hr>';
+
+      $bdSeancesStartTime = DB::table('seances')->pluck('startTime')->all();
+      print_r($bdSeancesStartTime);
+      echo '<hr>';
     @endphp
 
     @for ($i = 0; $i < sizeof($movie); $i++)
@@ -82,13 +86,25 @@
         @endphp
         {{$item}} --}}
           @if($movie[$i]->id == $bdSeancesMovieId[$j])
+            @php
+              $movieItem = App\Models\Movie::find($bdSeancesMovieId[$j]);
+              // dump($movieItem->halls[0]->nameHall);
+              foreach ($movieItem->halls as $mov) {
+                dump($mov->pivot->hall_id);
+              }              
+            @endphp
+            {{-- {{$movi}} --}}
             <div class="movie-seances__hall">
               <h3 class="movie-seances__hall-title">{{ DB::table('halls')->where('id', DB::table('seances')->where('id', $bdSeancesId[$j])->value('hall_id'))->value('nameHall') }}</h3>
               <ul class="movie-seances__list">
-                <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">10:20</a></li>
-                <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">14:10</a></li>
-                <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">18:40</a></li>
-                <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">22:00</a></li>
+                @for ($k = 0; $k < sizeof($bdSeancesMovieId); $k++)
+                  {{-- @if($bdSeancesHallId[$k] == ) --}}
+                    <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">10:20</a></li>
+    {{--                 <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">14:10</a></li>
+                    <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">18:40</a></li>
+                    <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">22:00</a></li> --}}
+                  {{-- @endif --}}
+                @endfor
               </ul>
             </div>
           @endif
