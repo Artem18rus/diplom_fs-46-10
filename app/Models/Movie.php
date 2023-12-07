@@ -16,6 +16,6 @@ class Movie extends Model
     // }
     public function halls()
     {
-        return $this->belongsToMany(Hall::class, 'seances');
+        return $this->belongsToMany(Hall::class, 'seances')->withPivot('startTime');;
     }
 }

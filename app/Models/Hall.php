@@ -16,7 +16,7 @@ class Hall extends Model
     // }
     public function movies()
     {
-        return $this->belongsToMany(Movie::class, 'seances');
+        return $this->belongsToMany(Movie::class, 'seances')->withPivot('startTime');;;
     }
 
 }
