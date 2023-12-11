@@ -94,10 +94,11 @@
           @if($movie[$i]->id == $bdSeancesMovieId[$j])
             @php
               $movieList = App\Models\Movie::find($bdSeancesMovieId[$j]);
-              //dump($movieList->halls[0]);
+              // dump($movieList->halls[0]);
               // foreach ($movieList->halls as $movieItem) {
               //   dump($movieItem->pivot->hall_id);
               // }
+              // dump($movieList->halls);
             @endphp
 
             <div class="movie-seances__hall">
@@ -123,6 +124,7 @@
                     <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">{{$movieList->halls[$k]->pivot->startTime}}</a></li>
                   @endif
                 @endfor
+                
               </ul>
             </div>
           @endif
@@ -211,6 +213,6 @@
       </div>     
     </section>  -->    
   </main>
-  
+  <script src="js/indexClient.js"></script>
 </body>
 </html>
