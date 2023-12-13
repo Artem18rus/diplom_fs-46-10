@@ -430,3 +430,7 @@ body {
     display: none;
   }
 }
+
+a {
+  cursor: pointer;
+}

@@ -30,18 +30,9 @@ Route::group(['middleware'=>'auth'], function() {
   Route::delete('/admin/deleteAllSeance', [App\Http\Controllers\SeanceController::class, 'destroy'])->name('admin-deleteAllSeance.delete');
 });
 Auth::routes();
-
-Route::get('/admin/2', function() {
-  // $hal = Hall::find(35);
-  // dump($hal->movies);
-  // foreach ($hal->movies as $mov) {
-  //     dump($mov);
-  // }
-  $mov = Movie::find(67);
-  dump($mov->halls);
-});
-
 Route::get('/', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-movie.index');
+
+Route::post('/hall', [App\Http\Controllers\ClientMovieController::class, 'store'])->name('client-movie.store');
 
 
 

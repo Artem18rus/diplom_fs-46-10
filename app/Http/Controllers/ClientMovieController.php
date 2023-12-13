@@ -17,7 +17,11 @@ class ClientMovieController extends Controller
      */
     public function index()
     {
-        return view('client/client', ['hall' => Hall::all(), 'movie' => Movie::all(), 'seance' => Seance::all()]);
+        $itemMovieDiscription = ['Две сотни лет назад малороссийские хутора разоряла шайка нехристей-ляхов во главе с могущественным колдуном.', '20 тысяч лет назад Земля была холодным и неуютным местом, в котором смерть подстерегала человека на каждом шагу.', 'Самые опасные хищники Вселенной, прибыв из глубин космоса, высаживаются на улицах маленького городка, чтобы начать свою кровавую охоту. Генетически модернизировав себя с помощью ДНК других видов, охотники стали ещё сильнее, умнее и беспощаднее.', 'Подросток из Нью-Джерси переезжает в Калифорнию и встречает мастера боевых искусств, который учит, как защититься от местных хулиганов.', 'На Аляске терпит крушение самолет, и оставшиеся в живых пассажиры оказываются в плену безлюдной снежной пустыни, где только стая волков скрашивает пейзаж. Люди хотят выжить любой ценой, и теперь им предстоит смертельная схватка.'];
+        $imgMovie = ['poster1.jpg', 'poster2.jpg', 'poster3.jpg', 'poster4.jpg'];
+        $bdMovieId = DB::table('movies')->pluck('id')->all();
+        
+        return view('client/client', ['movie' => Movie::all(), 'itemMovieDiscription' => $itemMovieDiscription, 'bdMovieId' => $bdMovieId, 'imgMovie' => $imgMovie]);
     }
 
     /**
@@ -33,7 +37,8 @@ class ClientMovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $params = $request->except('_token');
+        return view('client/hall', ['data' => $params]);
     }
 
     /**

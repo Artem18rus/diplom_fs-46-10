@@ -40,111 +40,51 @@
     <a class="page-nav__day page-nav__day_next" href="#">
     </a>
   </nav>
-  {{$movie}}
-
-  <main>
-    @php
-      echo '<hr>';
-      $itemMovieDiscription = ['Две сотни лет назад малороссийские хутора разоряла шайка нехристей-ляхов во главе с могущественным колдуном.', '20 тысяч лет назад Земля была холодным и неуютным местом, в котором смерть подстерегала человека на каждом шагу.', 'Самые опасные хищники Вселенной, прибыв из глубин космоса, высаживаются на улицах маленького городка, чтобы начать свою кровавую охоту. Генетически модернизировав себя с помощью ДНК других видов, охотники стали ещё сильнее, умнее и беспощаднее.', 'Подросток из Нью-Джерси переезжает в Калифорнию и встречает мастера боевых искусств, который учит, как защититься от местных хулиганов.', 'На Аляске терпит крушение самолет, и оставшиеся в живых пассажиры оказываются в плену безлюдной снежной пустыни, где только стая волков скрашивает пейзаж. Люди хотят выжить любой ценой, и теперь им предстоит смертельная схватка.'];
-      
-      $bdSeancesHallId = DB::table('seances')->pluck('hall_id')->all();
-      print_r($bdSeancesHallId);
-      echo '<hr>';
-
-      $bdSeancesMovieId = DB::table('seances')->pluck('movie_id')->all();
-      print_r($bdSeancesMovieId);
-      echo '<hr>';
-
-      $bdSeancesId = DB::table('seances')->pluck('id')->all();
-      print_r($bdSeancesId);
-      echo '<hr>';
-
-      $bdSeancesStartTime = DB::table('seances')->pluck('startTime')->all();
-      print_r($bdSeancesStartTime);
-      echo '<hr>';
-
-      // $movieList = App\Models\Movie::find(68);
-      // print_r($movieList->halls->pivot->startTime);
-      // echo '<hr>';
-      
-    @endphp
-
-    @for ($i = 0; $i < sizeof($movie); $i++)
-      <section class="movie">
-        <div class="movie__info">
-          <div class="movie__poster">
-            <img class="movie__poster-image" alt="Звёздные войны постер" src="i/client/poster1.jpg">
-          </div>
-          <div class="movie__description">
-            <h2 class="movie__title">{{ $movie[$i]->nameMovie }}</h2>
-            <p class="movie__synopsis">{{ $itemMovieDiscription[$i] }}</p>
-            <p class="movie__data">
-              <span class="movie__data-duration">{{ $movie[$i]->durationMovie }} минут</span>
-              <span class="movie__data-origin">США</span>
-            </p>
-          </div>
-        </div>
-
-        @for ($j = 0; $j < sizeof($bdSeancesId); $j++)
-        {{-- {{$movie[$i]->id}}
-        @php
-        echo '<hr>';
-        @endphp
-        {{$item}} --}}
-          @if($movie[$i]->id == $bdSeancesMovieId[$j])
-            @php
-              $movieList = App\Models\Movie::find($bdSeancesMovieId[$j]);
-              // dump($movieList->halls[0]);
-              // foreach ($movieList->halls as $movieItem) {
-              //   dump($movieItem->pivot->hall_id);
-              // }
-              // dump($movieList->halls);
-            @endphp
-
-            <div class="movie-seances__hall">
-              <h3 class="movie-seances__hall-title">{{ DB::table('halls')->where('id', DB::table('seances')->where('id', $bdSeancesId[$j])->value('hall_id'))->value('nameHall') }}</h3>
-              {{-- <h3 class="movie-seances__hall-title">{{ $movieList->halls[0]->pivot->hall_id }}</h3> --}}
-              <ul class="movie-seances__list">
-                {{-- @for ($k = 0; $k < sizeof($bdSeancesMovieId); $k++)
-                  @if($movie[$i]->id == $bdSeancesMovieId[$k] && DB::table('halls')->where('id', DB::table('seances')->where('id', $bdSeancesId[$j])->value('hall_id'))->value('id') == $bdSeancesHallId[$k]) 
-                    <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">10:20</a></li>
-                    <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">14:10</a></li>
-                    <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">18:40</a></li>
-                    <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">22:00</a></li>
-                  @endif
-                @endfor --}}
-                {{-- @foreach ($movieList->halls as $movieItem) {
-                  <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">{{$movieItem->pivot->hall_id}}</a></li>
-                }
-                @endforeach --}}
-                
-                @for ($k = 0; $k < sizeof($movieList->halls); $k++)
-                {{-- {{$movie[$i]->id}} --}}
-                  @if(DB::table('halls')->where('id', DB::table('seances')->where('id', $bdSeancesId[$j])->value('hall_id'))->value('id') == $movieList->halls[$k]->pivot->hall_id)
-                    <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">{{$movieList->halls[$k]->pivot->startTime}}</a></li>
-                  @endif
-                @endfor
-                
-              </ul>
+  {{-- {{$movie}} --}}
+  
+  <main class="schedule">
+    <form class='data-movie' action="/hall" method="post" accept-charset="utf-8">
+    @csrf
+      @for ($i = 0; $i < sizeof($movie); $i++)
+        <section class="movie">
+          <div class="movie__info">
+            <div class="movie__poster">
+              <img class="movie__poster-image" alt="{{$movie[$i]->nameMovie}}" src="i/client/{{$imgMovie[$i]}}">
             </div>
-          @endif
-        @endfor
+            <div class="movie__description">
+              <h2 class="movie__title">{{ $movie[$i]->nameMovie }}</h2>
+              <p class="movie__synopsis">{{ $itemMovieDiscription[$i] }}</p>
+              <p class="movie__data">
+                <span class="movie__data-duration">{{ $movie[$i]->durationMovie }} минут</span>
+                <span class="movie__data-origin">США</span>
+              </p>
+            </div>
+          </div>
 
-
-        {{-- <div class="movie-seances__hall">
-          <h3 class="movie-seances__hall-title">Зал 2</h3>
-          <ul class="movie-seances__list">
-            <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">11:15</a></li>
-            <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">14:40</a></li>
-            <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">16:00</a></li>
-            <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">18:30</a></li>
-            <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">21:00</a></li>
-            <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html">23:30</a></li>
-          </ul>
-        </div> --}}
-      </section>
-    @endfor
-    
+          @for ($j = 0; $j < sizeof($bdMovieId); $j++)
+            @if($movie[$i]->id == $bdMovieId[$j])
+              @php
+                $movieList = App\Models\Movie::find($bdMovieId[$j]);
+              @endphp
+              @foreach ($movieList->halls->unique() as $movieItem)
+                <div class="movie-seances__hall">
+                  <h3 class="movie-seances__hall-title">{{ $movieItem->nameHall }}</h3>
+                  <ul class="movie-seances__list">
+                    @for ($k = 0; $k < sizeof($movieList->halls); $k++)
+                      @if($movieList->halls[$k]->nameHall == $movieItem->nameHall)
+                        {{-- <input type="hidden" name="country" value={{$movieList->halls[$k]->pivot->startTime}}> --}}
+                        <li class="movie-seances__time-block"><button type='submit' class="movie-seances__time">{{$movieList->halls[$k]->pivot->startTime}}</button></li>
+                        
+                      @endif
+                    @endfor
+                  </ul>
+                </div>
+              @endforeach
+            @endif
+          @endfor
+        </section>
+      @endfor
+    </form>
 <!--     <section class="movie">
       <div class="movie__info">      
         <div class="movie__poster">
