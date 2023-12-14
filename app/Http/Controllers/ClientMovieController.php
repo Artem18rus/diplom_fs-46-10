@@ -37,8 +37,21 @@ class ClientMovieController extends Controller
      */
     public function store(Request $request)
     {
-        $params = $request->except('_token');
-        return view('client/hall', ['data' => $params]);
+        $params = $request->input('dataMovie');
+
+        $array = json_decode($params);
+        $hallPick = $array[0]->hall;
+        $moviePick = $array[0]->movie;
+        $startTimePick = $array[0]->startTime;
+
+        $rowBd = DB::table('halls')->where('nameHall', $hallPick)->value('row');
+        $chairBd = DB::table('halls')->where('nameHall', $hallPick)->value('chair');
+
+        $hallScheme = DB::table('halls')->where('nameHall', $hallPick)->value('hall_scheme');
+        // json_decode()
+        //dd($hallScheme);
+        // dump($chairBd);
+        return view('client/hall', ['hallPick' => $hallPick, 'moviePick' => $moviePick, 'startTimePick' => $startTimePick, 'rowBd' => $rowBd, 'chairBd' => $chairBd, 'hallScheme' => $hallScheme]);
     }
 
     /**

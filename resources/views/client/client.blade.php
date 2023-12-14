@@ -72,9 +72,7 @@
                   <ul class="movie-seances__list">
                     @for ($k = 0; $k < sizeof($movieList->halls); $k++)
                       @if($movieList->halls[$k]->nameHall == $movieItem->nameHall)
-                        {{-- <input type="hidden" name="country" value={{$movieList->halls[$k]->pivot->startTime}}> --}}
-                        <li class="movie-seances__time-block"><button type='submit' class="movie-seances__time">{{$movieList->halls[$k]->pivot->startTime}}</button></li>
-                        
+                        <li class="movie-seances__time-block"><button style="border: none; cursor: pointer;" type='submit' class="movie-seances__time">{{$movieList->halls[$k]->pivot->startTime}}</button></li>                        
                       @endif
                     @endfor
                   </ul>
