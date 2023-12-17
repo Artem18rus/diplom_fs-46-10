@@ -33,6 +33,6 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-movie.index');
 
 Route::post('/hall', [App\Http\Controllers\ClientMovieController::class, 'store'])->name('client-movie.store');
-
+// Route::get('/31', [App\Http\Controllers\DayController::class, 'index'])->name('client-movie.index');
 
 
