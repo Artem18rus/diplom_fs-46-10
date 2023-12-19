@@ -23,7 +23,7 @@
       <div class="buying__info">
         <div class="buying__info-description">
           <h2 class="buying__info-title">{{$moviePick}}</h2>
-          <p class="buying__info-start">Начало сеанса: {{$startTimePick}}</p>
+          <p class="buying__info-start">Начало сеанса: {{$startTimePick}}, {{$dayPick}}</p>
           <p class="buying__info-hall">{{$hallPick}}</p>
         </div>
         <div class="buying__info-hint">

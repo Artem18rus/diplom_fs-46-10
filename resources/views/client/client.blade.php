@@ -19,27 +19,40 @@
   </header>
   
   <nav class="page-nav">
-    <a class="page-nav__day page-nav__day_today" href="#">
+    <a class="page-nav__day page-nav__day_today {{ Request::routeIs('client-pn.index') ? 'page-nav__day_chosen' : '' }}" href="{{route('client-pn.index')}}">
       <span class="page-nav__day-week">Пн</span><span class="page-nav__day-number">31</span>
     </a>
-    <a class="page-nav__day" href="#">
+    <a class="page-nav__day {{ Request::routeIs('client-vt.index') ? 'page-nav__day_chosen' : '' }}" href="{{route('client-vt.index')}}">
       <span class="page-nav__day-week">Вт</span><span class="page-nav__day-number">1</span>
     </a>
-    <a class="page-nav__day page-nav__day_chosen" href="#">
-      <span class="page-nav__day-week">Ср</span><span class="page-nav__day-number">2</span>
+    <a class="page-nav__day {{ Request::routeIs('client-sr.index') ? 'page-nav__day_chosen' : '' }}" href="{{route('client-sr.index')}}">
+      <span class="page-nav__day-week">Ср</span><span class="page-nav__day-number">2</span>        
     </a>
-    <a class="page-nav__day" href="#">
-      <span class="page-nav__day-week">Чт</span><span class="page-nav__day-number">3</span>
+    <a class="page-nav__day {{ Request::routeIs('client-ct.index') ? 'page-nav__day_chosen' : '' }}" href="{{route('client-ct.index')}}">
+      <span class="page-nav__day-week">Чт</span><span class="page-nav__day-number">3</span>        
     </a>
-    <a class="page-nav__day" href="#">
+    <a class="page-nav__day {{ Request::routeIs('client-pt.index') ? 'page-nav__day_chosen' : '' }}" href="{{route('client-pt.index')}}">
       <span class="page-nav__day-week">Пт</span><span class="page-nav__day-number">4</span>
     </a>
-    <a class="page-nav__day page-nav__day_weekend" href="#">
+    <a class="page-nav__day page-nav__day_weekend {{ Request::routeIs('client-sb.index') ? 'page-nav__day_chosen' : '' }}" href="{{route('client-sb.index')}}">
       <span class="page-nav__day-week">Сб</span><span class="page-nav__day-number">5</span>
     </a>
     <a class="page-nav__day page-nav__day_next" href="#">
     </a>
   </nav>
+
+{{--     <ul class=»nav»>
+      <li class=»nav-item {{ Request::routeIs(‘home’) ? ‘active’ : » }}»>
+        <a class=»nav-link» href=»{{ route(‘home’) }}»>Главная
+
+      <li class=»nav-item {{ Request::routeIs(‘about’) ? ‘active’ : » }}»>
+        <a class=»nav-link» href=»{{ route(‘about’) }}»>О нас
+      <li class=»nav-item {{ Request::routeIs(‘contact’) ? ‘active’ : » }}»>
+        <a class=»nav-link» href=»{{ route(‘contact’) }}»>Контакты
+
+</ul>
+ --}}
+
   {{-- {{$movie}} --}}
   
   <main class="schedule">
@@ -85,5 +98,26 @@
     </form>
   </main>
   <script src="js/indexClient.js"></script>
+
+{{--   <script>
+    $('#pick_page').on('submit', function(event){
+      event.preventDefault();
+      let name = $('#name-movie').val();
+      let duration = $('#duration-movie').val();
+      $.ajax({
+        url: "/admin/movieStore",
+        type:"POST",
+        data:{
+          "_token": "{{ csrf_token() }}",
+          name:name,
+          duration:duration,
+        },
+        success:function(response){
+          // console.log(response);
+          location.reload();
+        },
+      });
+    })
+  </script> --}}
 </body>
 </html>

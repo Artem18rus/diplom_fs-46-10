@@ -30,9 +30,34 @@ Route::group(['middleware'=>'auth'], function() {
   Route::delete('/admin/deleteAllSeance', [App\Http\Controllers\SeanceController::class, 'destroy'])->name('admin-deleteAllSeance.delete');
 });
 Auth::routes();
-Route::get('/', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-movie.index');
-
+//Route::get('/', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-movie.index');
+Route::get('/', function () {
+    return redirect('/sr');
+});
 Route::post('/hall', [App\Http\Controllers\ClientMovieController::class, 'store'])->name('client-movie.store');
-// Route::get('/31', [App\Http\Controllers\DayController::class, 'index'])->name('client-movie.index');
+// Route::get('/pn', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-pn.index');
+// Route::get('/vt', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-vt.index');
+// Route::get('/sr', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-sr.index');
+// Route::get('/ct', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-ct.index');
+// Route::get('/pt', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-pt.index');
+// Route::get('/sb', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-sb.index');
+Route::get('/pn', function(){
+  return view('client/pn');
+})->name('client-pn.index');
+Route::get('/vt', function(){
+  return view('client/vt');
+})->name('client-vt.index');
+Route::get('/sr', function(){
+  return view('client/sr');
+})->name('client-sr.index');
+Route::get('/ct', function(){
+  return view('client/ct');
+})->name('client-ct.index');
+Route::get('/pt', function(){
+  return view('client/pt');
+})->name('client-pt.index');
+Route::get('/sb', function(){
+  return view('client/sb');
+})->name('client-sb.index');
 
 

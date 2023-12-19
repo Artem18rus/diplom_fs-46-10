@@ -13,7 +13,7 @@ class DayController extends Controller
      */
     public function index()
     {
-        //
+        //return view('/client/pn');
     }
 
     /**
