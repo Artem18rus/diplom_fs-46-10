@@ -69,5 +69,6 @@
     });
     // location.reload();
   </script>
+  <script src="js/indexClient.js"></script>
 </body>
 </html>

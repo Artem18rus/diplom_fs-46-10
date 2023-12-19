@@ -84,6 +84,5 @@
     </form>
   </main>
   <script src="js/indexClient.js"></script>
-
 </body>
 </html>

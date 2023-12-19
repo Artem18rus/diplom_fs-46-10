@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="ru">
 
 <head>
@@ -41,20 +41,6 @@
     </a>
   </nav>
 
-{{--     <ul class=»nav»>
-      <li class=»nav-item {{ Request::routeIs(‘home’) ? ‘active’ : » }}»>
-        <a class=»nav-link» href=»{{ route(‘home’) }}»>Главная
-
-      <li class=»nav-item {{ Request::routeIs(‘about’) ? ‘active’ : » }}»>
-        <a class=»nav-link» href=»{{ route(‘about’) }}»>О нас
-      <li class=»nav-item {{ Request::routeIs(‘contact’) ? ‘active’ : » }}»>
-        <a class=»nav-link» href=»{{ route(‘contact’) }}»>Контакты
-
-</ul>
- --}}
-
-  {{-- {{$movie}} --}}
-  
   <main class="schedule">
     <form class='data-movie' action="/hall" method="post" accept-charset="utf-8">
     @csrf
@@ -98,26 +84,5 @@
     </form>
   </main>
   <script src="js/indexClient.js"></script>
-
-{{--   <script>
-    $('#pick_page').on('submit', function(event){
-      event.preventDefault();
-      let name = $('#name-movie').val();
-      let duration = $('#duration-movie').val();
-      $.ajax({
-        url: "/admin/movieStore",
-        type:"POST",
-        data:{
-          "_token": "{{ csrf_token() }}",
-          name:name,
-          duration:duration,
-        },
-        success:function(response){
-          // console.log(response);
-          location.reload();
-        },
-      });
-    })
-  </script> --}}
 </body>
-</html>
+</html> --}}
