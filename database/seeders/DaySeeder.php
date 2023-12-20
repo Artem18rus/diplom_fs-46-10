@@ -34,7 +34,7 @@ class DaySeeder extends Seeder
         ]);
 
         $day5 = Day::create([
-            'day_week' => 'ПТ',
+            'day_week' => 'Пт',
             'date' => 4,
         ]);
 

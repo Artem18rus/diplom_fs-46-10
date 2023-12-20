@@ -273,6 +273,7 @@ body {
 
 .buying-scheme__chair_standart {
   background-color: #FFFFFF;
+  cursor: pointer;
 }
 
 .buying-scheme__chair_taken {
@@ -281,6 +282,7 @@ body {
 
 .buying-scheme__chair_vip {
   background-color: #F9953A;
+  cursor: pointer;
 }
 
 .buying-scheme__chair_selected {
@@ -432,5 +434,9 @@ body {
 }
 
 a {
+  cursor: pointer;
+}
+
+.to-book {
   cursor: pointer;
 }

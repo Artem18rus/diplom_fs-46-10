@@ -41,3 +41,39 @@ buyingSchemeRow.forEach((i) => {
     })
   })
 })
+
+//доп. обработка кнопки Забронировать:
+let toBook = document.querySelector('.to-book');
+let buying = document.querySelector('.buying');
+
+// toBook.addEventListener('click', (e) => {
+//   // console.log(e.target);
+//   let input = document.createElement('input');
+//   input.setAttribute("type", "hidden");
+//   input.setAttribute("name", 'Зал ${numberHall}');
+//   input.setAttribute("value", 'JSON.stringify(arrPick)');
+//   buying.insertBefore(input, toBook)
+// })
+toBook.addEventListener('click', (e) => {
+  e.preventDefault();
+  let buyingSchemeWrapperItem = document.querySelector('.buying-scheme__wrapper');
+  let buyingSchemeRow = buyingSchemeWrapperItem.querySelectorAll('.buying-scheme__row');
+  let arrSelectedChair = [];
+    buyingSchemeRow.forEach((el, i) => {
+      let buyingSchemeChair = el.querySelectorAll('.buying-scheme__chair');
+        buyingSchemeChair.forEach((item, idx) => {
+          if(item.classList.contains('buying-scheme__chair_selected')) {
+            let obj = {
+              row: `${i+1}`,
+              chair: `${idx+1}`,
+            }
+            arrSelectedChair.push(obj);
+          }
+        })
+    })
+  // let input = document.createElement('input');
+  // input.setAttribute("type", "hidden");
+  // input.setAttribute("name", 'selectedChair');
+  // input.setAttribute("value", JSON.stringify(arrSelectedChair));
+  // buying.insertBefore(input, toBook)
+})

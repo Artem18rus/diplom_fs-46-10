@@ -19,40 +19,49 @@
     $arrayHallScheme = json_decode($hallScheme, true);
   @endphp
   <main>
-    <section class="buying">
-      <div class="buying__info">
-        <div class="buying__info-description">
-          <h2 class="buying__info-title">{{$moviePick}}</h2>
-          <p class="buying__info-start">Начало сеанса: {{$startTimePick}}, {{$dayPick}}</p>
-          <p class="buying__info-hall">{{$hallPick}}</p>
+
+    {{-- <form class='halls-config' action="/payment" method="post" accept-charset="utf-8">
+    @csrf --}}
+      <section class="buying">
+        <div class="buying__info">
+          <div class="buying__info-description">
+            <h2 class="buying__info-title">{{$moviePick}}</h2>
+            <p class="buying__info-start">Начало сеанса: {{$startTimePick}}, {{$dayPick}}</p>
+            <p class="buying__info-hall">{{$hallPick}}</p>
+          </div>
+          <div class="buying__info-hint">
+            <p>Тапните дважды,<br>чтобы увеличить</p>
+          </div>
         </div>
-        <div class="buying__info-hint">
-          <p>Тапните дважды,<br>чтобы увеличить</p>
-        </div>
-      </div>
-      <div class="buying-scheme">
-        <div class="buying-scheme__wrapper">
-          @for ($i = 0; $i < $rowBd; $i++)
-            <div class="buying-scheme__row">
-              @for ($j = 0; $j < $chairBd; $j++)
-                <span class="buying-scheme__chair"></span>
-              @endfor
+        <div class="buying-scheme">
+          <div class="buying-scheme__wrapper">
+            @for ($i = 0; $i < $rowBd; $i++)
+              <div class="buying-scheme__row">
+                @for ($j = 0; $j < $chairBd; $j++)
+                  <span class="buying-scheme__chair"></span>
+                @endfor
+              </div>
+            @endfor
+          </div>
+          <div class="buying-scheme__legend">
+            <div class="col">
+              <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_standart"></span> Свободно (<span class="buying-scheme__legend-value">{{$priceStandart}}</span>руб)</p>
+              <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_vip"></span> Свободно VIP (<span class="buying-scheme__legend-value">{{$priceVip}}</span>руб)</p>
             </div>
-          @endfor
-        </div>
-        <div class="buying-scheme__legend">
-          <div class="col">
-            <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_standart"></span> Свободно (<span class="buying-scheme__legend-value">{{$priceStandart}}</span>руб)</p>
-            <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_vip"></span> Свободно VIP (<span class="buying-scheme__legend-value">{{$priceVip}}</span>руб)</p>
-          </div>
-          <div class="col">
-            <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_taken"></span> Занято</p>
-            <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_selected"></span> Выбрано</p>
+            <div class="col">
+              <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_taken"></span> Занято</p>
+              <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_selected"></span> Выбрано</p>
+            </div>
           </div>
         </div>
-      </div>
-      <button class="acceptin-button" onclick="location.href='payment.html'" >Забронировать</button>
-    </section>
+        <input type="hidden" name="moviePick" value="{{$moviePick}}">
+        <input type="hidden" name="startTimePick" value="{{$startTimePick}}">
+        <input type="hidden" name="dayPick" value="{{$dayPick}}">
+        <input type="hidden" name="hallPick" value="{{$hallPick}}">
+        <button type="submit" class="acceptin-button to-book">Забронировать</button>
+      </section>
+    {{-- </form> --}}
+
   </main>
   <script type="text/javascript">
     let jsArrayHallScheme = <?php echo json_encode($arrayHallScheme); ?>;

@@ -61,3 +61,4 @@ Route::get('/sb', function(){
 })->name('client-sb.index');
 
 
+Route::post('/payment', [App\Http\Controllers\PickChairController::class, 'store'])->name('client-payment.store');
