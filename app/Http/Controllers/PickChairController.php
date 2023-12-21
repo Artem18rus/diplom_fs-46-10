@@ -29,22 +29,23 @@ class PickChairController extends Controller
      */
     public function store(Request $request)
     {
-        // dump($request->all());
         $dayPick = $request->input('dayPick');
         $moviePick = $request->input('moviePick');
         $hallPick = $request->input('hallPick');
         $startTimePick = $request->input('startTimePick');
         $selectedChair = $request->input('selectedChair');
 
-        // $arrSelectedChair = json_decode($selectedChair);
-        // dump($arrSelectedChair);
-        // $newPickChair = new PickChair;
-        // $newPickChair->day_pick = $dayPick;
-        // $newPickChair->movie_pick = $moviePick;
-        // $newPickChair->hall_pick = $hallPick;
-        // $newPickChair->startTime_pick = $startTimePick;
-        // $newPickChair->selected_chair = $selectedChair;
-        // $newPickChair->save();
+        $arrSelectedChair = json_decode($selectedChair);
+        // dump($hallPick);
+        $hallPickNumber = strstr($hallPick, " ");
+        // dd($hallPickNumber);
+        $newPickChair = new PickChair;
+        $newPickChair->day_pick = $dayPick;
+        $newPickChair->movie_pick = $moviePick;
+        $newPickChair->hall_pick = $hallPick;
+        $newPickChair->startTime_pick = $startTimePick;
+        $newPickChair->selected_chair = $selectedChair;
+        $newPickChair->save();
 
         return view('client/payment', ['dayPick' => $dayPick, 'moviePick' => $moviePick, 'hallPick' => $hallPick, 'startTimePick' => $startTimePick, 'selectedChair' => $selectedChair]);
     }
@@ -52,9 +53,16 @@ class PickChairController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PickChair $pickChair)
+    public function show(Request $request)
     {
-        //
+        // $data = $request->all();
+        $dayPick = $request->input('dayPick');
+        $moviePick = $request->input('moviePick');
+        $hallPick = $request->input('hallPick');
+        $startTimePick = $request->input('startTimePick');
+        $stringResultSelectedChair = $request->input('stringResultSelectedChair');
+        $stringResultPrice = $request->input('stringResultPrice');
+        return view('client/ticket', ['dayPick' => $dayPick, 'moviePick' => $moviePick, 'hallPick' => $hallPick, 'startTimePick' => $startTimePick, 'stringResultSelectedChair' => $stringResultSelectedChair, 'stringResultPrice' => $stringResultPrice]);
     }
 
     /**

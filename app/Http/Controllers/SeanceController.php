@@ -14,7 +14,7 @@ class SeanceController extends Controller
      */
     public function index()
     {
-        dd('/admin/seanceIndex');
+        //
     }
 
     /**
@@ -30,23 +30,11 @@ class SeanceController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
-        // $seanse = new Seance;
 
         $BdHallId = Seance::pluck('hall_id');
         foreach ($BdHallId as $key => $value) {
             DB::table('seances')->where('hall_id', $request->hallTagId)->delete();
         }
-
-            // $reqTimeTag = json_encode($request->timeTag);
-            // $reqMovieTagId = json_encode($request->movieTagId);
-
-            // Seance::create([
-            //     'hall_id' => $request->hallTagId,
-            //     'startTime' => $reqTimeTag,
-            //     'movie_id' => $reqMovieTagId,
-            //     ]);
-
 
         foreach ($request->hallTagId as $key => $value) {
             Seance::create([

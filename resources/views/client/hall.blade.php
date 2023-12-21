@@ -17,11 +17,20 @@
   </header>
   @php
     $arrayHallScheme = json_decode($hallScheme, true);
+    print_r($arrayHallScheme);
+    echo "<hr>";
+    print_r(DB::table('pick_chairs')->where('day_pick', $dayPick)->where('movie_pick', $moviePick)->where('hall_pick', $hallPick)->where('startTime_pick', $startTimePick)->value('selected_chair'));
+    // if(isset(DB::table('pick_chairs')->pluck('selected_chair')[0])) {
+    //     $arrayPickChairs = DB::table('pick_chairs')->pluck('selected_chair')[0];
+    //     $arrayPickChairsResult = json_decode($arrayPickChairs, true);
+    //     print_r($arrayPickChairsResult);
+    // }
+
   @endphp
   <main>
 
-    {{-- <form class='halls-config' action="/payment" method="post" accept-charset="utf-8">
-    @csrf --}}
+    <form action="/payment" method="post" accept-charset="utf-8">
+    @csrf
       <section class="buying">
         <div class="buying__info">
           <div class="buying__info-description">
@@ -45,8 +54,8 @@
           </div>
           <div class="buying-scheme__legend">
             <div class="col">
-              <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_standart"></span> Свободно (<span class="buying-scheme__legend-value">{{$priceStandart}}</span>руб)</p>
-              <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_vip"></span> Свободно VIP (<span class="buying-scheme__legend-value">{{$priceVip}}</span>руб)</p>
+              <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_standart"></span> Свободно (<span class="buying-scheme__legend-value price-standart">{{$priceStandart}}</span>руб)</p>
+              <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_vip"></span> Свободно VIP (<span class="buying-scheme__legend-value price-vip">{{$priceVip}}</span>руб)</p>
             </div>
             <div class="col">
               <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_taken"></span> Занято</p>
@@ -60,11 +69,12 @@
         <input type="hidden" name="hallPick" value="{{$hallPick}}">
         <button type="submit" class="acceptin-button to-book">Забронировать</button>
       </section>
-    {{-- </form> --}}
+    </form>
 
   </main>
   <script type="text/javascript">
     let jsArrayHallScheme = <?php echo json_encode($arrayHallScheme); ?>;
+    // console.log(jsArrayHallScheme);
     let buyingSchemRow = document.querySelectorAll('.buying-scheme__row');
     let buyingSchemeChair = document.querySelectorAll('.buying-scheme__chair');
     buyingSchemRow.forEach((el, idx) => {
@@ -76,7 +86,20 @@
         })
       })
     });
-    // location.reload();
+
+    // let jsArrayPickChairs = <?php echo json_encode($arrayPickChairsResult); ?>;
+    // // console.log(jsArrayPickChairs);
+    // let buyingSchemRowBd = document.querySelectorAll('.buying-scheme__row');
+    // let buyingSchemeChairBd = document.querySelectorAll('.buying-scheme__chair');
+    // buyingSchemRowBd.forEach((el, idx) => {
+    //   Array.from(el.children).forEach((item, i) => {
+    //     jsArrayPickChairs.forEach((it, ind) => {
+    //       if(idx+1 == Number(it.row) && i+1 == Number(it.chair)) {
+    //         item.classList.add('buying-scheme__chair_disabled');
+    //       }
+    //     })
+    //   })
+    // });
   </script>
   <script src="js/indexClient.js"></script>
 </body>

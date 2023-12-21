@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('hall_pick')->nullable();
             $table->string('startTime_pick')->nullable();
             $table->json('selected_chair')->nullable();
-            $table->integer('price_pick')->nullable();
             $table->timestamps();
         });
     }

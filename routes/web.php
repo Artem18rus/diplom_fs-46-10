@@ -62,3 +62,8 @@ Route::get('/sb', function(){
 
 
 Route::post('/payment', [App\Http\Controllers\PickChairController::class, 'store'])->name('client-payment.store');
+Route::post('/ticket', [App\Http\Controllers\PickChairController::class, 'show'])->name('client-payment.show');
+
+// Route::get('qr-code', function () {
+//     return QrCode::encoding('UTF-8')->size(500)->generate('Добро пожаловать на jobtools.ru');
+// });

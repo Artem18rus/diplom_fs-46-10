@@ -46,34 +46,37 @@ buyingSchemeRow.forEach((i) => {
 let toBook = document.querySelector('.to-book');
 let buying = document.querySelector('.buying');
 
-// toBook.addEventListener('click', (e) => {
-//   // console.log(e.target);
-//   let input = document.createElement('input');
-//   input.setAttribute("type", "hidden");
-//   input.setAttribute("name", 'Зал ${numberHall}');
-//   input.setAttribute("value", 'JSON.stringify(arrPick)');
-//   buying.insertBefore(input, toBook)
-// })
 toBook.addEventListener('click', (e) => {
-  e.preventDefault();
+  // e.preventDefault();
   let buyingSchemeWrapperItem = document.querySelector('.buying-scheme__wrapper');
+  let priceStandart = document.querySelector('.price-standart');
+  let priceVip = document.querySelector('.price-vip');
+
   let buyingSchemeRow = buyingSchemeWrapperItem.querySelectorAll('.buying-scheme__row');
   let arrSelectedChair = [];
     buyingSchemeRow.forEach((el, i) => {
       let buyingSchemeChair = el.querySelectorAll('.buying-scheme__chair');
         buyingSchemeChair.forEach((item, idx) => {
-          if(item.classList.contains('buying-scheme__chair_selected')) {
+          if(item.classList.contains('buying-scheme__chair_selected') && item.classList.contains('buying-scheme__chair_standart')) {
             let obj = {
               row: `${i+1}`,
               chair: `${idx+1}`,
+              price: `${priceStandart.textContent} рублей`
+            }
+            arrSelectedChair.push(obj);
+          } else if(item.classList.contains('buying-scheme__chair_selected') && item.classList.contains('buying-scheme__chair_vip')) {
+            let obj = {
+              row: `${i+1}`,
+              chair: `${idx+1}`,
+              price: `${priceVip.textContent} рублей`
             }
             arrSelectedChair.push(obj);
           }
         })
     })
-  // let input = document.createElement('input');
-  // input.setAttribute("type", "hidden");
-  // input.setAttribute("name", 'selectedChair');
-  // input.setAttribute("value", JSON.stringify(arrSelectedChair));
-  // buying.insertBefore(input, toBook)
+  let input = document.createElement('input');
+  input.setAttribute("type", "hidden");
+  input.setAttribute("name", 'selectedChair');
+  input.setAttribute("value", JSON.stringify(arrSelectedChair));
+  buying.insertBefore(input, toBook)
 })

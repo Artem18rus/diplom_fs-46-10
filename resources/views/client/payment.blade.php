@@ -25,25 +25,44 @@
 
       @php
       $arrSelectedChair = json_decode($selectedChair, true);
+      // print_r($arrSelectedChair);
       $arrResultSelectedChair = [];
-        foreach ($arrSelectedChair as $item) {
-          array_push($arrResultSelectedChair, "ряд: {$item['row']}, место: {$item['chair']}");
+        foreach ($arrSelectedChair as $key=>$item) {
+          $key = $key + 1;
+          array_push($arrResultSelectedChair, "{$key}-ряд {$item['row']}, место {$item['chair']}");
         }
+      $stringResultSelectedChair = implode("; ", $arrResultSelectedChair);
+
+      $arrResultPrice = [];
+        foreach ($arrSelectedChair as $key=>$item) {
+          $key = $key + 1;
+          array_push($arrResultPrice, "{$key}-{$item['price']}");
+        }
+      $stringResultPrice = implode("; ", $arrResultPrice);
       @endphp
 
+    <form action="/ticket" method="post" accept-charset="utf-8">
+    @csrf
       <div class="ticket__info-wrapper">
         <p class="ticket__info">На фильм: <span class="ticket__details ticket__title">{{$moviePick}}</span></p>
-        <p class="ticket__info">Места: <span class="ticket__details ticket__chairs">{{implode("; ", $arrResultSelectedChair)}}</span></p>
-        <p class="ticket__info">В зале: <span class="ticket__details ticket__hall">{{$hallPick}}</span></p>
+        <p class="ticket__info">Места: <span class="ticket__details ticket__chairs">{{$stringResultSelectedChair}}</span></p>
+        <p class="ticket__info">В зале: <span class="ticket__details ticket__hall">{{strstr($hallPick, " ")}}</span></p>
         <p class="ticket__info">Начало сеанса: <span class="ticket__details ticket__start">{{$startTimePick}}</span></p>
-        <p class="ticket__info">Стоимость: <span class="ticket__details ticket__cost">600</span> рублей</p>
+        <p class="ticket__info">Стоимость: <span class="ticket__details ticket__cost">{{$stringResultPrice}}</span> </p>
 
-        <button class="acceptin-button" onclick="location.href='ticket.html'" >Получить код бронирования</button>
+        <input type="hidden" name="moviePick" value="{{$moviePick}}">
+        <input type="hidden" name="startTimePick" value="{{$startTimePick}}">
+        <input type="hidden" name="dayPick" value="{{$dayPick}}">
+        <input type="hidden" name="hallPick" value="{{$hallPick}}">
+        <input type="hidden" name="stringResultSelectedChair" value="{{$stringResultSelectedChair}}">
+        <input type="hidden" name="stringResultPrice" value="{{$stringResultPrice}}">
 
+        <button type="submit" class="acceptin-button">Получить код бронирования</button>
         <p class="ticket__hint">После оплаты билет будет доступен в этом окне, а также придёт вам на почту. Покажите QR-код нашему контроллёру у входа в зал.</p>
         <p class="ticket__hint">Приятного просмотра!</p>
       </div>
-    </section>     
+    </form>
+    </section>
   </main>
   
 </body>

@@ -31,9 +31,7 @@ class SchemeHallController extends Controller
      */
     public function store(StoreShemeHallRequest $request)
     {
-        // $data = $request->all();
         $params = $request->except('_token');
-        dump($params);
 
 //добавление рядов и мест в БД:
         $arrPickRowChair = $params;
@@ -64,8 +62,7 @@ class SchemeHallController extends Controller
                 $modelRow->save();
             }
         }
-        dump($arrPickRowChair); // количество рядов и мест
-        // dd();
+        // dump($arrPickRowChair); // количество рядов и мест
 
 //добавление выбранных мест в БД:
         $arrPickTypeChair = $params;
@@ -83,9 +80,6 @@ class SchemeHallController extends Controller
             array_push($listNameHallBd, $value);
         }
         // dump($listNameHallBd);//arrBd
-
-        // $idHallTable = Hall::all()->pluck('id')->toArray();
-        // dump($idHallTable);
 
         foreach ($arrPickTypeChair as $key => $value) {
             $strRes = str_replace("_", " ", $key);
