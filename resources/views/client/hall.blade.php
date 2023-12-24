@@ -17,15 +17,7 @@
   </header>
   @php
     $arrayHallScheme = json_decode($hallScheme, true);
-    print_r($arrayHallScheme);
-    echo "<hr>";
-    print_r(DB::table('pick_chairs')->where('day_pick', $dayPick)->where('movie_pick', $moviePick)->where('hall_pick', $hallPick)->where('startTime_pick', $startTimePick)->value('selected_chair'));
-    // if(isset(DB::table('pick_chairs')->pluck('selected_chair')[0])) {
-    //     $arrayPickChairs = DB::table('pick_chairs')->pluck('selected_chair')[0];
-    //     $arrayPickChairsResult = json_decode($arrayPickChairs, true);
-    //     print_r($arrayPickChairsResult);
-    // }
-
+    $tablePickChairs = DB::table('pick_chairs')->get();
   @endphp
   <main>
 
@@ -87,19 +79,27 @@
       })
     });
 
-    // let jsArrayPickChairs = <?php echo json_encode($arrayPickChairsResult); ?>;
-    // // console.log(jsArrayPickChairs);
-    // let buyingSchemRowBd = document.querySelectorAll('.buying-scheme__row');
-    // let buyingSchemeChairBd = document.querySelectorAll('.buying-scheme__chair');
-    // buyingSchemRowBd.forEach((el, idx) => {
-    //   Array.from(el.children).forEach((item, i) => {
-    //     jsArrayPickChairs.forEach((it, ind) => {
-    //       if(idx+1 == Number(it.row) && i+1 == Number(it.chair)) {
-    //         item.classList.add('buying-scheme__chair_disabled');
-    //       }
-    //     })
-    //   })
-    // });
+    let jsArrayPickChair = <?php echo json_encode($tablePickChairs); ?>; //все записи таблицы pick_chairs
+    let jsMoviePick = <?php echo json_encode($moviePick); ?>; //отображаемое на этой странице movie;
+    let jsStartTimePick = <?php echo json_encode($startTimePick); ?>; //отображаемое на этой странице startTimePick;
+    let jsDayPick = <?php echo json_encode($dayPick); ?>; //отображаемое на этой странице day;
+    let jsHallPick = <?php echo json_encode($hallPick); ?>; //отображаемое на этой странице hall;
+
+    if(jsArrayPickChair.length > 0){
+      jsArrayPickChair.forEach((item, ind) => {
+        if(item.movie_pick == jsMoviePick && item.day_pick == jsDayPick && item.hall_pick == jsHallPick && item.startTime_pick == jsStartTimePick) {
+          buyingSchemRow.forEach((el, idx) => {
+            Array.from(el.children).forEach((element, index) => {
+              JSON.parse(item.selected_chair).forEach((it, ind) => {
+                if(it.row == idx+1 && it.chair == index+1) {
+                  element.classList.add('buying-scheme__chair_disabled');
+                }
+              })
+            })
+          });
+        }
+      })
+    }
   </script>
   <script src="js/indexClient.js"></script>
 </body>

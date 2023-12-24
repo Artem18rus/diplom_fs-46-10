@@ -16,8 +16,6 @@ use App\Models\Hall;
 |
 */
 
-// Route::view('/', '/client/client');
-
 Route::group(['middleware'=>'auth'], function() {
   Route::get('/admin', [App\Http\Controllers\CountHallController::class, 'index'])->name('admin-countHall.index');
   Route::post('/admin/countHallStore', [App\Http\Controllers\CountHallController::class, 'store'])->name('admin-countHall.store');
@@ -30,7 +28,7 @@ Route::group(['middleware'=>'auth'], function() {
   Route::delete('/admin/deleteAllSeance', [App\Http\Controllers\SeanceController::class, 'destroy'])->name('admin-deleteAllSeance.delete');
 });
 Auth::routes();
-//Route::get('/', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-movie.index');
+
 Route::get('/', function () {
     return redirect('/sr');
 });
@@ -64,6 +62,4 @@ Route::get('/sb', function(){
 Route::post('/payment', [App\Http\Controllers\PickChairController::class, 'store'])->name('client-payment.store');
 Route::post('/ticket', [App\Http\Controllers\PickChairController::class, 'show'])->name('client-payment.show');
 
-// Route::get('qr-code', function () {
-//     return QrCode::encoding('UTF-8')->size(500)->generate('Добро пожаловать на jobtools.ru');
-// });
+Route::post('/status', [App\Http\Controllers\StatusPageController::class, 'index'])->name('client-status.index');

@@ -369,15 +369,22 @@
       </div>
     </section>
     
+
     <section class="conf-step">
       <header class="conf-step__header conf-step__header_opened">
         <h2 class="conf-step__title">Открыть продажи</h2>
       </header>
-      <div class="conf-step__wrapper text-center">
-        <p class="conf-step__paragraph">Всё готово, теперь можно:</p>
-        <button class="conf-step__button conf-step__button-accent open-ticket-sales">Открыть продажу билетов</button>
-      </div>
+
+      <form id="status-page">
+        <input id="id-status-page" type="hidden" name="name" value="close">
+        <div class="conf-step__wrapper text-center">
+          <p class="conf-step__paragraph">Всё готово, теперь можно:</p>
+          <button type="submit" class="conf-step__button conf-step__button-accent open-ticket-sales">Открыть продажу билетов</button>
+        </div>
+      </form>
+
     </section>
+
   </main>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -459,6 +466,38 @@
               error: function(event) {
                 console.log(event); 
               }
+          });
+      });
+
+      $("#status-page").submit(function() {
+        event.preventDefault();
+        let idStatusPage = document.getElementById('id-status-page');
+        // if(idStatusPage.getAttribute('value') == 'close') {
+        //   idStatusPage.setAttribute('value', 'open');
+        // } else {
+        //   idStatusPage.setAttribute('value', 'close');
+        // }
+        // console.log(idStatusPage.getAttribute('value'));
+          $.ajax({
+            url: "/status",
+            type:"POST",
+            data:{
+              "_token": "{{ csrf_token() }}",
+              status:idStatusPage.getAttribute('value'),
+            },
+            success:function(response){
+              // console.log(response);
+              // window.location.replace('/admin/add_seance')
+              // location.reload();
+              if(response == 'open') {
+                idStatusPage.setAttribute('value', 'open');
+
+              } else {
+                idStatusPage.setAttribute('value', 'close');
+
+              }
+              // console.log(idStatusPage.getAttribute('value'));
+            },
           });
       });
   </script>

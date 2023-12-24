@@ -267,13 +267,13 @@ crossCreateSeances.addEventListener('click', (e) => {
 })
 
 //обработка клика по кнопке "Открыть продажу билетов":
-let openTicketSales = document.querySelector('.open-ticket-sales');
-//console.log(openTicketSales);
-openTicketSales.addEventListener('click', (e) => {
-    if(openTicketSales.textContent == 'Открыть продажу билетов') {
-        openTicketSales.textContent = 'Приостановить продажу билетов';
-        return;
-    }
-    openTicketSales.textContent = 'Открыть продажу билетов';
+// let openTicketSales = document.querySelector('.open-ticket-sales');
+// //console.log(openTicketSales);
+// openTicketSales.addEventListener('click', (e) => {
+//     if(openTicketSales.textContent == 'Открыть продажу билетов') {
+//         openTicketSales.textContent = 'Приостановить продажу билетов';
+//         return;
+//     }
+//     openTicketSales.textContent = 'Открыть продажу билетов';
 
-})
+// })
