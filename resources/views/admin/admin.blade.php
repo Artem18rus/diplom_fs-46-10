@@ -496,7 +496,7 @@
                 idStatusPage.setAttribute('value', 'close');
 
               }
-              // console.log(idStatusPage.getAttribute('value'));
+              console.log(idStatusPage.getAttribute('value'));
             },
           });
       });

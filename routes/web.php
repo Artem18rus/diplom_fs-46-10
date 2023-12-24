@@ -33,12 +33,7 @@ Route::get('/', function () {
     return redirect('/sr');
 });
 Route::post('/hall', [App\Http\Controllers\ClientMovieController::class, 'store'])->name('client-movie.store');
-// Route::get('/pn', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-pn.index');
-// Route::get('/vt', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-vt.index');
-// Route::get('/sr', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-sr.index');
-// Route::get('/ct', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-ct.index');
-// Route::get('/pt', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-pt.index');
-// Route::get('/sb', [App\Http\Controllers\ClientMovieController::class, 'index'])->name('client-sb.index');
+
 Route::get('/pn', function(){
   return view('client/pn');
 })->name('client-pn.index');
