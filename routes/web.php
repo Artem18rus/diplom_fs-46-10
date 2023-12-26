@@ -56,5 +56,4 @@ Route::get('/sb', function(){
 
 Route::post('/payment', [App\Http\Controllers\PickChairController::class, 'store'])->name('client-payment.store');
 Route::post('/ticket', [App\Http\Controllers\PickChairController::class, 'show'])->name('client-payment.show');
-
-Route::post('/status', [App\Http\Controllers\StatusPageController::class, 'index'])->name('client-status.index');
+Route::post('/status', [App\Http\Controllers\StatusPagesClientController::class, 'store'])->name('client-status.store');

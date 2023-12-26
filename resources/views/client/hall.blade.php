@@ -66,7 +66,6 @@
   </main>
   <script type="text/javascript">
     let jsArrayHallScheme = <?php echo json_encode($arrayHallScheme); ?>;
-    // console.log(jsArrayHallScheme);
     let buyingSchemRow = document.querySelectorAll('.buying-scheme__row');
     let buyingSchemeChair = document.querySelectorAll('.buying-scheme__chair');
     buyingSchemRow.forEach((el, idx) => {

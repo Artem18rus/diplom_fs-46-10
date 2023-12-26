@@ -17,14 +17,6 @@ class PickChairController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -35,10 +27,6 @@ class PickChairController extends Controller
         $startTimePick = $request->input('startTimePick');
         $selectedChair = $request->input('selectedChair');
 
-        $arrSelectedChair = json_decode($selectedChair);
-        // dump($hallPick);
-        $hallPickNumber = strstr($hallPick, " ");
-        // dd($hallPickNumber);
         $newPickChair = new PickChair;
         $newPickChair->day_pick = $dayPick;
         $newPickChair->movie_pick = $moviePick;
@@ -55,7 +43,6 @@ class PickChairController extends Controller
      */
     public function show(Request $request)
     {
-        // $data = $request->all();
         $dayPick = $request->input('dayPick');
         $moviePick = $request->input('moviePick');
         $hallPick = $request->input('hallPick');
@@ -63,29 +50,5 @@ class PickChairController extends Controller
         $stringResultSelectedChair = $request->input('stringResultSelectedChair');
         $stringResultPrice = $request->input('stringResultPrice');
         return view('client/ticket', ['dayPick' => $dayPick, 'moviePick' => $moviePick, 'hallPick' => $hallPick, 'startTimePick' => $startTimePick, 'stringResultSelectedChair' => $stringResultSelectedChair, 'stringResultPrice' => $stringResultPrice]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(PickChair $pickChair)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, PickChair $pickChair)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(PickChair $pickChair)
-    {
-        //
     }
 }

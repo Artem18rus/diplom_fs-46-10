@@ -13,10 +13,6 @@
 </head>
 
 <body>
-{{-- {{$seance}} --}}
-{{-- @foreach ($movie as $item)
-  {{$item}};
-@endforeach --}}
   <div class="greeting-logout">
       <div class="greeting-text" href="#">
           Привет, {{ Auth::user()->name }}!
@@ -49,9 +45,6 @@
         <ul class="conf-step__list">
           @foreach ($hall as $item)
               <li>{{$item->nameHall}}
-                {{-- <form action="{{ route('admin-hall.delete', $item->id) }}" method="POST">
-                  @csrf
-                  @method('delete') --}}
                   <button type="button" class="conf-step__button conf-step__button-trash delete_hall-btn"></button>
                   <div class="popup popap_delete">
                     <div class="popup__container">
@@ -229,7 +222,6 @@
               </div>
               <div class="popup__wrapper">
                 <form id="form-add-movie">
-                  {{-- action="/admin/movieStore" method="post" accept-charset="utf-8" --}}
                   @csrf
                   <label class="conf-step__label conf-step__label-fullsize" for="name">
                     Название фильма
@@ -256,18 +248,12 @@
 
           @php
             $bdSeancesHallId = DB::table('seances')->pluck('hall_id')->all();
-            
             $countsSeancesHallId = array_count_values($bdSeancesHallId);
-
             $valuesCountsSeancesHallId = array_values($countsSeancesHallId);
-
             $bdMoviesId = DB::table('movies')->pluck('id')->all();
-
             $bdMoviesMovieId = DB::table('seances')->pluck('movie_id')->all();
-
             $bdSeancesId = DB::table('seances')->pluck('id')->all();
-
-            $colorBackground = ['#caff85', '#85ff89', '#85ffd3', '#85e2ff', '#8599ff', '#ba85ff', '#ff85fb', '#ff85b1', '#ffa285'];
+            $colorBackground = ['#caff85', '#85ff89', '#85ffd3', '#85e2ff', '#8599ff', '#ba85ff', '#ff85fb', '#ff85b1', '#ffa285', '#b2d6ae', '#ada1e2', '#a29015', '#746cd0', '#b28a8a', '#b4e0fe'];
           @endphp
 
           @foreach ($countsSeancesHallId as $val => $count)
@@ -311,7 +297,6 @@
               </div>
               <div class="popup__wrapper">
                 <form id="add_seance">
-                  {{-- action="admin/add_seance" method="post" accept-charset="utf-8"  --}}
                   @csrf
                   <label class="conf-step__label conf-step__label-fullsize" for="hall">
                     Название зала
@@ -321,7 +306,6 @@
                       @endforeach
                     </select>
                   </label>
-                  {{-- <div class="popup_add_field"> --}}
                     <label class="conf-step__label conf-step__label-fullsize ind helper-class" for="name">
                       Время начала
                       <input class="conf-step__input selected_start_time" type="time" value="00:00" name="start_time" id="time-tag-id" required>
@@ -332,8 +316,6 @@
                         @foreach ($movie as $item)
                           <option value={{ $item->id }}>{{$item->nameMovie}}</option>
                         @endforeach
-                        {{-- <option value="1" selected>Зал 1</option>
-                        <option value="2">Зал 2</option> --}}
                       </select>
                     </label>
 
@@ -354,7 +336,6 @@
                         </select>
                       </label>
                     `)">
-                  {{-- </a> --}}
 
                   <div class="conf-step__buttons text-center">
                     <input type="submit" value="Добавить" class="conf-step__button conf-step__button-accent">
@@ -368,29 +349,32 @@
           <button id="delete-all_seance" class="conf-step__button conf-step__button-regular">Удалить все сеансы</button>
       </div>
     </section>
-    
 
     <section class="conf-step">
       <header class="conf-step__header conf-step__header_opened">
         <h2 class="conf-step__title">Открыть продажи</h2>
       </header>
 
+      @php
+        if (DB::table('status_pages_clients')->pluck('status')[0] == 'open') {
+          $textBtn = 'Приостановить продажу билетов';
+        }  else {
+          $textBtn = 'Открыть продажу билетов';
+        }
+      @endphp
+
       <form id="status-page">
-        <input id="id-status-page" type="hidden" name="name" value="close">
+        <input id="id-status-page" type="hidden" name="name" value={{DB::table('status_pages_clients')->pluck('status')[0]}}>
         <div class="conf-step__wrapper text-center">
           <p class="conf-step__paragraph">Всё готово, теперь можно:</p>
-          <button type="submit" class="conf-step__button conf-step__button-accent open-ticket-sales">Открыть продажу билетов</button>
+          <button type="submit" class="conf-step__button conf-step__button-accent open-ticket-sales">{{$textBtn}}</button>
         </div>
       </form>
-
     </section>
-
   </main>
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="js/accordeon.js"></script>
   <script src="js/indexAdmin.js"></script>
-  {{-- <script src="js/pic.js"></script> --}}
 
 
   <script>
@@ -407,7 +391,6 @@
           duration:duration,
         },
         success:function(response){
-          // console.log(response);
           location.reload();
         },
       });
@@ -421,7 +404,6 @@
       let timeTag = [];
       let timeTagList = document.querySelectorAll('#time-tag-id');
       $.each(timeTagList, function(i, v) {
-        // console.log(v.value);
         timeTag.push(v.value);
         hallTagId.push(hallTagIdItem);
       })
@@ -429,7 +411,6 @@
       let movieTagId = [];
       let movieTagList = document.querySelectorAll('#movie-tag-id');
       $.each(movieTagList, function(i, v) {
-        // console.log(v.value);
         movieTagId.push(v.value);
       })
       
@@ -442,10 +423,7 @@
           timeTag: timeTag,
           movieTagId: movieTagId,
         },
-        // contentType: "application/json",
         success:function(response){
-          console.log(response);
-          // window.location.replace('/admin/add_seance')
           location.reload();
         },
       });
@@ -472,12 +450,6 @@
       $("#status-page").submit(function() {
         event.preventDefault();
         let idStatusPage = document.getElementById('id-status-page');
-        // if(idStatusPage.getAttribute('value') == 'close') {
-        //   idStatusPage.setAttribute('value', 'open');
-        // } else {
-        //   idStatusPage.setAttribute('value', 'close');
-        // }
-        // console.log(idStatusPage.getAttribute('value'));
           $.ajax({
             url: "/status",
             type:"POST",
@@ -486,15 +458,14 @@
               status:idStatusPage.getAttribute('value'),
             },
             success:function(response){
-              // console.log(response);
-              // window.location.replace('/admin/add_seance')
-              // location.reload();
+              let openTicketSales = document.querySelector('.open-ticket-sales');
               if(response == 'open') {
                 idStatusPage.setAttribute('value', 'open');
-
+                openTicketSales.textContent = 'Приостановить продажу билетов';
+                
               } else {
                 idStatusPage.setAttribute('value', 'close');
-
+                openTicketSales.textContent = 'Открыть продажу билетов';
               }
               console.log(idStatusPage.getAttribute('value'));
             },
