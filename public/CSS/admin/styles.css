@@ -570,3 +570,16 @@ box-shadow: 0px 0px 18px 6px #63536c;
 .helper-class {
   display: block;
 }
+
+.cross-delete_movie {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  color: #000000;
+  font-size: 15px;
+  color: red;
+  text-decoration: none;
+  font-weight: bold;
+  border: none;
+  background: none;
+}

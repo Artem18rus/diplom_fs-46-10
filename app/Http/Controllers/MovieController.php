@@ -25,5 +25,15 @@ class MovieController extends Controller
         $data = Movie::all();
 
         return response()->json($data);
+
     }
+
+    public function destroy(Request $request)
+    {
+        $h = $request->idMovie;
+        $el = Movie::find($request->idMovie); 
+        $el->delete();
+        return response()->json('есть');
+    }
+
 }

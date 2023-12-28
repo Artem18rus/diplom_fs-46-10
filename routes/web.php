@@ -26,6 +26,7 @@ Route::group(['middleware'=>'auth'], function() {
 
   Route::post('/admin/add_seance', [App\Http\Controllers\SeanceController::class, 'store']);
   Route::delete('/admin/deleteAllSeance', [App\Http\Controllers\SeanceController::class, 'destroy'])->name('admin-deleteAllSeance.delete');
+  Route::post('/admin/delete-movie', [App\Http\Controllers\MovieController::class, 'destroy'])->name('admin-movie.delete');
 });
 Auth::routes();
 

@@ -201,11 +201,15 @@
           <button class="conf-step__button conf-step__button-accent create-film-btn">Добавить фильм</button>
         </p>
         <div class="conf-step__movies">
-          @foreach ($movie as $item)
-            <div class="conf-step__movie">
-              <img class="conf-step__movie-poster" alt="poster" src="i/admin/poster.png">
-              <h3 class="conf-step__movie-title">{{$item->nameMovie}}</h3>
-              <p class="conf-step__movie-duration">{{$item->durationMovie}} минут(ы)</p>
+          @foreach ($movie as $key=>$item)
+            <div class="conf-step__movie class-movie" style="cursor: default;">
+              <form id="delete-movie">
+                  <img class="conf-step__movie-poster" alt="poster" src="i/client/poster1.jpg">
+                  <h3 class="conf-step__movie-title">{{$item->nameMovie}}</h3>
+                  <p class="conf-step__movie-duration">{{$item->durationMovie}} минут(ы)</p>
+                  <input id="input-delete-movie" type="hidden" name="id" value={{$item->id}}>
+                  <button type="submit" class="cross-delete_movie">✖</button>
+              </form>
             </div>
           @endforeach
         </div>
@@ -392,6 +396,7 @@
         },
         success:function(response){
           location.reload();
+          console.log(response);
         },
       });
     })
@@ -471,6 +476,27 @@
             },
           });
       });
+
+      let deleteMovieList = document.querySelectorAll('#delete-movie');
+      $.each(deleteMovieList, function() {
+        $(this).on('submit', function(event){
+          event.preventDefault();
+          let inputDeleteMovie = $('#input-delete-movie').val();
+          let target = $(event.target);
+          $.ajax({
+            url: "/admin/delete-movie",
+            type:"POST",
+            data:{
+              "_token": "{{ csrf_token() }}",
+              "idMovie":target.children()[3].getAttribute('value'),
+            },
+            success:function(response){
+              console.log(response);
+              location.reload();
+            },
+          });
+        })
+      })
   </script>
 </body>
 </html>

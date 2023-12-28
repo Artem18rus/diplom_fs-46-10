@@ -91,7 +91,8 @@
             Array.from(el.children).forEach((element, index) => {
               JSON.parse(item.selected_chair).forEach((it, ind) => {
                 if(it.row == idx+1 && it.chair == index+1) {
-                  element.classList.add('buying-scheme__chair_disabled');
+                  element.classList.remove('buying-scheme__chair_standart');
+                  element.classList.remove('buying-scheme__chair_vip');
                 }
               })
             })
