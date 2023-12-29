@@ -38,9 +38,9 @@ class MovieController extends Controller
         $el = Movie::find($request->idMovie); 
         $imageItem = $el->value('image');
         $el->delete();
-        $nameFile = substr($imageItem, 7);
-        Storage::delete("public/$nameFile");
+        // $nameFile = substr($imageItem, 7);
+        // Storage::delete("public/$nameFile");
 
-        return response()->json($nameFile);
+        return response()->json('+');
     }
 }

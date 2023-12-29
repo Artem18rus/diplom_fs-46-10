@@ -239,8 +239,8 @@
                     <input class="conf-step__input add-duration_input" type="text" placeholder="Например, &laquo;130&raquo;" name="duration" id="duration-movie" required>
                   </label>
                   <label class="conf-step__label conf-step__label-fullsize" for="duration">
-                    Постер
-                    <input class="conf-step__input add-duration_input" type="file" placeholder="Выбери картинку" name="image" id="image" required>Тип файла: jpeg,png,jpg,gif,svg.(картинки 'poster' находятся в public\i\client)
+                    Картинка
+                    <input class="conf-step__input add-duration_input" type="file" placeholder="Выбери картинку" name="image" id="image" required>
                   </label>
                   <div class="conf-step__buttons text-center">
                     <input type="submit" value="Добавить фильм" class="conf-step__button conf-step__button-accent add-movie_btn">
