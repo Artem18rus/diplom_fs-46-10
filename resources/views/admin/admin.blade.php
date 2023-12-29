@@ -202,9 +202,12 @@
         </p>
         <div class="conf-step__movies">
           @foreach ($movie as $key=>$item)
+            @php
+              $pickImage = substr(DB::table('movies')->where('nameMovie', $item->nameMovie)->value('image'), 6);
+            @endphp
             <div class="conf-step__movie class-movie" style="cursor: default;">
               <form id="delete-movie">
-                  <img class="conf-step__movie-poster" alt="poster" src="i/client/poster1.jpg">
+                  <img class="conf-step__movie-poster" alt={{$item->nameMovie}} src="{{url("/storage/$pickImage")}}">
                   <h3 class="conf-step__movie-title">{{$item->nameMovie}}</h3>
                   <p class="conf-step__movie-duration">{{$item->durationMovie}} минут(ы)</p>
                   <input id="input-delete-movie" type="hidden" name="id" value={{$item->id}}>
@@ -225,7 +228,7 @@
         
               </div>
               <div class="popup__wrapper">
-                <form id="form-add-movie">
+                <form id="form-add-movie" action="admin/movieStore" method="post" accept-charset="utf-8" enctype="multipart/form-data">
                   @csrf
                   <label class="conf-step__label conf-step__label-fullsize" for="name">
                     Название фильма
@@ -234,6 +237,10 @@
                   <label class="conf-step__label conf-step__label-fullsize" for="duration">
                     Продолжительность фильма в мин (от 30 до 180)
                     <input class="conf-step__input add-duration_input" type="text" placeholder="Например, &laquo;130&raquo;" name="duration" id="duration-movie" required>
+                  </label>
+                  <label class="conf-step__label conf-step__label-fullsize" for="duration">
+                    Постер
+                    <input class="conf-step__input add-duration_input" type="file" placeholder="Выбери картинку" name="image" id="image" required>Тип файла: jpeg,png,jpg,gif,svg.(картинки 'poster' находятся в public\i\client)
                   </label>
                   <div class="conf-step__buttons text-center">
                     <input type="submit" value="Добавить фильм" class="conf-step__button conf-step__button-accent add-movie_btn">
@@ -382,28 +389,38 @@
 
 
   <script>
-    $('#form-add-movie').on('submit', function(event){
-      event.preventDefault();
-      let name = $('#name-movie').val();
-      let duration = $('#duration-movie').val();
-      $.ajax({
-        url: "/admin/movieStore",
-        type:"POST",
-        data:{
-          "_token": "{{ csrf_token() }}",
-          name:name,
-          duration:duration,
-        },
-        success:function(response){
-          location.reload();
-          console.log(response);
-        },
-      });
-    })
+    // $('#form-add-movie').ready('submit', function(event){
+    //   event.preventDefault();
+    //   let name = $('#name-movie').val();
+    //   let duration = $('#duration-movie').val();
+    //   let img = $('#image')[0].files;
+    //   // var fd = new FormData();
+    //   // fd.append('file',files[0]);
+    //   // fd.append('_token',CSRF_TOKEN);
+    //   // $('#responseMsg').hide();
+
+    //   $.ajax({
+    //     url: "/admin/movieStore",
+    //     type:"POST",
+    //     enctype: "multipart/form-data",
+    //     data:{
+    //       "_token": "{{ csrf_token() }}",
+    //       name:name,
+    //       duration:duration,
+    //       img:img,
+    //     },
+    //     contentType: false,
+    //     processData: false,
+    //     dataType: 'json',
+    //     success:function(response){
+    //       location.reload();
+    //       console.log(response);
+    //     },
+    //   });
+    // })
 
     $('#add_seance').on('submit', function(event){
-      event.preventDefault();
-      
+      event.preventDefault();      
       let hallTagIdItem = $('#hall-tag-id').val();
       let hallTagId = [];
       let timeTag = [];
@@ -435,7 +452,6 @@
     })
 
     $("#delete-all_seance").click(function() {
-        console.log('inf');
           $.ajax({
               url: "{{route('admin-deleteAllSeance.delete')}}",
               method: 'DELETE',
@@ -491,7 +507,7 @@
               "idMovie":target.children()[3].getAttribute('value'),
             },
             success:function(response){
-              console.log(response);
+              // console.log(response);
               location.reload();
             },
           });
