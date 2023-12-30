@@ -35,12 +35,12 @@ class MovieController extends Controller
 
     public function destroy(Request $request)
     {
-        $el = Movie::find($request->idMovie); 
-        $imageItem = $el->value('image');
+        $el = Movie::find($request->idMovie);
         $el->delete();
-        // $nameFile = substr($imageItem, 7);
-        // Storage::delete("public/$nameFile");
+        $imageItem = $el->image;
+        $nameFile = substr($imageItem, 7);
+        Storage::delete("public/$nameFile");
 
-        return response()->json('+');
+        return response()->json($nameFile);
     }
 }
